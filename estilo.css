@@ -88,30 +88,44 @@ h1 em{font-style:normal;color:var(--encino);display:block}
 .faltan{margin:.9rem 0 0;font-size:.9rem;color:var(--tinta-60)}
 
 /* ---------- navegación ---------- */
-nav.barra{
-  position:sticky;top:0;z-index:40;background:var(--tinta);
-  border-bottom:2px solid var(--tinta);
-}
-nav.barra>.wrap{display:flex;align-items:center;gap:.35rem;height:var(--nav);position:relative}
-nav.barra .enlaces{display:flex;align-items:center;gap:.35rem;overflow-x:auto;
-  scrollbar-width:thin;-webkit-overflow-scrolling:touch;height:100%}
-nav.barra .enlaces::-webkit-scrollbar{height:3px}
-nav.barra .enlaces::-webkit-scrollbar-thumb{background:#3E4E45}
-nav.barra a{
-  color:#C3D2C6;text-decoration:none;white-space:nowrap;font-size:.76rem;
-  letter-spacing:.06em;text-transform:uppercase;font-weight:700;
-  padding:.42rem .6rem;border:1px solid transparent;
-}
-nav.barra a:hover{color:var(--cal);border-color:#3E4E45}
-nav.barra a.act{color:var(--tinta);background:var(--cempa);border-color:var(--cempa)}
-nav.barra .marca-n{display:flex;align-items:center;gap:.5rem;padding-right:.7rem;margin-right:.3rem;border-right:1px solid #3E4E45;flex:0 0 auto}
-nav.barra .marca-n img{width:26px;height:auto;display:block;filter:invert(1) brightness(1.6)}
-nav.barra .marca-n span{color:var(--cal);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700}
+/* Una sola forma en todos los anchos: un botón que dice que hay más.
+   La barra que se deslizaba de lado escondía secciones sin avisar. */
+nav.barra{position:sticky;top:0;z-index:40;background:var(--tinta);border-bottom:2px solid var(--tinta)}
+nav.barra>.wrap{display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+  height:var(--nav);position:relative}
 
-@media (max-width:760px){
-  :root{--nav:48px}
-  nav.barra .marca-n span{display:none}
-  nav.barra a{font-size:.72rem;padding:.42rem .5rem}
+nav.barra .marca-n{display:flex;align-items:center;gap:.55rem;text-decoration:none;flex:0 1 auto;min-width:0}
+nav.barra .marca-n img{width:26px;height:auto;display:block;filter:invert(1) brightness(1.6)}
+nav.barra .marca-n span{color:var(--cal);font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;
+  font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+nav.barra .marca-n:hover span{color:var(--cempa)}
+
+.menu-btn{display:flex;align-items:center;gap:.65rem;flex:0 0 auto;cursor:pointer;
+  font:inherit;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+  background:transparent;color:var(--cal);border:1.5px solid #4C5F54;padding:.45rem .85rem;min-height:40px}
+.menu-btn:hover{border-color:var(--cempa);color:var(--cempa)}
+.menu-btn[aria-expanded="true"]{background:var(--cempa);border-color:var(--cempa);color:var(--tinta)}
+.mb-ico{display:inline-flex;flex-direction:column;gap:3px;width:16px}
+.mb-ico i{display:block;height:2px;background:currentColor;transition:transform .18s ease,opacity .18s ease}
+.menu-btn[aria-expanded="true"] .mb-ico i:nth-child(1){transform:translateY(5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] .mb-ico i:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] .mb-ico i:nth-child(3){transform:translateY(-5px) rotate(-45deg)}
+
+nav.barra .enlaces{position:absolute;top:100%;right:var(--gut);width:min(320px,100%);
+  background:var(--tinta);border:1px solid #3E4E45;border-top:0;
+  max-height:0;overflow:hidden;transition:max-height .22s ease;
+  box-shadow:0 16px 26px rgba(0,0,0,.28);z-index:3}
+nav.barra .enlaces.abierto{max-height:min(70vh,520px);overflow-y:auto;overscroll-behavior:contain}
+nav.barra .enlaces a{display:flex;align-items:center;min-height:48px;padding:.2rem 1rem;
+  color:#C3D2C6;text-decoration:none;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase;
+  font-weight:700;border-bottom:1px solid #2A3A31}
+nav.barra .enlaces a:last-child{border-bottom:0}
+nav.barra .enlaces a:hover{background:#22332B;color:var(--cal)}
+nav.barra .enlaces a.act{background:var(--cempa);color:var(--tinta)}
+nav.barra .enlaces a.act::after{content:"";margin-left:auto;width:7px;height:7px;background:var(--tinta);border-radius:50%}
+
+@media (max-width:520px){
+  nav.barra .enlaces{left:0;right:0;width:auto}
 }
 
 /* ---------- secciones ---------- */

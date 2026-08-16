@@ -103,12 +103,11 @@ window.A = (function(){
   };
 
   /* ---------- barra y pie ---------- */
+  // A la portada se llega por el conejo, así que no lleva su propio enlace.
   const PAGINAS = [
-    { href:"index.html",         nombre:"Portada" },
-    { href:"materiales",         nombre:"Qué se recibe", ancla:"index.html#materiales" },
-    { href:"cuando",             nombre:"Cuándo",        ancla:"index.html#cuando" },
-    { href:"participantes.html", nombre:"Quiénes participan" },
-    { href:"cuentas.html",       nombre:"Las cuentas" }
+    { href:"index.html#materiales", nombre:"Qué se recibe" },
+    { href:"participantes.html",    nombre:"Quiénes participan" },
+    { href:"cuentas.html",          nombre:"Las cuentas" }
   ];
 
   const barra = actual => {
@@ -117,16 +116,31 @@ window.A = (function(){
     nav.setAttribute("aria-label", "Secciones del sitio");
     nav.innerHTML = `<div class="wrap">
       <a class="marca-n" href="index.html"><img src="img/conejo.png" alt=""><span>Acopio Concá</span></a>
-      <div class="enlaces">` +
-      PAGINAS.map(p => {
-        const href = p.ancla || p.href;
-        const act = (p.href === actual && !p.ancla) ? " class=\"act\"" : "";
-        return `<a href="${href}"${act}>${p.nombre}</a>`;
-      }).join("") +
+      <button class="menu-btn" aria-expanded="false" aria-controls="menu-lista">
+        <span class="mb-txt">Secciones</span>
+        <span class="mb-ico" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+      <div class="enlaces" id="menu-lista">` +
+      PAGINAS.map(p => `<a href="${p.href}"${p.href === actual ? ' class="act" aria-current="page"' : ""}>${p.nombre}</a>`).join("") +
       `</div></div>`;
+
     const cabeza = document.querySelector("header.cabeza");
     if (cabeza) cabeza.insertAdjacentElement("afterend", nav);
     else document.body.insertAdjacentElement("afterbegin", nav);
+
+    // El menú se abre con el botón y se cierra con todo lo demás:
+    // otro clic, la tecla de escape, o irse por uno de los enlaces.
+    const btn = nav.querySelector(".menu-btn"), lista = nav.querySelector(".enlaces");
+    const cierra = () => { btn.setAttribute("aria-expanded", "false"); lista.classList.remove("abierto"); };
+    btn.addEventListener("click", ev => {
+      ev.stopPropagation();
+      const abierto = btn.getAttribute("aria-expanded") === "true";
+      btn.setAttribute("aria-expanded", String(!abierto));
+      lista.classList.toggle("abierto", !abierto);
+    });
+    lista.addEventListener("click", ev => { if (ev.target.closest("a")) cierra(); });
+    document.addEventListener("click", ev => { if (!nav.contains(ev.target)) cierra(); });
+    addEventListener("keydown", ev => { if (ev.key === "Escape") cierra(); });
   };
 
   const pie = () => {
