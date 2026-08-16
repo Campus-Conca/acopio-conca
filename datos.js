@@ -18,7 +18,13 @@ window.DATOS = {
     pesaje: "13:00"
   },
 
-  costal: "Se pide en la coordinación de sustentabilidad. Te anotan y ya.",
+  // El costal se pide por WhatsApp. Si cambia quién lo entrega, se cambia aquí.
+  costal: {
+    texto: "Se pide en la coordinación de sustentabilidad. Te anotan y ya.",
+    quien: "Jhoana, de Sustentabilidad",
+    whatsapp: "5214424052714",
+    mensaje: "Hola Jhoana. Vi la página del acopio del campus y quiero pedir mi costal. Mi nombre es:"
+  },
 
   meta: {
     obra: "Sala de exterior para la explanada",
@@ -35,13 +41,13 @@ window.DATOS = {
   // funcione. Cambiarlo en cuanto llegue el de la compradora.
   materiales: [
     { clave:"aluminio",  nombre:"Aluminio",      corto:"Alu",  color:"var(--m-alu)", precio:15,
-      img:"img/aluminio.svg",      condicion:"Vacías y aplastadas" },
+      img:"img/aluminio.jpg",      condicion:"Vacías y aplastadas" },
     { clave:"pet",       nombre:"PET",           corto:"PET",  color:"var(--m-pet)", precio:6,
-      img:"img/pet.svg",           condicion:"Exprimidas, con tapa" },
+      img:"img/pet.jpg",           condicion:"Exprimidas, con tapa" },
     { clave:"pead",      nombre:"Plástico duro", corto:"Duro", color:"var(--m-dur)", precio:5,
-      img:"img/plastico-duro.svg", condicion:"Enjuagado" },
+      img:"img/plastico-duro.jpg", condicion:"Enjuagado" },
     { clave:"tetrapak",  nombre:"Tetrapak",      corto:"Tetra",color:"var(--m-tet)", precio:1,
-      img:"img/tetrapak.svg",      condicion:"Enjuagado y aplastado" }
+      img:"img/tetrapak.jpg",      condicion:"Enjuagado y aplastado" }
   ],
 
   fuera: "Cartón, papel y vidrio se separan en el campus, pero no entran aquí.",

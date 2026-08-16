@@ -92,6 +92,8 @@
     <div class="banda">
       <h3>Pedir tu costal</h3>
       <p id="costal-txt"></p>
+      <a class="wa" id="costal-wa" target="_blank" rel="noopener">Pedirlo por WhatsApp</a>
+      <p class="quien" id="costal-quien"></p>
     </div>
   </div>
 </section>
@@ -102,7 +104,7 @@
     <p class="sub">Cuatro cosas. Los precios son de referencia y se mueven cada mes.</p>
     <div class="mats" id="mats"></div>
     <div class="sisi">
-      <img src="img/asi-si-asi-no.svg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
+      <img src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
       <div>
         <p class="grande">Limpio, seco y separado.</p>
         <p class="nota" id="fuera"></p>
@@ -137,7 +139,10 @@
 
   $("#campus").textContent = D.campus;
   $("#obra-nombre").textContent = D.meta.obra;
-  $("#costal-txt").textContent = D.costal;
+  const c = D.costal;
+  $("#costal-txt").textContent = c.texto;
+  $("#costal-wa").href = "https://wa.me/" + c.whatsapp + "?text=" + encodeURIComponent(c.mensaje);
+  $("#costal-quien").textContent = "Le llega a " + c.quien + ".";
   $("#fuera").textContent = D.fuera;
 
   /* obra */

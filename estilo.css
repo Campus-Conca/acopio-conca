@@ -137,8 +137,10 @@ h2.tit{
 .mat h3{margin:0;font-size:1.05rem;letter-spacing:-.01em}
 .mat .precio{font-family:var(--mono);font-size:1.5rem;font-weight:700;margin:.25rem 0 .1rem;letter-spacing:-.02em}
 .mat .precio small{font-family:var(--sans);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tinta-60)}
-.mat .fig{background:var(--cal);border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;padding:.6rem;margin-bottom:.85rem}
-.mat .fig img{width:100%;max-width:120px;display:block}
+.mat .fig{background:#F2EEE3;border:1px solid var(--linea);display:flex;align-items:center;justify-content:center;
+  padding:.6rem;margin-bottom:.85rem;height:170px}
+/* los dibujos vienen de distinto alto: la caja manda, el dibujo se acomoda */
+.mat .fig img{width:auto;height:100%;max-width:100%;object-fit:contain;display:block}
 .mat .cond{font-size:.88rem;margin:.35rem 0 0;color:var(--tinta-60)}
 .mat p{font-size:.88rem;margin:.7rem 0 0;color:var(--tinta-60)}
 .mat .equiv{font-family:var(--mono);font-size:.78rem;margin-top:.8rem;padding-top:.6rem;border-top:1px dashed var(--linea);color:var(--tinta)}
@@ -168,6 +170,11 @@ h2.tit{
 .banda{background:var(--encino);color:var(--cal);padding:clamp(18px,3vw,28px)}
 .banda h3{margin:0 0 .4rem;font-size:clamp(1.2rem,2.6vw,1.6rem);letter-spacing:-.02em}
 .banda p{margin:0;max-width:56ch;color:#DCE4DC}
+.banda .wa{display:inline-block;margin-top:1.1rem;background:var(--cempa);color:var(--tinta);
+  text-decoration:none;font-weight:700;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;
+  padding:.62rem 1.1rem;border:1.5px solid var(--cempa)}
+.banda .wa:hover{background:transparent;color:var(--cal);border-color:var(--cal)}
+.banda .quien{margin:.7rem 0 0;font-size:.82rem;color:#B9C9BC}
 
 .lugar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);margin-bottom:20px}
 .lugar div{background:var(--papel);padding:1rem 1.15rem}

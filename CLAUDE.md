@@ -15,7 +15,7 @@ pesaje.html         página interna: hoja de captura y cartel imprimible
 datos.js            TODOS los datos del sitio
 comun.js            barra, pie, formato y cálculos compartidos
 estilo.css          estilos de las cuatro páginas
-img/                ilustraciones (svg) y el conejo del campus (png)
+img/                los dibujos del conejo (jpg) y el logo del campus (png)
 wrangler.jsonc      nombre del Worker y carpeta que se sirve en Cloudflare
 ```
 
@@ -71,6 +71,10 @@ Etiquetas válidas: `administrativo`, `docente`, `prepa`, `pas`, `agro`.
 
 **Gastos del programa** en `gastos` y **obras terminadas** en `hechas`, con el
 mismo formato comentado en el archivo.
+
+**Si cambia quién entrega los costales**: `costal.quien`, `costal.whatsapp`
+(el número va sin signos, con lada de país: `5214424052714`) y `costal.mensaje`,
+que es el texto que llega escrito en WhatsApp.
 
 **Nuevo semestre**: se cambian `entrega.inicio` y `entrega.fin`. El calendario
 completo y la fecha del botón de la portada se recalculan solos.
