@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 190" role="img"
+     aria-label="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
+  <g stroke="#16221C" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- costal como se pide -->
+    <path d="M46 58h88l10 106a12 12 0 0 1-12 14H48a12 12 0 0 1-12-14z" fill="#F5F7F2"/>
+    <path d="M52 40h76l6 18H46z" fill="#DFE5DA"/>
+    <g stroke-width="0">
+      <rect x="54" y="74" width="72" height="20" fill="#6F8894"/>
+      <rect x="54" y="102" width="72" height="20" fill="#2C7B9E"/>
+      <rect x="54" y="130" width="72" height="20" fill="#A97239"/>
+    </g>
+    <path d="M54 74h72v20H54zM54 102h72v20H54zM54 130h72v20H54z" fill="none" stroke-width="3"/>
+    <circle cx="150" cy="34" r="18" fill="#DE8C07"/>
+    <path d="M142 34l6 7 11-13" fill="none" stroke-width="5"/>
+
+    <!-- costal revuelto -->
+    <path d="M226 58h88l10 106a12 12 0 0 1-12 14h-84a12 12 0 0 1-12-14z" fill="#F5F7F2"/>
+    <path d="M232 40h76l6 18h-88z" fill="#DFE5DA"/>
+    <g stroke-width="3">
+      <path d="M240 88l24-12 10 20-22 14z" fill="#B9C4B3"/>
+      <path d="M276 76h30v18h-30z" fill="#A97239"/>
+      <path d="M244 124c14-10 30-8 44 2" fill="none"/>
+      <circle cx="292" cy="120" r="13" fill="#6F8894"/>
+      <path d="M250 148h56v14h-56z" fill="#B9C4B3"/>
+    </g>
+    <circle cx="330" cy="34" r="18" fill="#F5F7F2"/>
+    <path d="M323 27l14 14M337 27l-14 14" fill="none" stroke-width="5"/>
+  </g>
+</svg>

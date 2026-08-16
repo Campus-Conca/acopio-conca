@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para quien pesa · Acopio Concá</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="cabeza">
+  <div class="wrap">
+    <p class="eyebrow">Acopio Concá</p>
+    <h1>Para quien<em>pesa</em></h1>
+    <p class="bajada">Se llena junto a la báscula y devuelve el bloque listo para pegar en <span class="dato">datos.js</span>. Nada se guarda aquí: lo que vale es la libreta firmada.</p>
+  </div>
+</header>
+
+<main>
+
+<section id="captura">
+  <div class="wrap">
+    <h2 class="tit">Capturar</h2>
+
+    <details class="cap">
+      <summary>Una colecta</summary>
+      <div class="cap-cuerpo">
+        <div class="cap-cab"><label>Fecha<input type="date" id="cap-fecha"></label></div>
+        <div id="cap-personas"></div>
+        <div class="cap-acc">
+          <button class="acc" id="cap-btn">Generar bloque</button>
+          <button class="acc sec" id="cap-copiar">Copiar</button>
+          <span class="cap-tot" id="cap-tot">0.0 kg</span>
+        </div>
+        <textarea id="cap-out" readonly placeholder="Se pega dentro de jornadas, en datos.js"></textarea>
+      </div>
+    </details>
+
+    <details class="cap">
+      <summary>Una venta</summary>
+      <div class="cap-cuerpo">
+        <div class="cap-cab">
+          <label>Fecha<input type="date" id="ven-fecha"></label>
+          <label>Comprador<input type="text" id="ven-comprador"></label>
+          <label>Quién firmó<input type="text" id="ven-firma"></label>
+        </div>
+        <div id="ven-lineas"></div>
+        <div class="cap-acc">
+          <button class="acc" id="ven-btn">Generar bloque</button>
+          <button class="acc sec" id="ven-copiar">Copiar</button>
+          <span class="cap-tot" id="ven-tot">$0</span>
+        </div>
+        <textarea id="ven-out" readonly placeholder="Se pega dentro de ventas, en datos.js"></textarea>
+      </div>
+    </details>
+
+    <details class="cap">
+      <summary>Dar de alta a alguien</summary>
+      <div class="cap-cuerpo">
+        <div class="cap-cab">
+          <label>Nombre<input type="text" id="alt-nombre"></label>
+          <label>Etiqueta<input type="text" id="alt-etiqueta" placeholder="administrativo · docente · prepa · pas · agro"></label>
+          <label>Fecha del costal<input type="date" id="alt-fecha"></label>
+        </div>
+        <div class="cap-acc">
+          <button class="acc" id="alt-btn">Generar línea</button>
+          <button class="acc sec" id="alt-copiar">Copiar</button>
+        </div>
+        <textarea id="alt-out" readonly placeholder="Se pega dentro de personas, en datos.js"></textarea>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section id="cartel-sec">
+  <div class="wrap">
+    <h2 class="tit">El cartel</h2>
+    <p class="sub">Se actualiza solo con la siguiente fecha del calendario. Va pegado en los pasillos; no vive en la página pública.</p>
+    <div class="cartel-caja">
+      <div class="cartel-marco">
+        <div class="cartel" id="cartel">
+          <img class="c-logo" src="data:image/png;base64,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" alt="">
+          <p class="c-et">Acopio Concá</p>
+          <p class="c-dia" id="c-dia"></p>
+          <p class="c-fecha" id="c-fecha"></p>
+          <p class="c-hora" id="c-hora"></p>
+          <p class="c-lugar" id="c-lugar"></p>
+          <p class="c-mat" id="c-mat"></p>
+          <p class="c-lema">Lo que separamos,<br>lo construimos.</p>
+        </div>
+      </div>
+      <div class="cartel-lado">
+        <div class="cap-acc" style="margin-top:0">
+          <button class="acc" id="av-imprimir">Imprimir</button>
+          <button class="acc sec" id="av-png">Descargar imagen</button>
+          <button class="acc sec" id="av-copiar">Copiar mensaje</button>
+        </div>
+        <textarea id="av-out" readonly></textarea>
+        <p class="nota">Pégalo dos veces: el lunes de esa semana y la mañana del jueves.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+(function(){
+  const { D, CLAVES, MAT, $, pesos, fecha, diaSemana, eti, proxima } = A;
+  A.barra("pesaje.html");
+
+  const num = v => { const n = parseFloat(v); return isFinite(n) && n > 0 ? Math.round(n*10)/10 : 0; };
+  const copiar = (sel, btn) => {
+    const ta = document.querySelector(sel); if (!ta.value) return;
+    const previo = btn.textContent;
+    const fin = () => { btn.textContent = "Copiado"; setTimeout(() => btn.textContent = previo, 1500); };
+    const aMano = () => { ta.removeAttribute("readonly"); ta.select();
+      document.execCommand("copy"); ta.setAttribute("readonly",""); fin(); };
+    if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(fin, aMano); else aMano();
+  };
+
+  /* colecta */
+  const personas = D.personas || [];
+  $("#cap-personas").innerHTML = personas.length ? personas.map((p,i) => `
+    <div class="cap-g" data-p="${i}">
+      <div class="gn"><span>${p.nombre} <em>${eti(p.etiqueta).nombre}</em></span>
+        <label class="chk"><input type="checkbox" data-limpio checked> vino como se pidió</label></div>
+      <div class="cap-inputs">${D.materiales.map(m =>
+        `<label>${m.corto}<input type="number" inputmode="decimal" min="0" step="0.1" data-mat="${m.clave}" placeholder="0"></label>`).join("")}</div>
+    </div>`).join("")
+    : `<div class="vacio">Primero hay que dar de alta a alguien, abajo.</div>`;
+
+  $("#cap-personas").addEventListener("input", () => {
+    let t = 0; document.querySelectorAll("#cap-personas input[data-mat]").forEach(i => t += num(i.value));
+    $("#cap-tot").textContent = t.toFixed(1) + " kg";
+  });
+
+  $("#cap-btn").addEventListener("click", () => {
+    const f = $("#cap-fecha").value, filas = [];
+    document.querySelectorAll("#cap-personas .cap-g").forEach(el => {
+      const p = personas[+el.dataset.p], kg = {}; let algo = false;
+      el.querySelectorAll("input[data-mat]").forEach(i => {
+        const v = num(i.value); kg[i.dataset.mat] = v; if (v > 0) algo = true;
+      });
+      if (!algo) return;
+      filas.push('      { persona:"' + p.nombre + '", limpio:' + el.querySelector("input[data-limpio]").checked +
+        ', kg:{' + CLAVES.map(c => c + ":" + (kg[c]||0)).join(", ") + '} }');
+    });
+    $("#cap-out").value = (f && filas.length)
+      ? '    { fecha:"' + f + '", personas:[\n' + filas.join(",\n") + '\n    ]},'
+      : "Falta la fecha o los kilos.";
+  });
+  $("#cap-copiar").addEventListener("click", ev => copiar("#cap-out", ev.currentTarget));
+
+  /* venta */
+  $("#ven-lineas").innerHTML = '<div class="cap-inputs">' + D.materiales.map(m =>
+    `<label>${m.corto} · kg<input type="number" inputmode="decimal" min="0" step="0.1" data-vkg="${m.clave}" placeholder="0"></label>` +
+    `<label>${m.corto} · $/kg<input type="number" inputmode="decimal" min="0" step="0.5" data-vpr="${m.clave}" value="${m.precio}"></label>`).join("") + '</div>';
+
+  const venTotal = () => {
+    let t = 0;
+    D.materiales.forEach(m => {
+      t += num(document.querySelector('[data-vkg="'+m.clave+'"]').value) *
+           (parseFloat(document.querySelector('[data-vpr="'+m.clave+'"]').value) || 0);
+    });
+    $("#ven-tot").textContent = pesos(t);
+  };
+  $("#ven-lineas").addEventListener("input", venTotal); venTotal();
+
+  $("#ven-btn").addEventListener("click", () => {
+    const f = $("#ven-fecha").value, c = $("#ven-comprador").value.trim(), fi = $("#ven-firma").value.trim(), ls = [];
+    D.materiales.forEach(m => {
+      const kg = num(document.querySelector('[data-vkg="'+m.clave+'"]').value);
+      const pr = parseFloat(document.querySelector('[data-vpr="'+m.clave+'"]').value) || 0;
+      if (kg > 0) ls.push('{material:"'+m.clave+'", kg:'+kg+', precio:'+pr+'}');
+    });
+    $("#ven-out").value = (f && c && ls.length)
+      ? '    { fecha:"'+f+'", comprador:"'+c+'", firma:"'+fi+'",\n      lineas:[ '+ls.join(", ")+' ] },'
+      : "Faltan fecha, comprador o kilos.";
+  });
+  $("#ven-copiar").addEventListener("click", ev => copiar("#ven-out", ev.currentTarget));
+
+  /* alta */
+  $("#alt-btn").addEventListener("click", () => {
+    const n = $("#alt-nombre").value.trim(), t = $("#alt-etiqueta").value.trim().toLowerCase(), f = $("#alt-fecha").value;
+    $("#alt-out").value = (n && t)
+      ? '    { nombre:"'+n+'", etiqueta:"'+t+'"'+(f ? ', desde:"'+f+'"' : '')+' },'
+      : "Faltan el nombre y la etiqueta.";
+  });
+  $("#alt-copiar").addEventListener("click", ev => copiar("#alt-out", ev.currentTarget));
+
+  /* cartel */
+  const e = D.entrega, sig = proxima();
+  const cDia = sig ? diaSemana(sig) : "Jueves";
+  const cFecha = sig ? fecha(sig).replace(/ de \d{4}$/,"") : "Fecha por confirmar";
+  const cHora = e.horario + " · pesaje " + e.pesaje;
+  const cLugar = "En " + e.lugar;
+  const cMat = D.materiales.map(m => m.nombre).join(", ") + ". Limpio, seco y separado.";
+
+  $("#c-dia").textContent = cDia;
+  $("#c-fecha").textContent = cFecha;
+  $("#c-hora").textContent = cHora;
+  $("#c-lugar").textContent = cLugar;
+  $("#c-mat").textContent = cMat;
+
+  $("#av-out").value = (sig
+    ? ["Acopio Concá — " + cDia.toLowerCase() + " " + cFecha + ", " + e.horario + ", en " + e.lugar + ".",
+       cMat, "Pesaje público a las " + e.pesaje + ".", "Lo que separamos, lo construimos."]
+    : ["Acopio Concá — la siguiente fecha sale en cuanto se cierre el calendario.", cMat]).join("\n");
+  $("#av-copiar").addEventListener("click", ev => copiar("#av-out", ev.currentTarget));
+
+  $("#av-imprimir").addEventListener("click", () => {
+    document.body.classList.add("solo-cartel");
+    const limpiar = () => document.body.classList.remove("solo-cartel");
+    addEventListener("afterprint", limpiar, { once:true });
+    setTimeout(() => { print(); setTimeout(limpiar, 800); }, 60);
+  });
+
+  $("#av-png").addEventListener("click", () => {
+    const W = 1080, H = 1350, cv = document.createElement("canvas");
+    cv.width = W; cv.height = H;
+    const x = cv.getContext("2d");
+    x.fillStyle = "#F5F7F2"; x.fillRect(0,0,W,H);
+    x.strokeStyle = "#16221C"; x.lineWidth = 16; x.strokeRect(30,30,W-60,H-60);
+    x.textAlign = "center";
+    const logo = document.querySelector("#cartel .c-logo");
+    const dibuja = () => {
+      let y = 250;
+      if (logo && logo.naturalWidth) {
+        const w = 250, h = w * logo.naturalHeight / logo.naturalWidth;
+        x.drawImage(logo, (W-w)/2, 130, w, h); y = 130 + h + 90;
+      }
+      x.fillStyle = "#4A594F"; x.font = "700 30px system-ui, Arial";
+      x.fillText("A C O P I O   C O N C Á", W/2, y); y += 80;
+      x.fillStyle = "#3B5844"; x.font = "700 54px system-ui, Arial";
+      x.fillText(cDia.toUpperCase(), W/2, y); y += 100;
+      x.fillStyle = "#16221C"; x.font = "800 96px system-ui, Arial";
+      const partes = cFecha.split(" de ");
+      if (partes.length > 1 && cFecha.length > 14) {
+        x.fillText(partes[0] + " de", W/2, y); y += 96;
+        x.fillText(partes.slice(1).join(" de "), W/2, y); y += 90;
+      } else { x.fillText(cFecha, W/2, y); y += 90; }
+      x.font = "700 44px system-ui, Arial";
+      x.fillText(cHora, W/2, y); y += 62;
+      x.fillText(cLugar, W/2, y); y += 84;
+      x.fillStyle = "#4A594F"; x.font = "400 34px system-ui, Arial";
+      let linea = "";
+      cMat.split(" ").forEach(p => {
+        const t = linea ? linea + " " + p : p;
+        if (x.measureText(t).width > W - 220) { x.fillText(linea, W/2, y); y += 48; linea = p; }
+        else linea = t;
+      });
+      if (linea) x.fillText(linea, W/2, y);
+      x.strokeStyle = "#16221C"; x.lineWidth = 8;
+      x.beginPath(); x.moveTo(150, H-260); x.lineTo(W-150, H-260); x.stroke();
+      x.fillStyle = "#16221C"; x.font = "800 52px system-ui, Arial";
+      x.fillText("Lo que separamos,", W/2, H-180);
+      x.fillText("lo construimos.", W/2, H-118);
+      const a = document.createElement("a");
+      a.download = "cartel-" + (sig || "acopio") + ".png";
+      try { a.href = cv.toDataURL("image/png"); a.click(); }
+      catch (err) { alert("El navegador no dejó exportar la imagen. Usa Imprimir y guarda como PDF."); }
+    };
+    if (logo && !logo.complete) logo.addEventListener("load", dibuja, { once:true }); else dibuja();
+  });
+
+  A.pie();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Acopio Concá · lo que separamos, lo construimos</title>
+<meta name="description" content="Acopio de residuos valorizables del Campus Concá. Qué se recibe, cuándo es la próxima colecta y en qué se convierte lo juntado.">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="cabeza">
+  <div class="wrap">
+    <p class="eyebrow" id="campus"></p>
+    <h1>Lo que separamos,<em>lo construimos.</em></h1>
+    <p class="bajada">Traes de casa lo que todavía vale. Se pesa en la fuente, se vende, y el dinero se queda en el campus.</p>
+    <nav class="rapidos" aria-label="Accesos rápidos">
+      <a class="fuerte" href="#cuando">Próxima colecta <b id="r-fecha"></b></a>
+      <a href="#materiales">Qué se recibe</a>
+      <a href="#costal">Pedir mi costal</a>
+      <a href="cuentas.html">Ver las cuentas</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<section id="obra">
+  <div class="wrap">
+    <div class="obra">
+      <h2>Obra en curso</h2>
+      <p class="nombre" id="obra-nombre"></p>
+      <div class="mesa-grid">
+        <div class="regla" id="regla"></div>
+        <svg id="mesa" viewBox="0 0 300 190" role="img" aria-labelledby="mesa-t">
+          <title id="mesa-t">La sala de exterior se dibuja conforme avanza lo juntado</title>
+          <defs><clipPath id="corte"><rect id="corte-r" x="0" y="190" width="300" height="0"/></clipPath></defs>
+          <g fill="none" stroke="#B9C4B3" stroke-width="2.5" stroke-dasharray="5 5">
+            <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
+            <rect x="16" y="136" width="54" height="12"/><rect x="16" y="102" width="54" height="34"/>
+            <rect x="22" y="94" width="42" height="9"/>
+            <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
+            <rect x="80" y="136" width="54" height="12"/><rect x="80" y="102" width="54" height="34"/>
+            <rect x="86" y="94" width="42" height="9"/>
+            <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
+            <rect x="172" y="136" width="112" height="12"/><rect x="172" y="102" width="112" height="34"/>
+            <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
+            <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
+            <rect x="140" y="150" width="57" height="8"/>
+            <line x1="12" y1="174" x2="288" y2="174"/>
+          </g>
+          <g clip-path="url(#corte)">
+            <g fill="#3B5844">
+              <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
+              <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
+              <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
+              <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
+              <rect x="16" y="136" width="54" height="12"/><rect x="80" y="136" width="54" height="12"/>
+              <rect x="172" y="136" width="112" height="12"/>
+              <rect x="16" y="102" width="54" height="34"/><rect x="80" y="102" width="54" height="34"/>
+              <rect x="172" y="102" width="112" height="34"/>
+            </g>
+            <g fill="#DFE5DA" stroke="#3B5844" stroke-width="2.5"><rect x="140" y="150" width="57" height="8"/></g>
+            <g fill="#DE8C07">
+              <rect x="22" y="94" width="42" height="9"/><rect x="86" y="94" width="42" height="9"/>
+              <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
+            </g>
+            <rect x="12" y="172" width="276" height="3" fill="#16221C"/>
+          </g>
+        </svg>
+      </div>
+      <div class="cifras">
+        <div class="cifra"><span class="n alza dato" id="c-juntado">$0</span><span class="l">Juntado</span></div>
+        <div class="cifra"><span class="n dato" id="c-costo">$0</span><span class="l">Cuesta</span></div>
+        <div class="cifra"><span class="n dato" id="c-pct">0%</span><span class="l">Avance</span></div>
+        <div class="cifra"><span class="n dato" id="c-kilos">0 kg</span><span class="l">Acopiados</span></div>
+      </div>
+      <p class="faltan" id="faltan"></p>
+    </div>
+  </div>
+</section>
+
+<section id="funciona">
+  <div class="wrap">
+    <h2 class="tit">Cómo funciona</h2>
+    <div class="pasos" id="pasos"></div>
+  </div>
+</section>
+
+<section id="costal">
+  <div class="wrap">
+    <div class="banda">
+      <h3>Pedir tu costal</h3>
+      <p id="costal-txt"></p>
+    </div>
+  </div>
+</section>
+
+<section id="materiales">
+  <div class="wrap">
+    <h2 class="tit">Qué se recibe</h2>
+    <p class="sub">Cuatro cosas. Los precios son de referencia y se mueven cada mes.</p>
+    <div class="mats" id="mats"></div>
+    <div class="sisi">
+      <img src="img/asi-si-asi-no.svg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
+      <div>
+        <p class="grande">Limpio, seco y separado.</p>
+        <p class="nota" id="fuera"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cuando">
+  <div class="wrap">
+    <h2 class="tit">Cuándo y dónde</h2>
+    <div class="proxima">
+      <span class="et">Próxima colecta</span>
+      <span class="dia" id="p-dia"></span>
+      <span class="det" id="p-det"></span>
+    </div>
+    <div class="fechas" id="fechas"></div>
+    <p class="nota" style="margin-top:12px">Cada quince días, en jueves, hasta cerrar el semestre.</p>
+  </div>
+</section>
+
+</main>
+
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+(function(){
+  const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana,
+          calendario, proxima, juntado, avance, kilosTotal } = A;
+
+  A.barra("index.html");
+
+  $("#campus").textContent = D.campus;
+  $("#obra-nombre").textContent = D.meta.obra;
+  $("#costal-txt").textContent = D.costal;
+  $("#fuera").textContent = D.fuera;
+
+  /* obra */
+  const jun = juntado(), pct = avance();
+  $("#c-juntado").textContent = pesos(Math.max(0, jun));
+  $("#c-costo").textContent = pesos(D.meta.costo);
+  $("#c-kilos").textContent = kilos(kilosTotal());
+  $("#c-pct").textContent = Math.round(pct*100) + "%";
+  const falta = Math.max(0, D.meta.costo - jun);
+  $("#faltan").textContent = jun <= 0
+    ? "Todavía no arranca. Sube con la primera venta."
+    : (falta > 0 ? "Faltan " + pesos(falta) + "." : "Ya está pagada.");
+
+  const regla = $("#regla");
+  regla.innerHTML = D.meta.hitos.map(h =>
+    `<div class="hito ${pct*100 >= h.pct ? "on" : ""}" data-b="${((190-h.y)/190).toFixed(4)}"><b>${h.pct}%</b>${h.label}</div>`).join("");
+  const acomoda = () => {
+    const alto = regla.clientHeight; if (!alto) return;
+    let previo = -Infinity;
+    [...regla.querySelectorAll(".hito")]
+      .map(n => ({ n, y: parseFloat(n.dataset.b)*alto })).sort((a,b) => a.y-b.y)
+      .forEach(o => { const y = Math.min(alto-8, Math.max(o.y, previo+29)); previo = y;
+        o.n.style.bottom = y.toFixed(1)+"px"; });
+  };
+  acomoda(); addEventListener("resize", acomoda, { passive:true });
+
+  const corte = $("#corte-r");
+  const ANCLAS = [{p:0,y:178}].concat(D.meta.hitos.map(h => ({p:h.pct/100, y:h.y})));
+  const yDe = p => {
+    p = Math.max(0, Math.min(1,p));
+    for (let i=1;i<ANCLAS.length;i++){ const a=ANCLAS[i-1], b=ANCLAS[i];
+      if (p <= b.p) { const k=(p-a.p)/((b.p-a.p)||1); return a.y+(b.y-a.y)*k; } }
+    return ANCLAS[ANCLAS.length-1].y;
+  };
+  const y = yDe(pct);
+  corte.setAttribute("y", y.toFixed(1));
+  corte.setAttribute("height", (190-y).toFixed(1));
+
+  /* pasos */
+  const e = D.entrega;
+  $("#pasos").innerHTML = [
+    ["01","Separas en casa","Una bolsa aparte para lo que vale."],
+    ["02","Lo traes el jueves","Cada quince días, en " + e.lugar + "."],
+    ["03","Se pesa frente a todos","Báscula, libreta y firma, a las " + e.pesaje + "."],
+    ["04","Se vende y se compra","El dinero no sale del campus."]
+  ].map(([n,t,p]) => `<div class="paso"><span class="n">${n}</span><h3>${t}</h3><p>${p}</p></div>`).join("");
+
+  /* materiales */
+  $("#mats").innerHTML = D.materiales.map(m => `
+    <div class="mat" style="--c:${m.color}">
+      <div class="fig"><img src="${m.img}" alt=""></div>
+      <h3>${m.nombre}</h3>
+      <p class="cond">${m.condicion}</p>
+      <p class="precio">$${m.precio} <small>por kilo</small></p>
+    </div>`).join("");
+
+  /* calendario */
+  const cal = calendario(), sig = proxima(), hoy = A.hoy();
+  $("#r-fecha").textContent = sig ? fechaCorta(sig) : "—";
+  $("#p-dia").textContent = sig ? diaSemana(sig) + " " + fecha(sig).replace(/ de \d{4}$/,"") : "Por confirmar";
+  $("#p-det").textContent = e.horario + " · " + e.lugar + " · pesaje " + e.pesaje;
+  $("#fechas").innerHTML = cal.map(f =>
+    `<span class="${f < hoy ? "pasada" : (f === sig ? "sigue" : "")}">${fechaCorta(f)}</span>`).join("");
+
+  A.pie();
+})();
+</script>
+</body>
+</html>

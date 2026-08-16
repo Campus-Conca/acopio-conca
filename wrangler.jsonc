@@ -1,0 +1,10 @@
+{
+  // Sitio estático: Cloudflare sirve los archivos tal cual, sin build.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "acopio-conca",
+  "compatibility_date": "2026-08-16",
+  "assets": {
+    "directory": "./",
+    "not_found_handling": "404-page"
+  }
+}

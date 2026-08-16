@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Bote de plástico duro con asa, enjuagado">
+  <g stroke="#16221C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M46 56h56a10 10 0 0 1 10 10v56a10 10 0 0 1-10 10H46a10 10 0 0 1-10-10V66a10 10 0 0 1 10-10z" fill="#A97239"/>
+    <path d="M112 74h14a8 8 0 0 1 8 8v18a8 8 0 0 1-8 8h-14" fill="none"/>
+    <path d="M70 34h22v22H70z" fill="#A97239"/>
+    <path d="M66 26h30v10H66z" fill="#DFE5DA"/>
+    <path d="M46 92h56" fill="none" stroke-width="4"/>
+  </g>
+</svg>

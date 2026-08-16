@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="Lata de aluminio vacía y aplastada">
+  <g stroke="#16221C" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M54 40h52v78a10 10 0 0 1-10 10H64a10 10 0 0 1-10-10z" fill="#6F8894"/>
+    <path d="M54 56h52M54 112h52" fill="none" stroke-width="4"/>
+    <path d="M62 30h36l8 10H54z" fill="#DFE5DA"/>
+    <path d="M72 22h16v8H72z" fill="#DFE5DA"/>
+  </g>
+</svg>

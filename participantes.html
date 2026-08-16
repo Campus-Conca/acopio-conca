@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiénes participan · Acopio Concá</title>
+<meta name="description" content="Quién tiene costal en el acopio del Campus Concá y cómo va cada quien.">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="cabeza">
+  <div class="wrap">
+    <p class="eyebrow">Acopio Concá</p>
+    <h1>Quiénes<em>participan</em></h1>
+    <p class="bajada">El costal es por persona. Quien quiere uno lo pide y aparece aquí.</p>
+  </div>
+</header>
+
+<main>
+
+<section id="padron">
+  <div class="wrap">
+    <h2 class="tit">Quién tiene costal</h2>
+    <div class="padron-cab" id="filtros"></div>
+    <div class="padron" id="lista"></div>
+    <p class="nota" style="margin-top:14px" id="total"></p>
+  </div>
+</section>
+
+<section id="seguimiento">
+  <div class="wrap">
+    <h2 class="tit">Cómo va cada quien</h2>
+    <p class="sub">No es un concurso. Son tres marcas que cualquiera puede alcanzar: venir, traer el material como se pide, y juntar lo que junta el promedio.</p>
+    <div class="etiq-res" id="etiquetas"></div>
+    <div class="grupos" id="gente"></div>
+    <p class="nota" style="margin-top:14px" id="estandar"></p>
+  </div>
+</section>
+
+</main>
+
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+(function(){
+  const { D, $, kilos, fecha, eti, seguimiento } = A;
+  A.barra("participantes.html");
+
+  const personas = D.personas || [];
+  const conteo = {};
+  personas.forEach(p => conteo[p.etiqueta] = (conteo[p.etiqueta]||0) + 1);
+
+  const pinta = f => {
+    const l = f === "todos" ? personas : personas.filter(p => p.etiqueta === f);
+    $("#lista").innerHTML = l.length
+      ? l.slice().sort((a,b) => a.nombre.localeCompare(b.nombre,"es")).map(p => {
+          const t = eti(p.etiqueta);
+          return `<div class="persona" style="--e:${t.color}">
+            <span class="t">${t.nombre}</span>
+            <span class="p">${p.nombre}</span>
+            ${p.desde ? `<span class="d">Desde ${fecha(p.desde)}</span>` : ""}
+          </div>`;
+        }).join("")
+      : `<div class="vacio" style="grid-column:1/-1">Todavía no hay nadie. El primer nombre aparece el día que se entregue el primer costal.</div>`;
+  };
+
+  $("#filtros").innerHTML =
+    `<button class="filtro on" data-f="todos">Todos<span class="c">${personas.length}</span></button>` +
+    (D.etiquetas||[]).map(t =>
+      `<button class="filtro" data-f="${t.clave}">${t.nombre}<span class="c">${conteo[t.clave]||0}</span></button>`).join("");
+  $("#filtros").addEventListener("click", ev => {
+    const b = ev.target.closest(".filtro"); if (!b) return;
+    document.querySelectorAll("#filtros .filtro").forEach(x => x.classList.remove("on"));
+    b.classList.add("on"); pinta(b.dataset.f);
+  });
+  pinta("todos");
+
+  $("#total").textContent = personas.length
+    ? personas.length + " costales entregados."
+    : "La etiqueta solo dice de dónde viene cada quien; no separa a nadie.";
+
+  /* seguimiento */
+  const { lista, estKg, nJornadas } = seguimiento();
+  const porEti = {};
+  lista.forEach(p => { const k = p.etiqueta || "";
+    (porEti[k] = porEti[k] || { n:0, kg:0 }); porEti[k].n++; porEti[k].kg += p.kg; });
+
+  $("#etiquetas").innerHTML = Object.keys(porEti).length
+    ? Object.entries(porEti).map(([k,v]) => { const t = eti(k);
+        return `<div class="etr" style="--e:${t.color}"><h3>${t.nombre}</h3>
+          <p class="n">${kilos(v.kg)}</p><p class="u">${v.n} ${v.n===1?"persona":"personas"}</p></div>`;
+      }).join("") : "";
+
+  const tope = Math.max(0.001, ...lista.map(p => p.porJornada));
+  const marca = (ok,txt) => `<span class="marca ${ok?"si":"no"}">${txt}</span>`;
+  $("#gente").innerHTML = lista.length ? lista.map(p => {
+    const t = eti(p.etiqueta);
+    return `<div class="grupo" style="--e:${t.color}">
+      <span class="g"><small>${t.nombre}</small>${p.nombre}</span>
+      <span class="marcas">
+        ${marca(nJornadas > 0 && p.constancia >= D.estandares.constancia, "Viene")}
+        ${marca(nJornadas > 0 && p.calidad >= D.estandares.calidad, "Limpio")}
+        ${estKg !== null ? marca(p.porJornada >= estKg, "Kilos") : ""}
+      </span>
+      <span class="kg">${kilos(p.kg)} en total · vino ${p.entregas} de ${nJornadas}</span>
+      <span class="barra"><i style="width:${(p.porJornada/tope*100).toFixed(1)}%"></i></span>
+    </div>`;
+  }).join("") : `<div class="vacio">Aquí aparece cada quien después de la primera colecta.</div>`;
+
+  $("#estandar").textContent = estKg !== null
+    ? `La marca de kilos son ${estKg} kg por colecta: la mediana de lo que trae quien entrega. Se mueve con el grupo.`
+    : `La marca de kilos se fija después de la primera colecta, con lo que la gente realmente traiga.`;
+
+  A.pie();
+})();
+</script>
+</body>
+</html>

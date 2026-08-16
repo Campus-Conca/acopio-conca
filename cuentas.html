@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Las cuentas · Acopio Concá</title>
+<meta name="description" content="Kilos acopiados, ventas y obras pagadas con el acopio del Campus Concá.">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="cabeza">
+  <div class="wrap">
+    <p class="eyebrow">Acopio Concá</p>
+    <h1>Las<em>cuentas</em></h1>
+    <p class="bajada">Lo que se juntó, en cuánto se vendió y en qué se convirtió. Los mismos números que quedaron firmados en la libreta.</p>
+  </div>
+</header>
+
+<main>
+
+<section id="kilos">
+  <div class="wrap">
+    <h2 class="tit">Cuánto se ha llevado</h2>
+    <div id="caja-kilos"></div>
+  </div>
+</section>
+
+<section id="ventas">
+  <div class="wrap">
+    <h2 class="tit">En cuánto se vendió</h2>
+    <div class="actas" id="actas"></div>
+    <div class="tabla-caja" style="margin-top:14px">
+      <table><caption>Cuentas del periodo</caption><tbody id="resumen"></tbody></table>
+    </div>
+  </div>
+</section>
+
+<section id="obras">
+  <div class="wrap">
+    <h2 class="tit">Lo que ya se hizo</h2>
+    <div class="hechas" id="hechas"></div>
+  </div>
+</section>
+
+<section id="calculo">
+  <div class="wrap">
+    <h2 class="tit">Cómo se calcula</h2>
+    <div class="calc">
+      <p><b>Juntado.</b> Ventas menos gastos del programa. <span class="formula">juntado = ventas − gastos</span></p>
+      <p><b>Avance.</b> Lo juntado entre lo que cuesta la obra. <span class="formula">avance = juntado ÷ costo</span></p>
+      <p><b>Por colecta.</b> Los kilos de la persona entre las colectas que hubo, no entre las que vino.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+(function(){
+  const { D, CLAVES, MAT, $, pesos, fecha, totalVentas, totalGastos, juntado,
+          kilosPorMaterial, kilosTotal } = A;
+  A.barra("cuentas.html");
+
+  /* kilos por jornada */
+  const km = kilosPorMaterial(), kt = kilosTotal();
+  $("#caja-kilos").innerHTML = D.jornadas.length ? `
+    <div class="tabla-caja"><table class="ancha">
+      <caption>Kilos por colecta</caption>
+      <thead><tr><th>Colecta</th>${D.materiales.map(m => `<th class="dato">${m.corto}</th>`).join("")}<th class="dato">Total</th></tr></thead>
+      <tbody>${D.jornadas.map(j => {
+        const t = {}; CLAVES.forEach(c => t[c] = (j.personas||[]).reduce((s,p) => s + (p.kg[c]||0), 0));
+        const tot = Object.values(t).reduce((a,b)=>a+b,0);
+        return `<tr><td class="dato">${fecha(j.fecha)}</td>` +
+          CLAVES.map(c => `<td class="dato" data-l="${MAT[c].corto}">${t[c].toFixed(1)} kg</td>`).join("") +
+          `<td class="dato" data-l="Total"><b>${tot.toFixed(1)} kg</b></td></tr>`;
+      }).join("")}</tbody>
+      <tfoot><tr><td>Acumulado</td>${CLAVES.map(c =>
+        `<td class="dato" data-l="${MAT[c].corto}">${km[c].toFixed(1)} kg</td>`).join("")}<td class="dato" data-l="Total">${kt.toFixed(1)} kg</td></tr></tfoot>
+    </table></div>`
+    : `<div class="vacio">Todavía no hay colectas. La primera aparece aquí el mismo día del pesaje.</div>`;
+
+  /* actas */
+  $("#actas").innerHTML = D.ventas.length ? D.ventas.map(v => {
+    const total = v.lineas.reduce((s,l) => s + l.kg*l.precio, 0);
+    return `<article class="acta">
+      <div class="cab"><span class="c">${v.comprador}</span><span class="f">${fecha(v.fecha)}</span></div>
+      <ul>${v.lineas.map(l => `<li><span>${MAT[l.material].nombre}</span>
+        <span class="dato">${l.kg.toFixed(1)} kg × $${l.precio} = ${pesos(l.kg*l.precio)}</span></li>`).join("")}</ul>
+      <p class="tot"><span>Total</span><span class="dato">${pesos(total)}</span></p>
+      ${v.firma ? `<p class="nota" style="margin:.6rem 0 0">${v.firma}</p>` : ""}
+    </article>`;
+  }).join("") : `<div class="vacio">Todavía no hay ventas. Cada acta se publica el día que sale el material de la bodega.</div>`;
+
+  $("#resumen").innerHTML = `
+    <tr><td>Ventas</td><td class="dato">${pesos(totalVentas())}</td></tr>
+    ${D.gastos.length ? D.gastos.map(g => `<tr><td>${g.concepto}</td><td class="dato">−${pesos(g.monto)}</td></tr>`).join("")
+      : `<tr><td>Gastos del programa</td><td class="dato">${pesos(0)}</td></tr>`}
+    <tr><td><b>Juntado</b></td><td class="dato"><b>${pesos(juntado())}</b></td></tr>`;
+
+  /* obras */
+  $("#hechas").innerHTML = D.hechas.length
+    ? D.hechas.map(h => `<div class="hecha"><p class="n">${h.nombre}</p>
+        <p class="m">${pesos(h.monto)}</p><p class="f">${h.fecha}</p></div>`).join("")
+    : `<div class="vacio">La primera es la que está en curso.</div>`;
+
+  A.pie();
+})();
+</script>
+</body>
+</html>
