@@ -125,11 +125,21 @@ h2.tit{
 .nota{font-size:.86rem;color:var(--tinta-60);max-width:66ch}
 
 /* pasos */
-.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea)}
-.paso{background:var(--cal);padding:1.15rem 1.1rem 1.3rem}
-.paso .n{font-family:var(--mono);font-size:.78rem;color:var(--cempa);font-weight:700;letter-spacing:.06em}
-.paso h3{font-size:1.02rem;margin:.35rem 0 .35rem;letter-spacing:-.01em}
+.pasos{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.paso{background:var(--papel);border:1px solid var(--linea);padding:1.2rem 1.15rem 1.35rem;position:relative}
+.paso .cab{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.paso .ico{width:62px;height:62px;flex:0 0 auto;border:2px solid var(--tinta);border-radius:50%;
+  background:var(--cal);color:var(--tinta);display:flex;align-items:center;justify-content:center}
+.paso .ico svg{width:32px;height:32px;display:block}
+.paso .n{font-family:var(--mono);font-size:1.6rem;font-weight:700;color:var(--cempa);letter-spacing:-.02em;line-height:1}
+.paso h3{font-size:1.05rem;margin:0 0 .35rem;letter-spacing:-.015em}
 .paso p{margin:0;font-size:.9rem;color:var(--tinta-60)}
+/* el hilo que une un paso con el siguiente; solo cuando van en fila */
+@media (min-width:860px){
+  .paso::after{content:"";position:absolute;top:calc(1.2rem + 30px);left:calc(100% + 1px);width:14px;
+    border-top:2px dashed var(--linea)}
+  .paso:last-child::after{display:none}
+}
 
 /* materiales */
 .mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
