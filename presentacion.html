@@ -84,8 +84,8 @@
           <h4><span class="n">6</span> El reparto</h4>
           <p class="di" id="l-rep-di">De cada peso, una parte para todos y otra para el área.</p>
           <div id="l-reparto"></div>
-          <p class="apoyo">Primero se pagan los gastos del programa —costales, báscula, lo que haga falta para operar—. Lo que queda se parte en dos, y las dos partes se publican.</p>
-          <p class="nota-conductor">Esta es la lámina clave y es donde se cae o se sostiene la confianza. Di los dos destinos completos y no te saltes el 30: es el que paga los costales y la báscula que hacen posible el otro 70. Si alguien alega, la respuesta honesta es que es un acuerdo, no una ley: se puede discutir, y mientras esté vigente se cumple y se publica.</p>
+          <p class="apoyo">Se parte lo vendido, sin descontarle nada antes. El 70% compartido llega limpio: los costales, la báscula y todo lo que cuesta operar salen del 30% del área. Las dos partes se publican.</p>
+          <p class="nota-conductor">Esta es la lámina clave y es donde se cae o se sostiene la confianza. Di los dos destinos completos y no te saltes el 30: de ahí salen los costales y la báscula que hacen posible el otro 70, que por eso llega limpio. Si alguien alega, la respuesta honesta es que es un acuerdo, no una ley: se puede discutir, y mientras esté vigente se cumple y se publica.</p>
         </section>
 
         <section class="lam">
@@ -98,13 +98,14 @@
 
         <section class="lam">
           <h4><span class="n">8</span> El 30% del área</h4>
-          <p class="di">El otro 30 es el presupuesto del área.</p>
+          <p class="di">El otro 30 es el presupuesto del área, y de ahí sale operar.</p>
           <p class="apoyo" id="l-area-txt"></p>
           <ul>
-            <li>Sin costales y sin báscula no hay colecta: eso es lo que ese 30 sostiene.</li>
-            <li>También se rinde: cada gasto aparece en la página con <b>nombre, monto y fecha</b>, igual que las obras.</li>
+            <li>Sin costales y sin báscula no hay colecta: <b>eso lo paga el 30</b>, no el 70.</li>
+            <li>Por eso el 70% compartido llega limpio: nadie le descuenta gastos antes.</li>
+            <li>También se rinde: cada gasto aparece en la página con <b>concepto, monto y fecha</b>, igual que las obras.</li>
           </ul>
-          <p class="nota-conductor">Si alguien pregunta si es dinero para sueldos, contesta claro que no: es para lo que se compra y se usa. Y remátalo con que está publicado renglón por renglón en la página de cuentas.</p>
+          <p class="nota-conductor">Si alguien pregunta si es dinero para sueldos, contesta claro que no: es para lo que se compra y se usa. Y remátalo con que está publicado renglón por renglón en la página de cuentas. Al arrancar esa bolsa puede estar en rojo, porque los costales se compran antes de la primera venta; también eso se publica.</p>
         </section>
 
         <section class="lam">
@@ -151,15 +152,15 @@
       <div class="mazo-cuerpo">
 
         <section class="lam">
-          <h4><span class="n">1</span> La cuenta, en tres pasos</h4>
-          <p class="di">Se vende, se pagan los gastos, y lo que queda se parte.</p>
+          <h4><span class="n">1</span> La cuenta, en dos pasos</h4>
+          <p class="di">Se vende y se parte. Los gastos vienen después, y de un solo lado.</p>
           <ul>
-            <li><b>Ventas.</b> Kilos por precio, acta por acta, con firma de quien compró.</li>
-            <li><b>Gastos del programa.</b> Salen de la bolsa completa, antes de partirla.</li>
-            <li><b>El reparto.</b> Lo que queda se divide entre las dos bolsas.</li>
+            <li><b>Vendido.</b> Kilos por precio, acta por acta, con firma de quien compró.</li>
+            <li><b>El reparto.</b> Se divide lo vendido, sin descontarle nada antes.</li>
+            <li><b>Los gastos.</b> Costales, báscula, guantes: salen del 30% del área.</li>
           </ul>
           <p class="apoyo" id="l2-formula"></p>
-          <p class="nota-conductor">El orden importa y conviene decirlo despacio: los gastos se pagan antes del reparto, así que las dos bolsas se achican parejo cuando hay que comprar costales. Nadie subsidia a nadie.</p>
+          <p class="nota-conductor">El orden importa y conviene decirlo despacio: el reparto va antes que los gastos, así que comprar costales no le quita un peso a la obra compartida. El área es la que carga con el costo de operar.</p>
         </section>
 
         <section class="lam">
@@ -170,10 +171,10 @@
         </section>
 
         <section class="lam">
-          <h4><span class="n">3</span> La obra no avanza con la bolsa entera</h4>
+          <h4><span class="n">3</span> La obra no avanza con todo lo vendido</h4>
           <p class="di">La barra de la portada sube con el 70%, no con todo.</p>
           <div class="lam-cifras" id="l2-obra"></div>
-          <p class="apoyo">Es la confusión más fácil de cometer y la más cara: si se cuenta la bolsa completa contra el costo de la obra, la página promete una fecha que no va a cumplir.</p>
+          <p class="apoyo">Es la confusión más fácil de cometer y la más cara: si se cuenta lo vendido completo contra el costo de la obra, la página promete una fecha que no va a cumplir.</p>
           <p class="nota-conductor">Este es el detalle técnico que hay que cuidar cuando alguien más tome la página. Está escrito en el archivo de datos y en las notas del repositorio.</p>
         </section>
 
@@ -214,7 +215,8 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          bolsa, paraObra, paraArea, avance, kilosTotal, bloqueReparto } = A;
+          totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea,
+          avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("presentacion.html");
 
@@ -242,7 +244,7 @@
 
   $("#l-rep-di").textContent =
     "De cada peso: " + rc.pct + " para todos, " + ra.pct + " para el área.";
-  $("#l-reparto").innerHTML = bloqueReparto({ titulo:"Así se parte lo que queda" });
+  $("#l-reparto").innerHTML = bloqueReparto({ titulo:"Así se parte lo que se vende" });
 
   $("#l-obra").textContent = "Hoy el " + rc.pct + "% va a: " + D.meta.obra + ".";
   $("#l-obra-cifras").innerHTML = `
@@ -261,13 +263,22 @@
 
   /* ---- mazo 2 ---- */
   $("#l2-formula").textContent =
-    "bolsa = ventas − gastos   ·   compartido = bolsa × " + rc.pct + "%   ·   área = bolsa × " + ra.pct + "%";
+    "compartido = vendido × " + rc.pct + "%   ·   área = vendido × " + ra.pct + "%   ·   gastos → área";
   $("#l2-reparto").innerHTML = bloqueReparto({ titulo:"Al día de hoy" });
-  $("#l2-bolsa").textContent = bolsa() > 0
-    ? "La bolsa por repartir va en " + pesos(bolsa()) + ", con " + kilos(kilosTotal()) + " acopiados."
-    : "La bolsa todavía está en ceros: no ha habido la primera venta. Los ceros también son cuentas.";
+  // La bolsa del área arranca en rojo casi siempre: los costales se compran
+  // antes de la primera venta. Se dice con todas sus letras.
+  const dispo = disponibleArea(), gastado = ejercidoArea();
+  $("#l2-bolsa").textContent = totalVentas() > 0
+    ? "Van " + pesos(totalVentas()) + " vendidos y " + kilos(kilosTotal()) + " acopiados. " +
+      (dispo < 0
+        ? "El área lleva " + pesos(gastado) + " puestos y su 30% todavía no los alcanza: va " + pesos(dispo) + "."
+        : "El área lleva gastados " + pesos(gastado) + " y le quedan " + pesos(dispo) + ".")
+    : (gastado > 0
+        ? "Todavía no hay la primera venta: el reparto va en ceros y el área lleva " + pesos(gastado) +
+          " puestos de su bolsa. Los números en rojo también son cuentas."
+        : "Todavía no hay la primera venta, así que el reparto va en ceros. Los ceros también son cuentas.");
   $("#l2-obra").innerHTML = `
-    <div><span class="q dato">${pesos(Math.max(0, bolsa()))}</span><span class="e">Bolsa</span></div>
+    <div><span class="q dato">${pesos(Math.max(0, totalVentas()))}</span><span class="e">Vendido</span></div>
     <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Va a la obra</span></div>
     <div><span class="q dato">${pesos(Math.max(0, paraArea()))}</span><span class="e">Va al área</span></div>`;
   $("#l2-cierre").textContent = "Dudas y correcciones: " + D.responsable + ". " + D.contacto;

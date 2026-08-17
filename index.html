@@ -140,7 +140,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          bolsa, paraObra, avance, kilosTotal, bloqueReparto } = A;
+          totalVentas, paraObra, avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("index.html");
 
@@ -160,7 +160,7 @@
   $("#c-kilos").textContent = kilos(kilosTotal());
   $("#c-pct").textContent = Math.round(pct*100) + "%";
   const falta = Math.max(0, D.meta.costo - obra);
-  $("#faltan").textContent = bolsa() <= 0
+  $("#faltan").textContent = totalVentas() <= 0
     ? "Todavía no arranca. Sube con la primera venta."
     : (falta > 0 ? "Faltan " + pesos(falta) + " para esta obra." : "Ya está pagada.");
 

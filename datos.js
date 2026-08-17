@@ -26,16 +26,17 @@ window.DATOS = {
     mensaje: "Hola Jhoana. Vi la página del acopio del campus y quiero pedir mi costal. Mi nombre es:"
   },
 
-  // EL REPARTO. Lo que deja el acopio no se va todo a la misma bolsa: de cada
-  // peso que queda después de los gastos, 70 centavos van a obras de las áreas
-  // comunes y 30 al presupuesto del área de Sustentabilidad. Si cambia el
-  // acuerdo, se cambian estos dos números y el sitio entero se recalcula solo.
-  // Los dos pct tienen que sumar 100.
+  // EL REPARTO. De cada peso que se vende, 70 centavos van a obras de las
+  // áreas comunes y 30 al presupuesto del área de Sustentabilidad. Se parte
+  // lo vendido, sin descontar nada antes: los gastos del programa —costales,
+  // báscula, guantes— salen del 30% del área, así que el 70% compartido
+  // llega limpio. Si cambia el acuerdo, se cambian estos dos números y el
+  // sitio entero se recalcula solo. Los dos pct tienen que sumar 100.
   reparto: {
     compartido: { pct:70, nombre:"Proyectos compartidos",
                   para:"Obras para las áreas comunes: lo que usa todo el campus." },
     area:       { pct:30, nombre:"Área de Sustentabilidad",
-                  para:"El presupuesto del área: costales, báscula, guantes, letreros y campañas." }
+                  para:"El presupuesto del área, y de ahí sale lo que cuesta operar: costales, báscula, guantes, letreros y campañas." }
   },
 
   meta: {
@@ -87,7 +88,9 @@ window.DATOS = {
   ventas: [
   ],
 
-  // Gastos del programa: salen de la bolsa completa, antes de partirla.
+  // TODO lo que gasta el área, y sale de su 30%: lo que cuesta operar el
+  // acopio y lo demás que compre con su bolsa. Es una sola lista porque es
+  // una sola bolsa. Lo que no se anote aquí queda sin rendir cuentas.
   // { concepto:"Costales", monto:0, fecha:"" },
   gastos: [
   ],
@@ -98,11 +101,5 @@ window.DATOS = {
   // Obras terminadas con el 70% compartido.
   // { nombre:"", monto:0, fecha:"" },
   hechas: [
-  ],
-
-  // En qué se fue el 30% del área. Mismo formato que hechas: si el área gasta
-  // de su bolsa y no se anota aquí, ese dinero queda sin rendir cuentas.
-  // { nombre:"", monto:0, fecha:"" },
-  usoArea: [
   ]
 };

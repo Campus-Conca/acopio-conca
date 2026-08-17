@@ -28,29 +28,32 @@ no la fórmula.
 
 ## Cómo se reparte el dinero
 
-De lo que se vende se pagan primero los gastos del programa. Lo que queda es
-la **bolsa**, y la bolsa se parte en dos:
+Se parte **lo vendido**, sin descontarle nada antes:
 
 ```
-bolsa = ventas − gastos
 70%  →  proyectos compartidos de las áreas comunes   (la obra en curso)
 30%  →  presupuesto del área de Sustentabilidad
 ```
 
+**Los gastos del programa salen del 30% del área**, no de la bolsa completa:
+costales, báscula, guantes, letreros. Por eso el 70% compartido llega limpio
+y por eso `gastos` es una sola lista —una sola bolsa, la del área—. Al
+arrancar el semestre esa bolsa puede quedar en rojo, porque los costales se
+compran antes de la primera venta; eso se enseña, no se esconde.
+
 Los dos porcentajes viven en `datos.js`, en `reparto`, y tienen que sumar 100.
 Cambiarlos ahí recalcula la portada, las cuentas y la presentación.
 
-**Lo que más fácil se rompe:** la barra de la obra sube con su 70%, no con la
-bolsa entera (`avance = paraObra ÷ meta.costo`). Contar la bolsa completa
-contra el costo hace que la página prometa una fecha que no va a cumplir.
+**Lo que más fácil se rompe:** la barra de la obra sube con su 70%, no con lo
+vendido completo (`avance = paraObra ÷ meta.costo`). Contarlo todo contra el
+costo hace que la página prometa una fecha que no va a cumplir.
 
 El reparto se calcula en pesos enteros y la bolsa del área se lleva el resto,
-para que las dos partes sumen exactamente lo que dice la bolsa. Una tabla que
-no cuadra por un peso vuelve discutible todo lo demás.
+para que las dos partes sumen exactamente lo vendido. Una tabla que no cuadra
+por un peso vuelve discutible todo lo demás.
 
-Las obras pagadas con el 70% van en `hechas`; lo que el área ejerce de su 30%
-va en `usoArea`, con el mismo formato. Si el área gasta y no se anota, ese
-dinero queda sin rendir cuentas.
+Las obras pagadas con el 70% van en `hechas`; lo que gasta el área de su 30%
+va en `gastos`. Lo que no se anote queda sin rendir cuentas.
 
 ## Dónde vive y cómo se publica
 
@@ -101,9 +104,9 @@ formatos.
 
 Etiquetas válidas: `administrativo`, `docente`, `prepa`, `pas`, `agro`.
 
-**Gastos del programa** en `gastos`, **obras terminadas** en `hechas` y **lo
-que ejerció el área de su 30%** en `usoArea`, con el mismo formato comentado
-en el archivo.
+**Todo lo que gasta el área de su 30%** —incluido lo que cuesta operar— en
+`gastos`, y **obras terminadas** con el 70% en `hechas`, con el mismo formato
+comentado en el archivo.
 
 **Si cambia quién entrega los costales**: `costal.quien`, `costal.whatsapp`
 (el número va sin signos, con lada de país: `5214424052714`) y `costal.mensaje`,

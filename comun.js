@@ -47,24 +47,23 @@ window.A = (function(){
   const proxima = () => { const h = hoy(); return calendario().find(f => f >= h) || null; };
 
   /* ---------- dinero ---------- */
-  // La cuenta va en tres pasos y en este orden: se vende, se pagan los gastos
-  // del programa, y lo que queda se parte en dos según D.reparto. La obra no
-  // avanza con la bolsa entera: avanza con su 70%.
+  // Se parte lo vendido, sin descontar nada antes. Los gastos del programa
+  // no le pegan al 70%: salen del 30% del área, que es quien carga con lo
+  // que cuesta operar. La obra avanza con su 70%, nunca con el total.
   const totalVentas = () => D.ventas.reduce((s,v) =>
     s + v.lineas.reduce((t,l) => t + l.kg * l.precio, 0), 0);
-  const totalGastos = () => D.gastos.reduce((s,g) => s + g.monto, 0);
-  const bolsa = () => totalVentas() - totalGastos();
 
-  // El reparto se hace en pesos enteros y la segunda bolsa se lleva el resto,
-  // para que las dos partes sumen exactamente lo que dice la bolsa. Si cada
-  // una se redondea por su lado, hay montos en que aparece un peso de más y
-  // una tabla que no cuadra vuelve discutible todo lo demás.
+  // El reparto se hace en pesos enteros y la bolsa del área se lleva el
+  // resto, para que las dos partes sumen exactamente lo vendido. Si cada una
+  // se redondea por su lado hay montos en que aparece un peso de más, y una
+  // tabla que no cuadra vuelve discutible todo lo demás.
   const REPARTO = D.reparto || {};
-  const paraObra = () => Math.round(bolsa() * (REPARTO.compartido.pct / 100));
-  const paraArea = () => Math.round(bolsa()) - paraObra();
+  const paraObra = () => Math.round(totalVentas() * (REPARTO.compartido.pct / 100));
+  const paraArea = () => Math.round(totalVentas()) - paraObra();
 
-  // Lo que el área ya ejerció de su 30% y lo que le queda disponible.
-  const ejercidoArea   = () => (D.usoArea || []).reduce((s,u) => s + u.monto, 0);
+  // Lo que el área ya ejerció de su 30% y lo que le queda disponible. Puede
+  // salir en rojo: al arrancar se compran costales y todavía no hay ventas.
+  const ejercidoArea   = () => D.gastos.reduce((s,g) => s + g.monto, 0);
   const disponibleArea = () => paraArea() - ejercidoArea();
 
   const avance = () => Math.max(0, Math.min(1, paraObra() / D.meta.costo));
@@ -127,7 +126,7 @@ window.A = (function(){
     const o = opc || {}, montos = o.montos !== false;
     const lados = [["compartido", paraObra()], ["area", paraArea()]];
     return `<div class="reparto">
-      <p class="rep-tit">${o.titulo || "Cada peso que queda se parte en dos"}</p>
+      <p class="rep-tit">${o.titulo || "Cada peso que se vende se parte en dos"}</p>
       <div class="rep-barra">` +
       lados.map(([c]) => `<i class="${c}" style="width:${REPARTO[c].pct}%"><b>${REPARTO[c].pct}%</b></i>`).join("") +
       `</div><div class="rep-pies">` +
@@ -199,7 +198,7 @@ window.A = (function(){
   };
 
   return { D, MAT, CLAVES, $, eti, pesos, kilos, fecha, fechaCorta, diaSemana, hoy,
-           calendario, proxima, totalVentas, totalGastos, bolsa,
+           calendario, proxima, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
            kilosPorMaterial, kilosTotal, seguimiento, bloqueReparto, barra, pie };
 })();
