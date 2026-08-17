@@ -14,7 +14,9 @@ window.A = (function(){
   const eti = c => ETI[c] || { clave:c, nombre: c || "Sin etiqueta", color:"var(--tinta-60)" };
 
   /* ---------- formatos ---------- */
-  const pesos = n => "$" + Math.round(n).toLocaleString("es-MX");
+  // El área puede gastar de más y quedar en rojo: eso se enseña, no se esconde.
+  const pesos = n => { const r = Math.round(n);
+    return (r < 0 ? "−$" : "$") + Math.abs(r).toLocaleString("es-MX"); };
   const kilos = n => n.toFixed(1).replace(/\.0$/,"") + " kg";
 
   // Las fechas se guardan como "2026-09-24" y se leen como fecha local:
@@ -45,11 +47,27 @@ window.A = (function(){
   const proxima = () => { const h = hoy(); return calendario().find(f => f >= h) || null; };
 
   /* ---------- dinero ---------- */
+  // La cuenta va en tres pasos y en este orden: se vende, se pagan los gastos
+  // del programa, y lo que queda se parte en dos según D.reparto. La obra no
+  // avanza con la bolsa entera: avanza con su 70%.
   const totalVentas = () => D.ventas.reduce((s,v) =>
     s + v.lineas.reduce((t,l) => t + l.kg * l.precio, 0), 0);
   const totalGastos = () => D.gastos.reduce((s,g) => s + g.monto, 0);
-  const juntado = () => totalVentas() - totalGastos();
-  const avance  = () => Math.max(0, Math.min(1, juntado() / D.meta.costo));
+  const bolsa = () => totalVentas() - totalGastos();
+
+  // El reparto se hace en pesos enteros y la segunda bolsa se lleva el resto,
+  // para que las dos partes sumen exactamente lo que dice la bolsa. Si cada
+  // una se redondea por su lado, hay montos en que aparece un peso de más y
+  // una tabla que no cuadra vuelve discutible todo lo demás.
+  const REPARTO = D.reparto || {};
+  const paraObra = () => Math.round(bolsa() * (REPARTO.compartido.pct / 100));
+  const paraArea = () => Math.round(bolsa()) - paraObra();
+
+  // Lo que el área ya ejerció de su 30% y lo que le queda disponible.
+  const ejercidoArea   = () => (D.usoArea || []).reduce((s,u) => s + u.monto, 0);
+  const disponibleArea = () => paraArea() - ejercidoArea();
+
+  const avance = () => Math.max(0, Math.min(1, paraObra() / D.meta.costo));
 
   /* ---------- kilos ---------- */
   const kilosPorMaterial = () => {
@@ -102,12 +120,32 @@ window.A = (function(){
     return { lista, estKg, nJornadas };
   };
 
+  /* ---------- el reparto, dibujado ---------- */
+  // La misma barra en la portada, en las cuentas y en la presentación: si el
+  // acuerdo se explica distinto en cada página, deja de creerse.
+  const bloqueReparto = (opc) => {
+    const o = opc || {}, montos = o.montos !== false;
+    const lados = [["compartido", paraObra()], ["area", paraArea()]];
+    return `<div class="reparto">
+      <p class="rep-tit">${o.titulo || "Cada peso que queda se parte en dos"}</p>
+      <div class="rep-barra">` +
+      lados.map(([c]) => `<i class="${c}" style="width:${REPARTO[c].pct}%"><b>${REPARTO[c].pct}%</b></i>`).join("") +
+      `</div><div class="rep-pies">` +
+      lados.map(([c,m]) => `<div class="rep-p ${c}">
+        ${montos ? `<span class="q dato">${pesos(Math.max(0, m))}</span>` : ""}
+        <span class="n">${REPARTO[c].nombre}</span>
+        <span class="d">${REPARTO[c].para}</span>
+      </div>`).join("") +
+      `</div></div>`;
+  };
+
   /* ---------- barra y pie ---------- */
   // A la portada se llega por el conejo, así que no lleva su propio enlace.
   const PAGINAS = [
     { href:"index.html#materiales", nombre:"Qué se recibe" },
     { href:"participantes.html",    nombre:"Quiénes participan" },
-    { href:"cuentas.html",          nombre:"Las cuentas" }
+    { href:"cuentas.html",          nombre:"Las cuentas" },
+    { href:"presentacion.html",     nombre:"La presentación" }
   ];
 
   const barra = actual => {
@@ -161,6 +199,7 @@ window.A = (function(){
   };
 
   return { D, MAT, CLAVES, $, eti, pesos, kilos, fecha, fechaCorta, diaSemana, hoy,
-           calendario, proxima, totalVentas, totalGastos, juntado, avance,
-           kilosPorMaterial, kilosTotal, seguimiento, barra, pie };
+           calendario, proxima, totalVentas, totalGastos, bolsa,
+           paraObra, paraArea, ejercidoArea, disponibleArea, avance,
+           kilosPorMaterial, kilosTotal, seguimiento, bloqueReparto, barra, pie };
 })();

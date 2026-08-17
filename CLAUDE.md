@@ -8,14 +8,15 @@ universidad, casi siempre desde el celular.
 ## Archivos
 
 ```
-index.html          portada: obra en curso, cómo funciona, materiales, calendario
+index.html          portada: obra en curso, el reparto, cómo funciona, materiales, calendario
 participantes.html  padrón de quien tiene costal y seguimiento por persona
-cuentas.html        kilos por colecta, actas de venta, obras y fórmulas
+cuentas.html        kilos por colecta, actas de venta, el reparto, obras y fórmulas
+presentacion.html   dos mazos de láminas para proyectar y explicar el esquema
 pesaje.html         página interna: hoja de captura y cartel imprimible
 datos.js            TODOS los datos del sitio
-comun.js            barra, pie, formato y cálculos compartidos
-estilo.css          estilos de las cuatro páginas
-img/                los dibujos del conejo (jpg) y el logo del campus (png)
+comun.js            barra, pie, formato, cálculos y la barra del reparto
+estilo.css          estilos de las cinco páginas
+img/                los dibujos del conejo (jpg), el stencil y el sello (png)
 wrangler.jsonc      nombre del Worker y carpeta que se sirve en Cloudflare
 ```
 
@@ -25,13 +26,44 @@ wrangler.jsonc      nombre del Worker y carpeta que se sirve en Cloudflare
 tocan salvo que Eduardo lo pida. Si un número parece mal, se revisa el dato,
 no la fórmula.
 
+## Cómo se reparte el dinero
+
+De lo que se vende se pagan primero los gastos del programa. Lo que queda es
+la **bolsa**, y la bolsa se parte en dos:
+
+```
+bolsa = ventas − gastos
+70%  →  proyectos compartidos de las áreas comunes   (la obra en curso)
+30%  →  presupuesto del área de Sustentabilidad
+```
+
+Los dos porcentajes viven en `datos.js`, en `reparto`, y tienen que sumar 100.
+Cambiarlos ahí recalcula la portada, las cuentas y la presentación.
+
+**Lo que más fácil se rompe:** la barra de la obra sube con su 70%, no con la
+bolsa entera (`avance = paraObra ÷ meta.costo`). Contar la bolsa completa
+contra el costo hace que la página prometa una fecha que no va a cumplir.
+
+El reparto se calcula en pesos enteros y la bolsa del área se lleva el resto,
+para que las dos partes sumen exactamente lo que dice la bolsa. Una tabla que
+no cuadra por un peso vuelve discutible todo lo demás.
+
+Las obras pagadas con el 70% van en `hechas`; lo que el área ejerce de su 30%
+va en `usoArea`, con el mismo formato. Si el área gasta y no se anota, ese
+dinero queda sin rendir cuentas.
+
 ## Dónde vive y cómo se publica
 
 Repo local `/home/eduardo/proyectos/acopio-conca`, remoto
-`Campus-Conca/acopio-conca` en GitHub, rama `main`. Cloudflare Workers
-observa esa rama: al hacer push, en unos minutos queda arriba en
-`acopio-conca.campusconcauaq.workers.dev`. La misma cuenta y el mismo
-mecanismo que el sitio de la Franja Libre.
+`Campus-Conca/acopio-conca` en GitHub, rama `main`.
+
+El sitio en vivo lo sirve **GitHub Pages** desde la raíz de `main`:
+<https://campus-conca.github.io/acopio-conca/>. Al hacer push queda arriba en
+un par de minutos, sin más trámite.
+
+Queda pendiente lo de Cloudflare Workers (`acopio-conca.campusconcauaq.workers.dev`,
+definido en `wrangler.jsonc`): esa conexión nunca se terminó de hacer en el
+panel. Mientras tanto, la dirección buena es la de Pages.
 
 **Ojo:** el push necesita la cuenta de GitHub `pas-web`
 (`gh auth switch -u pas-web`); la cuenta habitual `eduardolusan-source` no
@@ -69,8 +101,9 @@ formatos.
 
 Etiquetas válidas: `administrativo`, `docente`, `prepa`, `pas`, `agro`.
 
-**Gastos del programa** en `gastos` y **obras terminadas** en `hechas`, con el
-mismo formato comentado en el archivo.
+**Gastos del programa** en `gastos`, **obras terminadas** en `hechas` y **lo
+que ejerció el área de su 30%** en `usoArea`, con el mismo formato comentado
+en el archivo.
 
 **Si cambia quién entrega los costales**: `costal.quien`, `costal.whatsapp`
 (el número va sin signos, con lada de país: `5214424052714`) y `costal.mensaje`,
@@ -78,6 +111,35 @@ que es el texto que llega escrito en WhatsApp.
 
 **Nuevo semestre**: se cambian `entrega.inicio` y `entrega.fin`. El calendario
 completo y la fecha del botón de la portada se recalculan solos.
+
+## La presentación
+
+`presentacion.html` son dos mazos de láminas: el primero explica el esquema
+completo en diez minutos (salón, academia, asamblea) y el segundo son las
+cuentas de cerca, para quien pregunta por el dinero. Se leen en la página
+como un guion o se proyectan con el botón **Presentar**: flechas o espacio
+avanzan, `A` esconde el texto de apoyo, `N` muestra las notas de quien
+conduce, `Esc` sale. La portada de cada mazo la arma solo el telón con la
+cabecera del mazo.
+
+Las láminas **no traen números escritos a mano**: precios, fechas, meta,
+avance y montos del reparto se leen de `datos.js` al abrir la página. Por eso
+la presentación no envejece, y por eso al agregar una lámina con cifras hay
+que llenarla desde el script, no teclearla en el HTML.
+
+Cuidado con los nombres de clase dentro de una lámina: el telón clona la
+lámina al escenario, así que una clase repetida (`.sigue`, por ejemplo, que
+el calendario usa para marcar la próxima fecha) puede robarle el nombre a un
+control. Los botones del telón llevan prefijo `t-` por eso.
+
+## Los dibujos
+
+`img/conejo.png` es el stencil del campus y `img/embajadores.png` el sello de
+los Embajadores del Reciclaje. Los dos son PNG de dos tintas con fondo
+transparente, en el color `--tinta` (#16221C), sacados de una foto del
+stencil de papel: se recorta el marco, se binariza y se colorea. Sobre fondo
+oscuro se invierten con `filter:invert(1) brightness(1.6)`, que es lo que ya
+hacen la barra y el pie.
 
 ## No hacer
 
@@ -97,5 +159,6 @@ grupo de personas antes de la primera colecta del 24 de septiembre.
 ## Cómo probar antes de subir cambios
 
 Abrir `index.html` directamente en el navegador — funciona sin servidor.
-Revisar las cuatro páginas, que la consola no tire errores, y verlas en un
-ancho de 390 px, que es como las va a ver casi todo mundo.
+Revisar las cinco páginas, que la consola no tire errores, y verlas en un
+ancho de 390 px, que es como las va a ver casi todo mundo. En la presentación,
+abrir los dos mazos y llegar hasta la última lámina de cada uno.

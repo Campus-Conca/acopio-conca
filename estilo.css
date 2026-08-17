@@ -190,10 +190,45 @@ h2.tit{
 .fechas span.pasada{opacity:.42;text-decoration:line-through}
 .fechas span.sigue{background:var(--cempa);border-color:var(--cempa);font-weight:700}
 
+/* ---------- el reparto: 70 para todos, 30 para el área ---------- */
+/* La misma barra en la portada, en las cuentas y en la presentación. */
+.reparto{margin-top:18px;background:var(--papel);border:2px solid var(--tinta);padding:clamp(14px,2.4vw,22px)}
+.rep-tit{margin:0 0 .75rem;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--tinta-60)}
+.rep-barra{display:flex;height:36px;border:2px solid var(--tinta)}
+.rep-barra i{display:flex;align-items:center;justify-content:center;font-style:normal;min-width:0}
+.rep-barra i b{font-family:var(--mono);font-size:.9rem;font-weight:700;letter-spacing:-.01em}
+.rep-barra .compartido{background:var(--cempa);color:var(--tinta)}
+.rep-barra .area{background:var(--encino);color:var(--cal);border-left:2px solid var(--tinta)}
+.rep-pies{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:1rem}
+.rep-p{display:flex;flex-direction:column;padding-left:.8rem;border-left:5px solid var(--cempa)}
+.rep-p.area{border-left-color:var(--encino)}
+.rep-p .q{font-family:var(--mono);font-size:clamp(1.2rem,2.4vw,1.6rem);font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.rep-p .n{font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;font-weight:700;color:var(--tinta-60)}
+.rep-p .d{font-size:.86rem;color:var(--tinta-60);margin-top:.3rem}
+@media (max-width:600px){.rep-pies{grid-template-columns:1fr}}
+
+/* el sello de embajadores */
+.cabeza-sello{display:grid;grid-template-columns:1fr auto;gap:clamp(14px,4vw,40px);align-items:center}
+.sello-suelto{width:clamp(92px,14vw,160px);height:auto}
+@media (max-width:640px){
+  .cabeza-sello{grid-template-columns:1fr;justify-items:start}
+  .sello-suelto{width:104px}
+}
+
 /* la banda del costal */
-.banda{background:var(--encino);color:var(--cal);padding:clamp(18px,3vw,28px)}
+.banda{background:var(--encino);color:var(--cal);padding:clamp(18px,3vw,28px);
+  display:grid;grid-template-columns:1fr auto;gap:clamp(16px,3vw,34px);align-items:center}
+.banda-txt{min-width:0}
 .banda h3{margin:0 0 .4rem;font-size:clamp(1.2rem,2.6vw,1.6rem);letter-spacing:-.02em}
 .banda p{margin:0;max-width:56ch;color:#DCE4DC}
+.sello{margin:0;text-align:center;max-width:200px}
+.sello img{width:clamp(112px,15vw,168px);height:auto;display:block;margin:0 auto;filter:invert(1) brightness(1.6)}
+.sello figcaption{margin-top:.6rem;font-size:.74rem;line-height:1.4;color:#B9C9BC}
+@media (max-width:640px){
+  .banda{grid-template-columns:1fr}
+  .sello{max-width:none}
+  .sello figcaption{max-width:34ch;margin-inline:auto}
+}
 .banda .wa{display:inline-block;margin-top:1.1rem;background:var(--cempa);color:var(--tinta);
   text-decoration:none;font-weight:700;font-size:.76rem;letter-spacing:.09em;text-transform:uppercase;
   padding:.62rem 1.1rem;border:1.5px solid var(--cempa)}
@@ -344,6 +379,103 @@ td.dato,th.dato{font-family:var(--mono);font-variant-numeric:tabular-nums}
   .mats,.hechas,.padron{grid-template-columns:1fr}
   .cartel{aspect-ratio:3/4}
 }
+
+/* ---------- la presentación ---------- */
+/* Cada bloque es un .mazo: cabecera y láminas .lam. En la página se leen
+   como un guion; el botón Presentar las abre de una en una a pantalla
+   completa. Los números salen de datos.js, así que no envejecen. */
+/* Un mazo y una lámina son <section>, así que hay que quitarles el trato de
+   sección de página que da la regla de arriba: ni su relleno ni su raya. */
+section.mazo{border:2px solid var(--tinta);background:var(--papel);
+  margin-bottom:22px;padding:0;scroll-margin-top:calc(var(--nav) + 8px)}
+.mazo-cabeza{background:var(--tinta);color:var(--cal);padding:1rem 1.15rem;
+  display:flex;flex-wrap:wrap;gap:.9rem 1.2rem;align-items:center;justify-content:space-between}
+.mazo-cabeza .cuando{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:#9FB0A2;font-weight:700}
+.mazo-cabeza h3{margin:.2rem 0 .25rem;font-size:clamp(1.15rem,2.4vw,1.5rem);letter-spacing:-.02em}
+.mazo-cabeza .foco{margin:0;font-size:.92rem;color:#C3D2C6;max-width:52ch}
+.btn-presentar{font:inherit;font-weight:700;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;
+  background:var(--cempa);color:var(--tinta);border:1.5px solid var(--cempa);
+  padding:.6rem 1.05rem;min-height:44px;cursor:pointer;flex:0 0 auto}
+.btn-presentar:hover{background:transparent;color:var(--cal);border-color:var(--cal)}
+.mazo-cuerpo{padding:clamp(12px,2vw,18px);display:grid;gap:12px}
+
+section.lam{background:var(--cal);border:1px solid var(--linea);padding:1.1rem 1.2rem 1.25rem}
+.lam>h4{margin:0 0 .55rem;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--tinta-60);
+  font-weight:700;display:flex;align-items:baseline;gap:.6rem}
+.lam>h4 .n{font-family:var(--mono);font-size:1.1rem;font-weight:700;color:var(--cempa);letter-spacing:-.02em}
+.lam .di{margin:0;font-size:clamp(1.2rem,2.8vw,1.7rem);font-weight:800;letter-spacing:-.025em;
+  line-height:1.12;text-wrap:balance}
+.lam .apoyo{margin:.7rem 0 0;font-size:.95rem;color:var(--tinta-60);max-width:70ch}
+.lam ul{margin:.75rem 0 0;padding-left:1.15rem;color:var(--tinta-60);font-size:.95rem;max-width:70ch}
+.lam li{margin:.32rem 0}
+.lam li b{color:var(--tinta)}
+.lam .reparto{margin-top:1rem}
+.lam .fechas{margin-top:.9rem}
+.lam-img{display:block;margin:1rem auto 0;max-height:34vh;width:auto}
+.lam.lam--oscura{background:var(--tinta);color:var(--cal);border-color:var(--tinta)}
+.lam--oscura>h4{color:#9FB0A2}
+.lam--oscura .apoyo,.lam--oscura ul{color:#C3D2C6}
+.lam--oscura li b{color:var(--cal)}
+.lam--centro{text-align:center}
+.lam--centro .apoyo{margin-inline:auto}
+.lam .nota-conductor{margin:1rem 0 0;background:var(--papel);border-left:5px solid var(--barro);
+  padding:.7rem .9rem;font-size:.86rem;color:var(--tinta-60)}
+.lam--oscura .nota-conductor{background:#22332B;color:#C3D2C6}
+.lam .nota-conductor::before{content:"Para quien conduce · ";font-weight:700;font-size:.64rem;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--barro)}
+
+/* los cuatro materiales, en versión lámina */
+.lam-mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:10px;margin-top:1rem}
+.lm{background:var(--papel);border:1px solid var(--linea);border-top:5px solid var(--c);
+  padding:.7rem .8rem;display:flex;flex-direction:column}
+.lm b{font-size:1rem;letter-spacing:-.01em}
+.lm span{font-size:.8rem;color:var(--tinta-60);margin-top:.1rem}
+.lm em{font-style:normal;font-family:var(--mono);font-weight:700;font-size:1.15rem;margin-top:.35rem}
+
+/* números grandes de una lámina */
+.lam-cifras{display:flex;flex-wrap:wrap;gap:1rem 2rem;margin-top:1rem}
+.lam-cifras div{display:flex;flex-direction:column}
+.lam-cifras .q{font-family:var(--mono);font-size:clamp(1.5rem,3.4vw,2.2rem);font-weight:700;letter-spacing:-.03em;line-height:1}
+.lam-cifras .e{font-size:.68rem;letter-spacing:.11em;text-transform:uppercase;color:var(--tinta-60);font-weight:700;margin-top:.2rem}
+.lam--oscura .lam-cifras .q{color:var(--cempa)}
+.lam--oscura .lam-cifras .e{color:#9FB0A2}
+
+/* el telón: una lámina a la vez, a pantalla completa */
+#telon{position:fixed;inset:0;z-index:90;background:var(--cal);display:none}
+#telon.abierto{display:flex;flex-direction:column}
+html.telon-abierto{overflow:hidden}
+#telon .escenario{flex:1;overflow:auto;padding:clamp(14px,3vw,40px);display:flex}
+#telon .escenario>.lam{margin:auto;width:100%;max-width:1200px;min-height:min(74vh,100%);
+  border-width:2px;padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+#telon .escenario>.lam>h4{font-size:.92rem}
+#telon .escenario>.lam>h4 .n{font-size:1.7rem}
+#telon .escenario>.lam .di{font-size:clamp(1.9rem,4.8vw,3.4rem)}
+#telon .escenario>.lam .apoyo{font-size:clamp(1.05rem,1.7vw,1.4rem)}
+#telon .escenario>.lam ul{font-size:clamp(1.05rem,1.6vw,1.35rem)}
+#telon .escenario>.lam .lam-img{max-height:42vh}
+#telon .escenario>.lam .lm b{font-size:clamp(1.05rem,1.7vw,1.4rem)}
+#telon .escenario>.lam .lm em{font-size:clamp(1.2rem,2.2vw,1.7rem)}
+#telon .escenario>.lam .lm span{font-size:clamp(.86rem,1.2vw,1.05rem)}
+#telon .escenario>.lam .rep-p .d{font-size:clamp(.9rem,1.3vw,1.1rem)}
+#telon .escenario>.lam .fechas span{font-size:clamp(.85rem,1.3vw,1.05rem)}
+#telon.sin-apoyo .apoyo{display:none}
+#telon .nota-conductor{display:none}
+#telon.con-notas .nota-conductor{display:block}
+
+.lam.lam--portada{background:var(--tinta);color:var(--cal);border-color:var(--tinta);text-align:left}
+.lam--portada .cuando{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cempa);font-weight:700}
+.lam--portada h3{margin:.6rem 0 .5rem;font-size:clamp(2rem,6vw,4rem);letter-spacing:-.035em;line-height:.95;font-weight:800}
+.lam--portada .foco{margin:0;font-size:clamp(1.05rem,2vw,1.5rem);color:#C3D2C6}
+.lam--portada img{width:clamp(70px,9vw,120px);margin-bottom:1.2rem;filter:invert(1) brightness(1.6)}
+
+#telon .barra-t{display:flex;align-items:center;gap:.55rem;background:var(--tinta);color:var(--cal);
+  padding:.5rem clamp(10px,2vw,20px)}
+#telon .barra-t button{font:inherit;font-weight:700;font-size:.8rem;background:transparent;color:var(--cal);
+  border:1.5px solid #4C5F54;padding:.42rem .85rem;min-height:42px;min-width:46px;cursor:pointer}
+#telon .barra-t button:hover{border-color:var(--cempa);color:var(--cempa)}
+#telon .cont{font-family:var(--mono);font-size:.84rem;color:#9FB0A2;margin-left:.3rem}
+#telon .pista{margin-left:auto;font-size:.72rem;color:#9FB0A2}
+@media (max-width:760px){#telon .pista{display:none}}
 
 /* vacíos */
 .vacio{background:var(--papel);border:1px dashed var(--linea);padding:1.4rem;color:var(--tinta-60);font-size:.94rem}

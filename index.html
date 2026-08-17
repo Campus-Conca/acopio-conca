@@ -70,13 +70,14 @@
         </svg>
       </div>
       <div class="cifras">
-        <div class="cifra"><span class="n alza dato" id="c-juntado">$0</span><span class="l">Juntado</span></div>
+        <div class="cifra"><span class="n alza dato" id="c-obra">$0</span><span class="l">Para esta obra</span></div>
         <div class="cifra"><span class="n dato" id="c-costo">$0</span><span class="l">Cuesta</span></div>
         <div class="cifra"><span class="n dato" id="c-pct">0%</span><span class="l">Avance</span></div>
         <div class="cifra"><span class="n dato" id="c-kilos">0 kg</span><span class="l">Acopiados</span></div>
       </div>
       <p class="faltan" id="faltan"></p>
     </div>
+    <div id="reparto"></div>
   </div>
 </section>
 
@@ -90,10 +91,16 @@
 <section id="costal">
   <div class="wrap">
     <div class="banda">
-      <h3>Pedir tu costal</h3>
-      <p id="costal-txt"></p>
-      <a class="wa" id="costal-wa" target="_blank" rel="noopener">Pedirlo por WhatsApp</a>
-      <p class="quien" id="costal-quien"></p>
+      <div class="banda-txt">
+        <h3>Pedir tu costal</h3>
+        <p id="costal-txt"></p>
+        <a class="wa" id="costal-wa" target="_blank" rel="noopener">Pedirlo por WhatsApp</a>
+        <p class="quien" id="costal-quien"></p>
+      </div>
+      <figure class="sello">
+        <img src="img/embajadores.png" alt="Sello: Embajadores del Reciclaje">
+        <figcaption>Con el costal en la mano ya eres parte. Así se firma cada colecta.</figcaption>
+      </figure>
     </div>
   </div>
 </section>
@@ -132,8 +139,8 @@
 <script src="comun.js"></script>
 <script>
 (function(){
-  const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana,
-          calendario, proxima, juntado, avance, kilosTotal } = A;
+  const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
+          bolsa, paraObra, avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("index.html");
 
@@ -146,15 +153,18 @@
   $("#fuera").textContent = D.fuera;
 
   /* obra */
-  const jun = juntado(), pct = avance();
-  $("#c-juntado").textContent = pesos(Math.max(0, jun));
+  // La barra de la obra sube con su 70%, no con la bolsa entera.
+  const obra = paraObra(), pct = avance();
+  $("#c-obra").textContent = pesos(Math.max(0, obra));
   $("#c-costo").textContent = pesos(D.meta.costo);
   $("#c-kilos").textContent = kilos(kilosTotal());
   $("#c-pct").textContent = Math.round(pct*100) + "%";
-  const falta = Math.max(0, D.meta.costo - jun);
-  $("#faltan").textContent = jun <= 0
+  const falta = Math.max(0, D.meta.costo - obra);
+  $("#faltan").textContent = bolsa() <= 0
     ? "Todavía no arranca. Sube con la primera venta."
-    : (falta > 0 ? "Faltan " + pesos(falta) + "." : "Ya está pagada.");
+    : (falta > 0 ? "Faltan " + pesos(falta) + " para esta obra." : "Ya está pagada.");
+
+  $("#reparto").innerHTML = bloqueReparto();
 
   const regla = $("#regla");
   regla.innerHTML = D.meta.hitos.map(h =>
@@ -197,7 +207,8 @@
     ["01","bolsa", "Separas en casa","Una bolsa aparte para lo que vale."],
     ["02","fecha", "Lo traes el jueves","Cada quince días, en " + e.lugar + "."],
     ["03","pesa",  "Se pesa frente a todos","Báscula, libreta y firma, a las " + e.pesaje + "."],
-    ["04","dinero","Se vende y se compra","El dinero no sale del campus."]
+    ["04","dinero","Se vende y se reparte", D.reparto.compartido.pct + "% a obras de todos, " +
+                                            D.reparto.area.pct + "% al área. Nada sale del campus."]
   ].map(([n,i,t,p]) => `<div class="paso">
       <div class="cab"><span class="ico">${dibujo(ICO[i])}</span><span class="n">${n}</span></div>
       <h3>${t}</h3><p>${p}</p></div>`).join("");

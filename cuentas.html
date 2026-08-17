@@ -13,7 +13,7 @@
   <div class="wrap">
     <p class="eyebrow">Acopio Concá</p>
     <h1>Las<em>cuentas</em></h1>
-    <p class="bajada">Lo que se juntó, en cuánto se vendió y en qué se convirtió. Los mismos números que quedaron firmados en la libreta.</p>
+    <p class="bajada">Lo que se juntó, en cuánto se vendió, cómo se repartió y en qué se convirtió. Los mismos números que quedaron firmados en la libreta.</p>
   </div>
 </header>
 
@@ -36,10 +36,30 @@
   </div>
 </section>
 
+<section id="reparto-sec">
+  <div class="wrap">
+    <h2 class="tit">Cómo se reparte</h2>
+    <p class="sub">Lo que queda después de los gastos no va todo a la misma bolsa. Es un acuerdo, no una fórmula: se puede discutir, pero mientras esté vigente se cumple y se publica.</p>
+    <div id="reparto"></div>
+  </div>
+</section>
+
 <section id="obras">
   <div class="wrap">
     <h2 class="tit">Lo que ya se hizo</h2>
+    <p class="sub" id="sub-obras"></p>
     <div class="hechas" id="hechas"></div>
+  </div>
+</section>
+
+<section id="area">
+  <div class="wrap">
+    <h2 class="tit">En qué se fue el 30% del área</h2>
+    <p class="sub" id="sub-area"></p>
+    <div class="hechas" id="uso-area"></div>
+    <div class="tabla-caja" style="margin-top:14px">
+      <table><caption>Bolsa del área de Sustentabilidad</caption><tbody id="caja-area"></tbody></table>
+    </div>
   </div>
 </section>
 
@@ -47,8 +67,10 @@
   <div class="wrap">
     <h2 class="tit">Cómo se calcula</h2>
     <div class="calc">
-      <p><b>Juntado.</b> Ventas menos gastos del programa. <span class="formula">juntado = ventas − gastos</span></p>
-      <p><b>Avance.</b> Lo juntado entre lo que cuesta la obra. <span class="formula">avance = juntado ÷ costo</span></p>
+      <p><b>Bolsa.</b> Ventas menos gastos del programa. Es lo que queda por repartir. <span class="formula">bolsa = ventas − gastos</span></p>
+      <p><b>El reparto.</b> De esa bolsa, el 70% se va a los proyectos compartidos y el 30% al presupuesto del área. <span class="formula" id="f-reparto"></span></p>
+      <p><b>Avance de la obra.</b> No sube con la bolsa entera, sube con su 70%. <span class="formula">avance = compartido ÷ costo</span></p>
+      <p><b>Disponible del área.</b> Su 30% menos lo que ya ejerció. <span class="formula">disponible = área − ejercido</span></p>
       <p><b>Por colecta.</b> Los kilos de la persona entre las colectas que hubo, no entre las que vino.</p>
     </div>
   </div>
@@ -60,7 +82,8 @@
 <script src="comun.js"></script>
 <script>
 (function(){
-  const { D, CLAVES, MAT, $, pesos, fecha, totalVentas, totalGastos, juntado,
+  const { D, CLAVES, MAT, $, pesos, fecha, totalVentas, totalGastos, bolsa,
+          paraObra, paraArea, ejercidoArea, disponibleArea, bloqueReparto,
           kilosPorMaterial, kilosTotal } = A;
   A.barra("cuentas.html");
 
@@ -94,17 +117,39 @@
     </article>`;
   }).join("") : `<div class="vacio">Todavía no hay ventas. Cada acta se publica el día que sale el material de la bodega.</div>`;
 
+  const rc = D.reparto.compartido, ra = D.reparto.area;
+
   $("#resumen").innerHTML = `
     <tr><td>Ventas</td><td class="dato">${pesos(totalVentas())}</td></tr>
     ${D.gastos.length ? D.gastos.map(g => `<tr><td>${g.concepto}</td><td class="dato">−${pesos(g.monto)}</td></tr>`).join("")
       : `<tr><td>Gastos del programa</td><td class="dato">${pesos(0)}</td></tr>`}
-    <tr><td><b>Juntado</b></td><td class="dato"><b>${pesos(juntado())}</b></td></tr>`;
+    <tr><td><b>Bolsa por repartir</b></td><td class="dato"><b>${pesos(bolsa())}</b></td></tr>
+    <tr><td>${rc.pct}% · ${rc.nombre}</td><td class="dato">${pesos(paraObra())}</td></tr>
+    <tr><td>${ra.pct}% · ${ra.nombre}</td><td class="dato">${pesos(paraArea())}</td></tr>`;
 
-  /* obras */
+  /* el reparto, con la misma barra que la portada */
+  $("#reparto").innerHTML = bloqueReparto();
+  $("#f-reparto").textContent =
+    `compartido = bolsa × ${rc.pct}%   ·   área = bolsa × ${ra.pct}%`;
+
+  /* obras del 70% */
+  $("#sub-obras").textContent =
+    `Con el ${rc.pct}% compartido. ${rc.para}`;
   $("#hechas").innerHTML = D.hechas.length
     ? D.hechas.map(h => `<div class="hecha"><p class="n">${h.nombre}</p>
         <p class="m">${pesos(h.monto)}</p><p class="f">${h.fecha}</p></div>`).join("")
     : `<div class="vacio">La primera es la que está en curso.</div>`;
+
+  /* el 30% del área */
+  $("#sub-area").textContent = ra.para;
+  $("#uso-area").innerHTML = (D.usoArea || []).length
+    ? D.usoArea.map(u => `<div class="hecha"><p class="n">${u.nombre}</p>
+        <p class="m">${pesos(u.monto)}</p><p class="f">${u.fecha}</p></div>`).join("")
+    : `<div class="vacio">El área todavía no gasta nada de su bolsa. Cuando lo haga, aparece aquí con nombre, monto y fecha, igual que las obras.</div>`;
+  $("#caja-area").innerHTML = `
+    <tr><td>Le tocó (${ra.pct}%)</td><td class="dato">${pesos(paraArea())}</td></tr>
+    <tr><td>Ya ejerció</td><td class="dato">−${pesos(ejercidoArea())}</td></tr>
+    <tr><td><b>Disponible</b></td><td class="dato"><b>${pesos(disponibleArea())}</b></td></tr>`;
 
   A.pie();
 })();

@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>La presentación · Acopio Concá</title>
+<meta name="description" content="El esquema completo del acopio del Campus Concá explicado en láminas: qué se recibe, cómo se pesa, cómo se reparte el dinero y cómo se rinden las cuentas.">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+
+<header class="cabeza">
+  <div class="wrap">
+    <p class="eyebrow">Acopio Concá</p>
+    <h1>La<em>presentación</em></h1>
+    <p class="bajada">Para explicar el esquema completo en un salón, una academia o una asamblea. Los números que salen en las láminas son los de hoy: se leen del mismo archivo que el resto del sitio, así que no envejecen.</p>
+  </div>
+</header>
+
+<main>
+
+<section id="mazos">
+  <div class="wrap">
+    <h2 class="tit">Dos mazos</h2>
+    <p class="sub">El primero es la explicación completa y alcanza en diez minutos. El segundo es para cuando alguien pregunta por el dinero en serio. Se leen aquí como un guion, o se proyectan con el botón <b>Presentar</b>: una lámina a la vez, a pantalla completa.</p>
+    <p class="nota" style="margin:-1.2rem 0 1.8rem">Flechas o barra espaciadora avanzan · <b>A</b> esconde el texto de apoyo · <b>N</b> muestra las notas de quien conduce · <b>Esc</b> sale.</p>
+
+    <!-- ============ MAZO 1 ============ -->
+    <section class="mazo" id="completo">
+      <div class="mazo-cabeza">
+        <div>
+          <div class="cuando">Para el salón, la academia o la asamblea · 10 minutos</div>
+          <h3>El acopio, de principio a fin</h3>
+          <p class="foco">De la lata que ibas a tirar a la banca que se va a quedar.</p>
+        </div>
+        <button class="btn-presentar" type="button">Presentar ▸</button>
+      </div>
+      <div class="mazo-cuerpo">
+
+        <section class="lam lam--oscura">
+          <h4><span class="n">1</span> La idea</h4>
+          <p class="di">Lo que separamos, lo construimos.</p>
+          <p class="apoyo">Todos los días salen del campus latas, botellas y envases que valen dinero. Ese dinero hoy se va en el camión de la basura. La propuesta cabe en una línea: separarlo, pesarlo a la vista de todos, venderlo, y que lo que deje se quede aquí adentro.</p>
+          <p class="nota-conductor">Arranca preguntando qué hicieron ayer con su última lata vacía. No corrijas a nadie: nomás escucha dos o tres respuestas. La lámina que sigue contesta sola.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">2</span> Qué se recibe</h4>
+          <p class="di">Cuatro cosas. Ni una más.</p>
+          <div class="lam-mats" id="l-mats"></div>
+          <p class="apoyo" id="l-fuera"></p>
+          <p class="nota-conductor">Los precios son de referencia y se mueven cada mes con el mercado; los que ves en pantalla son los que están cargados hoy en el sitio. Si alguien pregunta por el vidrio o el cartón, contesta que sí se separan en el campus pero no entran en este programa, y sigue.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">3</span> Cómo tiene que llegar</h4>
+          <p class="di">Limpio, seco y separado.</p>
+          <p class="apoyo">Una lata con refresco adentro moja todo lo demás y le baja el precio al costal completo. Enjuagar tarda tres segundos y es la diferencia entre material y basura mojada.</p>
+          <img class="lam-img" src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
+          <p class="nota-conductor">Esta es la lámina que de verdad cambia la conducta. Detente aquí más que en ninguna otra: si el material llega sucio, el programa entero se vuelve trabajo de más para quien pesa.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">4</span> Cuándo y dónde</h4>
+          <p class="di" id="l-cuando">Por confirmar</p>
+          <p class="apoyo" id="l-donde"></p>
+          <div class="fechas" id="l-fechas"></div>
+          <p class="nota-conductor">Que salgan de la sala con la fecha en el celular, no en la cabeza. Diles que la pongan de una vez con alarma del día anterior; la primera colecta se cae siempre por olvido, no por falta de ganas.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">5</span> El pesaje</h4>
+          <p class="di">Se pesa frente a todos.</p>
+          <p class="apoyo" id="l-pesaje"></p>
+          <ul>
+            <li>Tus kilos se anotan <b>con tu nombre</b> en la libreta.</li>
+            <li>Lo mismo que se firmó ese día es lo que se publica en la página.</li>
+            <li>Si un número no cuadra, se dice en la coordinación y se corrige.</li>
+          </ul>
+          <p class="nota-conductor">Aquí es donde se gana la confianza: nadie tiene que creer nada, todo está escrito y firmado. Si puedes, lleva la libreta a la sesión y enséñala.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">6</span> El reparto</h4>
+          <p class="di" id="l-rep-di">De cada peso, una parte para todos y otra para el área.</p>
+          <div id="l-reparto"></div>
+          <p class="apoyo">Primero se pagan los gastos del programa —costales, báscula, lo que haga falta para operar—. Lo que queda se parte en dos, y las dos partes se publican.</p>
+          <p class="nota-conductor">Esta es la lámina clave y es donde se cae o se sostiene la confianza. Di los dos destinos completos y no te saltes el 30: es el que paga los costales y la báscula que hacen posible el otro 70. Si alguien alega, la respuesta honesta es que es un acuerdo, no una ley: se puede discutir, y mientras esté vigente se cumple y se publica.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">7</span> El 70% compartido</h4>
+          <p class="di" id="l-obra">Obra en curso</p>
+          <div class="lam-cifras" id="l-obra-cifras"></div>
+          <p class="apoyo" id="l-obra-txt"></p>
+          <p class="nota-conductor">Que la obra se vea. Si la sala tiene ventana hacia la explanada, señálala. El chiste de este programa es que el resultado se pueda tocar, no que salga en un informe.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">8</span> El 30% del área</h4>
+          <p class="di">El otro 30 es el presupuesto del área.</p>
+          <p class="apoyo" id="l-area-txt"></p>
+          <ul>
+            <li>Sin costales y sin báscula no hay colecta: eso es lo que ese 30 sostiene.</li>
+            <li>También se rinde: cada gasto aparece en la página con <b>nombre, monto y fecha</b>, igual que las obras.</li>
+          </ul>
+          <p class="nota-conductor">Si alguien pregunta si es dinero para sueldos, contesta claro que no: es para lo que se compra y se usa. Y remátalo con que está publicado renglón por renglón en la página de cuentas.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">9</span> Las cuentas están abiertas</h4>
+          <p class="di">Todo esto se puede revisar sin pedir permiso.</p>
+          <ul>
+            <li><b>Kilos por colecta</b>, material por material.</li>
+            <li><b>Actas de venta</b>: comprador, kilos, precio y firma.</li>
+            <li><b>El padrón</b>: quién tiene costal y cómo va cada quien.</li>
+            <li><b>El reparto</b> y en qué se fue cada bolsa.</li>
+          </ul>
+          <p class="apoyo">Está en la pestaña “Las cuentas” de esta misma página, y se actualiza el mismo día del pesaje.</p>
+          <p class="nota-conductor">Ábrela en vivo si hay proyector y conexión. Vale más treinta segundos de página real que tres láminas prometiendo transparencia.</p>
+        </section>
+
+        <section class="lam lam--centro">
+          <h4><span class="n">10</span> Cómo le entras</h4>
+          <p class="di">Pides tu costal y ya estás dentro.</p>
+          <img class="lam-img" src="img/embajadores.png" alt="Sello: Embajadores del Reciclaje">
+          <p class="apoyo" id="l-costal"></p>
+          <p class="nota-conductor">No cierres sin que alguien lo pida ahí mismo. Un costal entregado en la sala vale más que veinte personas convencidas que se van sin nada en la mano.</p>
+        </section>
+
+        <section class="lam lam--oscura lam--centro">
+          <h4><span class="n">11</span> Cierre</h4>
+          <img class="lam-img" src="img/conejo.png" alt="">
+          <p class="di">Lo que separamos, lo construimos.</p>
+          <p class="apoyo" id="l-cierre"></p>
+        </section>
+
+      </div>
+    </section>
+
+    <!-- ============ MAZO 2 ============ -->
+    <section class="mazo" id="cuentas-cerca">
+      <div class="mazo-cabeza">
+        <div>
+          <div class="cuando">Para profes, áreas y quien pregunte por el dinero · 5 minutos</div>
+          <h3>Las cuentas, de cerca</h3>
+          <p class="foco">La misma historia, pero con la calculadora en la mano.</p>
+        </div>
+        <button class="btn-presentar" type="button">Presentar ▸</button>
+      </div>
+      <div class="mazo-cuerpo">
+
+        <section class="lam">
+          <h4><span class="n">1</span> La cuenta, en tres pasos</h4>
+          <p class="di">Se vende, se pagan los gastos, y lo que queda se parte.</p>
+          <ul>
+            <li><b>Ventas.</b> Kilos por precio, acta por acta, con firma de quien compró.</li>
+            <li><b>Gastos del programa.</b> Salen de la bolsa completa, antes de partirla.</li>
+            <li><b>El reparto.</b> Lo que queda se divide entre las dos bolsas.</li>
+          </ul>
+          <p class="apoyo" id="l2-formula"></p>
+          <p class="nota-conductor">El orden importa y conviene decirlo despacio: los gastos se pagan antes del reparto, así que las dos bolsas se achican parejo cuando hay que comprar costales. Nadie subsidia a nadie.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">2</span> El reparto, con los números de hoy</h4>
+          <div id="l2-reparto"></div>
+          <p class="apoyo" id="l2-bolsa"></p>
+          <p class="nota-conductor">Si la bolsa todavía está en ceros, dilo sin rodeos: el programa apenas arranca y los ceros también son cuentas claras. Vale más un cero publicado que un estimado bonito.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">3</span> La obra no avanza con la bolsa entera</h4>
+          <p class="di">La barra de la portada sube con el 70%, no con todo.</p>
+          <div class="lam-cifras" id="l2-obra"></div>
+          <p class="apoyo">Es la confusión más fácil de cometer y la más cara: si se cuenta la bolsa completa contra el costo de la obra, la página promete una fecha que no va a cumplir.</p>
+          <p class="nota-conductor">Este es el detalle técnico que hay que cuidar cuando alguien más tome la página. Está escrito en el archivo de datos y en las notas del repositorio.</p>
+        </section>
+
+        <section class="lam lam--oscura">
+          <h4><span class="n">4</span> Las reglas que no se rompen</h4>
+          <p class="di">Cuatro, y son las que sostienen todo lo demás.</p>
+          <ul>
+            <li>No se inventa ni se estima <b>ningún número</b>: cada cifra pasó por la báscula y por la libreta.</li>
+            <li>Nadie se borra del padrón por no haber traído nada. Quien no trajo, <b>aparece con cero</b>.</li>
+            <li>Los precios los pone <b>quien compra</b>, no nosotros.</li>
+            <li>Solo esos cuatro materiales, aunque sobre espacio en el costal.</li>
+          </ul>
+          <p class="nota-conductor">Si te preguntan por qué aparecen los ceros, la respuesta es que esconderlos volvería inútil el seguimiento: no es una lista de honor, es una libreta.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">5</span> Qué se necesita de tu área</h4>
+          <p class="di">Tres cosas, y ninguna cuesta dinero.</p>
+          <ul>
+            <li>Que pidas tu costal y lo uses. El ejemplo del profe arrastra más que el cartel.</li>
+            <li>Diez minutos de tu grupo para pasar el primer mazo.</li>
+            <li>Recordar la fecha en voz alta la semana de la colecta.</li>
+          </ul>
+          <p class="apoyo" id="l2-cierre"></p>
+          <p class="nota-conductor">Cierra pidiendo algo concreto y con fecha. Un “sí, luego lo vemos” de academia es un no con buenos modales.</p>
+        </section>
+
+      </div>
+    </section>
+
+  </div>
+</section>
+
+</main>
+
+<script src="datos.js"></script>
+<script src="comun.js"></script>
+<script>
+(function(){
+  const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
+          bolsa, paraObra, paraArea, avance, kilosTotal, bloqueReparto } = A;
+
+  A.barra("presentacion.html");
+
+  const e = D.entrega, c = D.costal;
+  const rc = D.reparto.compartido, ra = D.reparto.area;
+
+  /* ---- mazo 1 ---- */
+  $("#l-mats").innerHTML = D.materiales.map(m => `
+    <div class="lm" style="--c:${m.color}">
+      <b>${m.nombre}</b><span>${m.condicion}</span><em>$${m.precio}/kg</em>
+    </div>`).join("");
+  $("#l-fuera").textContent = D.fuera;
+
+  const sig = proxima(), hoy = A.hoy();
+  $("#l-cuando").textContent = sig
+    ? diaSemana(sig) + " " + fecha(sig).replace(/ de \d{4}$/,"") + ", en " + e.lugar + "."
+    : "La próxima fecha está por confirmar.";
+  $("#l-donde").textContent = "De " + e.horario + ". Cada " + e.cadaDias +
+    " días, en jueves, hasta cerrar el semestre. Estas son todas las fechas:";
+  $("#l-fechas").innerHTML = calendario().map(f =>
+    `<span class="${f < hoy ? "pasada" : (f === sig ? "sigue" : "")}">${fechaCorta(f)}</span>`).join("");
+
+  $("#l-pesaje").textContent = "A las " + e.pesaje + " se pesa en " + e.lugar +
+    ", con báscula y libreta enfrente. No hay bodega de por medio ni cuenta que nadie vea.";
+
+  $("#l-rep-di").textContent =
+    "De cada peso: " + rc.pct + " para todos, " + ra.pct + " para el área.";
+  $("#l-reparto").innerHTML = bloqueReparto({ titulo:"Así se parte lo que queda" });
+
+  $("#l-obra").textContent = "Hoy el " + rc.pct + "% va a: " + D.meta.obra + ".";
+  $("#l-obra-cifras").innerHTML = `
+    <div><span class="q dato">${pesos(D.meta.costo)}</span><span class="e">Cuesta</span></div>
+    <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Lleva</span></div>
+    <div><span class="q dato">${Math.round(avance()*100)}%</span><span class="e">Avance</span></div>
+    <div><span class="q dato">${kilos(kilosTotal())}</span><span class="e">Acopiados</span></div>`;
+  $("#l-obra-txt").textContent = rc.para +
+    " Cuando esta se pague, la que sigue se decide y se publica igual que esta.";
+
+  $("#l-area-txt").textContent = ra.para;
+
+  $("#l-costal").textContent = c.texto + " Le llega a " + c.quien +
+    ", y se puede pedir por WhatsApp desde la portada.";
+  $("#l-cierre").textContent = D.campus + " · " + D.responsable;
+
+  /* ---- mazo 2 ---- */
+  $("#l2-formula").textContent =
+    "bolsa = ventas − gastos   ·   compartido = bolsa × " + rc.pct + "%   ·   área = bolsa × " + ra.pct + "%";
+  $("#l2-reparto").innerHTML = bloqueReparto({ titulo:"Al día de hoy" });
+  $("#l2-bolsa").textContent = bolsa() > 0
+    ? "La bolsa por repartir va en " + pesos(bolsa()) + ", con " + kilos(kilosTotal()) + " acopiados."
+    : "La bolsa todavía está en ceros: no ha habido la primera venta. Los ceros también son cuentas.";
+  $("#l2-obra").innerHTML = `
+    <div><span class="q dato">${pesos(Math.max(0, bolsa()))}</span><span class="e">Bolsa</span></div>
+    <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Va a la obra</span></div>
+    <div><span class="q dato">${pesos(Math.max(0, paraArea()))}</span><span class="e">Va al área</span></div>`;
+  $("#l2-cierre").textContent = "Dudas y correcciones: " + D.responsable + ". " + D.contacto;
+
+  /* =================== el telón ===================
+     Una lámina a la vez, a pantalla completa. La portada se arma sola con
+     la cabecera del mazo, así que no hay que escribirla dos veces. */
+  const telon = document.createElement("div");
+  telon.id = "telon";
+  telon.innerHTML = `<div class="escenario"></div>
+    <div class="barra-t">
+      <button type="button" class="t-atras" aria-label="Lámina anterior">&#8592;</button>
+      <button type="button" class="t-sigue" aria-label="Lámina siguiente">&#8594;</button>
+      <span class="cont"></span>
+      <span class="pista">flechas o espacio avanzan · A esconde el apoyo · N muestra notas · Esc sale</span>
+      <button type="button" class="salir">Salir</button>
+    </div>`;
+  document.body.appendChild(telon);
+
+  const escenario = telon.querySelector(".escenario");
+  const cont = telon.querySelector(".cont");
+  let lams = [], i = 0;
+
+  const pinta = () => {
+    escenario.innerHTML = "";
+    escenario.appendChild(lams[i].cloneNode(true));
+    cont.textContent = (i+1) + " / " + lams.length;
+    escenario.scrollTop = 0;
+  };
+
+  const abrir = mazo => {
+    const cab = mazo.querySelector(".mazo-cabeza");
+    const portada = document.createElement("section");
+    portada.className = "lam lam--portada";
+    portada.innerHTML = `<img src="img/conejo.png" alt="">
+      <div class="cuando">${cab.querySelector(".cuando").textContent}</div>
+      <h3>${cab.querySelector("h3").textContent}</h3>
+      <p class="foco">${cab.querySelector(".foco").textContent}</p>`;
+    lams = [portada].concat([...mazo.querySelectorAll(".lam")]);
+    i = 0;
+    telon.classList.add("abierto");
+    document.documentElement.classList.add("telon-abierto");
+    if (document.documentElement.requestFullscreen)
+      document.documentElement.requestFullscreen().catch(() => {});
+    pinta();
+  };
+
+  const cerrar = () => {
+    telon.classList.remove("abierto");
+    document.documentElement.classList.remove("telon-abierto");
+    if (document.fullscreenElement && document.exitFullscreen)
+      document.exitFullscreen().catch(() => {});
+  };
+  const sigue = () => { if (i < lams.length-1) { i++; pinta(); } };
+  const atras = () => { if (i > 0) { i--; pinta(); } };
+
+  // Los botones llevan prefijo: una lámina clonada puede traer adentro un
+  // .sigue (el calendario marca así la próxima fecha) y robarse el nombre.
+  telon.querySelector(".t-sigue").addEventListener("click", sigue);
+  telon.querySelector(".t-atras").addEventListener("click", atras);
+  telon.querySelector(".salir").addEventListener("click", cerrar);
+
+  addEventListener("keydown", ev => {
+    if (!telon.classList.contains("abierto")) return;
+    const k = (ev.key || "").toLowerCase();
+    if (ev.key === "ArrowRight" || ev.key === " " || ev.key === "PageDown") { ev.preventDefault(); sigue(); }
+    else if (ev.key === "ArrowLeft" || ev.key === "PageUp") { ev.preventDefault(); atras(); }
+    else if (ev.key === "Escape") cerrar();
+    else if (k === "a") telon.classList.toggle("sin-apoyo");
+    else if (k === "n") telon.classList.toggle("con-notas");
+  });
+
+  document.querySelectorAll(".btn-presentar").forEach(b =>
+    b.addEventListener("click", () => abrir(b.closest(".mazo"))));
+
+  A.pie();
+})();
+</script>
+</body>
+</html>

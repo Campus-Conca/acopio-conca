@@ -26,6 +26,18 @@ window.DATOS = {
     mensaje: "Hola Jhoana. Vi la página del acopio del campus y quiero pedir mi costal. Mi nombre es:"
   },
 
+  // EL REPARTO. Lo que deja el acopio no se va todo a la misma bolsa: de cada
+  // peso que queda después de los gastos, 70 centavos van a obras de las áreas
+  // comunes y 30 al presupuesto del área de Sustentabilidad. Si cambia el
+  // acuerdo, se cambian estos dos números y el sitio entero se recalcula solo.
+  // Los dos pct tienen que sumar 100.
+  reparto: {
+    compartido: { pct:70, nombre:"Proyectos compartidos",
+                  para:"Obras para las áreas comunes: lo que usa todo el campus." },
+    area:       { pct:30, nombre:"Área de Sustentabilidad",
+                  para:"El presupuesto del área: costales, báscula, guantes, letreros y campañas." }
+  },
+
   meta: {
     obra: "Sala de exterior para la explanada",
     costo: 3499,
@@ -75,6 +87,7 @@ window.DATOS = {
   ventas: [
   ],
 
+  // Gastos del programa: salen de la bolsa completa, antes de partirla.
   // { concepto:"Costales", monto:0, fecha:"" },
   gastos: [
   ],
@@ -82,7 +95,14 @@ window.DATOS = {
   // El de kilos se calcula con lo alcanzado: "auto".
   estandares: { constancia:0.75, calidad:1.0, kgPorJornada:"auto" },
 
+  // Obras terminadas con el 70% compartido.
   // { nombre:"", monto:0, fecha:"" },
   hechas: [
+  ],
+
+  // En qué se fue el 30% del área. Mismo formato que hechas: si el área gasta
+  // de su bolsa y no se anota aquí, ese dinero queda sin rendir cuentas.
+  // { nombre:"", monto:0, fecha:"" },
+  usoArea: [
   ]
 };
