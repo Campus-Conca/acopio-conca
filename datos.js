@@ -10,9 +10,19 @@ window.DATOS = {
   contacto: "Si un número no cuadra, dilo en la coordinación y se corrige.",
 
   entrega: {
-    inicio: "2026-09-24",          // primera colecta
-    fin: "2026-12-03",             // última del semestre
-    cadaDias: 14,
+    // Las fechas van una por una, a mano. El semestre no cae en una cadencia
+    // pareja —hay puentes y semanas que se recorren, y a media temporada las
+    // colectas se pasan de martes a miércoles—, así que generarlas con una
+    // fórmula obligaba a publicar fechas que luego no se cumplían.
+    // El día de la semana y la cuenta de colectas se leen de esta lista.
+    fechas: [
+      "2026-09-22",   // martes
+      "2026-10-13",   // martes
+      "2026-10-27",   // martes
+      "2026-11-11",   // miércoles
+      "2026-11-25",   // miércoles
+      "2026-12-02"    // miércoles, la última del semestre
+    ],
     lugar: "la fuente del centro del campus",
     horario: "9:00 a 14:00",
     pesaje: "13:00"

@@ -112,8 +112,13 @@ comentado en el archivo.
 (el número va sin signos, con lada de país: `5214424052714`) y `costal.mensaje`,
 que es el texto que llega escrito en WhatsApp.
 
-**Nuevo semestre**: se cambian `entrega.inicio` y `entrega.fin`. El calendario
-completo y la fecha del botón de la portada se recalculan solos.
+**Nuevo semestre**: se escribe la lista `entrega.fechas`, una fecha por
+renglón y en orden. Ya no se generan solas con una cadencia: el semestre real
+tiene puentes y semanas que se recorren, y a media temporada las colectas
+cambian de día. De esa lista salen la próxima fecha, el calendario completo,
+la cuenta de colectas y hasta la frase del día de la semana (`diasColecta()`
+dice "martes y miércoles" leyendo las fechas). Si una colecta se mueve, se
+mueve ahí y el sitio entero se entera.
 
 ## La presentación
 
@@ -157,7 +162,7 @@ precios sin el dato de la compradora.
 
 El precio del tetrapak está en **$1 por kilo, provisional**, esperando el dato
 real de la compañera que vende. El padrón está vacío: falta cargar un primer
-grupo de personas antes de la primera colecta del 24 de septiembre.
+grupo de personas antes de la primera colecta del 22 de septiembre.
 
 ## Cómo probar antes de subir cambios
 

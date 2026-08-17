@@ -31,20 +31,24 @@ window.A = (function(){
     return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"); };
 
   /* ---------- calendario ---------- */
-  // Del inicio al fin del semestre, cada cadaDias. No se escribe a mano:
-  // cambiar entrega.inicio y entrega.fin recalcula todas las fechas.
-  const calendario = () => {
-    const e = D.entrega, salto = e.cadaDias || 14, fechas = [];
-    if (!e.inicio || !e.fin) return fechas;
-    const fin = aDate(e.fin), d = aDate(e.inicio);
-    while (d <= fin && fechas.length < 60) {
-      fechas.push(d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0"));
-      d.setDate(d.getDate() + salto);
-    }
-    return fechas;
-  };
+  // Las fechas se escriben una por una en datos.js. Van ordenadas aunque se
+  // hayan capturado en desorden, que en "2026-10-27" el orden alfabético y
+  // el del almanaque son el mismo.
+  const calendario = () => (D.entrega.fechas || []).slice().sort();
 
   const proxima = () => { const h = hoy(); return calendario().find(f => f >= h) || null; };
+
+  // En qué días de la semana caen las colectas, dicho como se habla: "jueves",
+  // "martes y miércoles". Sale de las fechas y no de una frase aparte, que es
+  // la que se queda sin actualizar y termina mandando a la gente el día que no.
+  const diasColecta = () => {
+    const vistos = [];
+    calendario().forEach(f => { const d = aDate(f).toLocaleDateString("es-MX", { weekday:"long" });
+      if (!vistos.includes(d)) vistos.push(d); });
+    if (!vistos.length) return "";
+    return vistos.length === 1 ? vistos[0]
+         : vistos.slice(0,-1).join(", ") + " y " + vistos[vistos.length-1];
+  };
 
   /* ---------- dinero ---------- */
   // Se parte lo vendido, sin descontar nada antes. Los gastos del programa
@@ -198,7 +202,7 @@ window.A = (function(){
   };
 
   return { D, MAT, CLAVES, $, eti, pesos, kilos, fecha, fechaCorta, diaSemana, hoy,
-           calendario, proxima, totalVentas,
+           calendario, proxima, diasColecta, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
            kilosPorMaterial, kilosTotal, seguimiento, bloqueReparto, barra, pie };
 })();

@@ -129,7 +129,7 @@
       <span class="det" id="p-det"></span>
     </div>
     <div class="fechas" id="fechas"></div>
-    <p class="nota" style="margin-top:12px">Cada quince días, en jueves, hasta cerrar el semestre.</p>
+    <p class="nota" style="margin-top:12px" id="nota-cal"></p>
   </div>
 </section>
 
@@ -140,7 +140,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          totalVentas, paraObra, avance, kilosTotal, bloqueReparto } = A;
+          diasColecta, totalVentas, paraObra, avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("index.html");
 
@@ -192,7 +192,8 @@
   corte.setAttribute("height", (190-y).toFixed(1));
 
   /* pasos */
-  const e = D.entrega;
+  // El calendario se calcula aquí porque los pasos ya lo necesitan.
+  const e = D.entrega, cal = calendario(), sig = proxima(), hoy = A.hoy();
   // Dibujos de una línea, del mismo trazo que la mesa de arriba.
   const ICO = {
     bolsa:  '<path d="M6 9h12l-1.2 11.5H7.2z"/><path d="M9.4 9V7a2.6 2.6 0 0 1 5.2 0v2"/><path d="M9.6 13.4h4.8"/>',
@@ -205,7 +206,7 @@
 
   $("#pasos").innerHTML = [
     ["01","bolsa", "Separas en casa","Una bolsa aparte para lo que vale."],
-    ["02","fecha", "Lo traes el jueves","Cada quince días, en " + e.lugar + "."],
+    ["02","fecha", "Lo traes ese día", cal.length + " fechas en el semestre, en " + e.lugar + "."],
     ["03","pesa",  "Se pesa frente a todos","Báscula, libreta y firma, a las " + e.pesaje + "."],
     ["04","dinero","Se vende y se reparte", D.reparto.compartido.pct + "% a obras de todos, " +
                                             D.reparto.area.pct + "% al área. Nada sale del campus."]
@@ -223,10 +224,11 @@
     </div>`).join("");
 
   /* calendario */
-  const cal = calendario(), sig = proxima(), hoy = A.hoy();
   $("#r-fecha").textContent = sig ? fechaCorta(sig) : "—";
   $("#p-dia").textContent = sig ? diaSemana(sig) + " " + fecha(sig).replace(/ de \d{4}$/,"") : "Por confirmar";
   $("#p-det").textContent = e.horario + " · " + e.lugar + " · pesaje " + e.pesaje;
+  $("#nota-cal").textContent = cal.length + " colectas en el semestre, en " + diasColecta() +
+    ". No van cada quince días exactos: cada fecha está puesta a mano.";
   $("#fechas").innerHTML = cal.map(f =>
     `<span class="${f < hoy ? "pasada" : (f === sig ? "sigue" : "")}">${fechaCorta(f)}</span>`).join("");
 

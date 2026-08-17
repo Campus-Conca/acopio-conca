@@ -215,7 +215,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea,
+          diasColecta, totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea,
           avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("presentacion.html");
@@ -234,8 +234,9 @@
   $("#l-cuando").textContent = sig
     ? diaSemana(sig) + " " + fecha(sig).replace(/ de \d{4}$/,"") + ", en " + e.lugar + "."
     : "La próxima fecha está por confirmar.";
-  $("#l-donde").textContent = "De " + e.horario + ". Cada " + e.cadaDias +
-    " días, en jueves, hasta cerrar el semestre. Estas son todas las fechas:";
+  $("#l-donde").textContent = "De " + e.horario + ". Son " + calendario().length +
+    " colectas en el semestre, en " + diasColecta() +
+    ", y no caen parejas. Conviene apuntarlas todas de una vez:";
   $("#l-fechas").innerHTML = calendario().map(f =>
     `<span class="${f < hoy ? "pasada" : (f === sig ? "sigue" : "")}">${fechaCorta(f)}</span>`).join("");
 
