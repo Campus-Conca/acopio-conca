@@ -69,7 +69,7 @@ window.DATOS = {
       img:"img/fierro.jpg",        condicion:"Latas vacías y aplastadas" },
     { clave:"pet",      nombre:"PET (Plástico #1)", corto:"PET", color:"var(--m-plast)", precio:3,
       img:"img/pet.jpg",           condicion:"Botellas exprimidas, sin etiqueta ni tapa" },
-    { clave:"pead",     nombre:"Plástico duro (Plásticos #1 y #3)", corto:"Duro", color:"var(--m-plast)", precio:3,
+    { clave:"pead",     nombre:"Plástico duro (Plásticos #2 y #5)", corto:"Duro", color:"var(--m-plast)", precio:3,
       img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
     { clave:"cobre",    nombre:"Cobre",    corto:"Cobre", color:"var(--m-metal)", precio:100,
       img:"img/cobre.jpg",         condicion:"Cables o artefactos" }

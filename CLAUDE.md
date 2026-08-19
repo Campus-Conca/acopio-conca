@@ -160,11 +160,8 @@ precios sin el dato de la compradora.
 
 ## Pendientes conocidos
 
-Falta **confirmar la numeración de resina del plástico duro**: la lista que
-mandó Sustentabilidad dice "Plásticos #1 y #3" y el #1 es el del PET, así que
-uno de los dos números está mal escrito. Se cambia el nombre en `datos.js` en
-cuanto lo confirmen. El padrón está vacío: falta cargar un primer grupo de
-personas antes de la primera colecta del 22 de septiembre.
+El padrón está vacío: falta cargar un primer grupo de personas antes de la
+primera colecta del 22 de septiembre.
 
 ## Cómo probar antes de subir cambios
 
