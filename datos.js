@@ -62,19 +62,17 @@ window.DATOS = {
 
   // Cinco materiales. La rayita de color de cada tarjeta sigue la colorimetría
   // de los contenedores del campus: metales en verde, plásticos en azul.
-  // OJO: faltan los dibujos del fierro y del cobre; mientras no lleguen, la
-  // tarjeta enseña el stencil del conejo en lugar de una foto que no existe.
   materiales: [
     { clave:"aluminio", nombre:"Aluminio", corto:"Alu", color:"var(--m-metal)", precio:23,
       img:"img/aluminio.jpg",      condicion:"Latas vacías y aplastadas" },
     { clave:"fierro",   nombre:"Fierro",   corto:"Fierro", color:"var(--m-metal)", precio:20,
-      img:"",                      condicion:"Latas vacías y aplastadas" },
+      img:"img/fierro.jpg",        condicion:"Latas vacías y aplastadas" },
     { clave:"pet",      nombre:"PET (Plástico #1)", corto:"PET", color:"var(--m-plast)", precio:3,
       img:"img/pet.jpg",           condicion:"Botellas exprimidas, sin etiqueta ni tapa" },
     { clave:"pead",     nombre:"Plástico duro (Plásticos #1 y #3)", corto:"Duro", color:"var(--m-plast)", precio:3,
       img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
     { clave:"cobre",    nombre:"Cobre",    corto:"Cobre", color:"var(--m-metal)", precio:100,
-      img:"",                      condicion:"Cables o artefactos" }
+      img:"img/cobre.jpg",         condicion:"Cables o artefactos" }
   ],
 
   fuera: "Cartón, papel y TetraPak se separan en el campus, pero no entran aquí.",

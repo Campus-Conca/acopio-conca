@@ -160,14 +160,11 @@ precios sin el dato de la compradora.
 
 ## Pendientes conocidos
 
-Faltan **los dibujos del fierro y del cobre**. Mientras no lleguen, `img` va
-vacío en `datos.js` y la tarjeta enseña el stencil del conejo apagado en lugar
-de una caja rota; al llegar el dibujo se llena `img` y ya. Falta también
-**confirmar la numeración de resina del plástico duro**: la lista que mandó
-Sustentabilidad dice "Plásticos #1 y #3" y el #1 es el del PET, así que uno de
-los dos números está mal escrito. Se cambia el nombre en `datos.js` en cuanto
-lo confirmen. El padrón está vacío: falta cargar un primer grupo de personas
-antes de la primera colecta del 22 de septiembre.
+Falta **confirmar la numeración de resina del plástico duro**: la lista que
+mandó Sustentabilidad dice "Plásticos #1 y #3" y el #1 es el del PET, así que
+uno de los dos números está mal escrito. Se cambia el nombre en `datos.js` en
+cuanto lo confirmen. El padrón está vacío: falta cargar un primer grupo de
+personas antes de la primera colecta del 22 de septiembre.
 
 ## Cómo probar antes de subir cambios
 
