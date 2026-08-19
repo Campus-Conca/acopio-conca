@@ -85,7 +85,7 @@ formatos.
 
 ```js
 { fecha:"2026-09-24", personas:[
-  { persona:"Nombre Apellido", limpio:true, kg:{aluminio:0, pet:0, pead:0, tetrapak:0} }
+  { persona:"Nombre Apellido", limpio:true, kg:{aluminio:0, fierro:0, pet:0, pead:0, cobre:0} }
 ]},
 ```
 
@@ -155,14 +155,19 @@ No inventar cifras ni completar un dato faltante con un estimado: la página
 entera se sostiene en que cada número pasó por la báscula y por la libreta.
 No borrar a nadie del padrón por no haber traído nada; quien no trae aparece
 con cero, y esconderlo vuelve inútil el seguimiento. No agregar materiales
-fuera de los cuatro que están. No meter fotos ni redes sociales. No cambiar
+fuera de los cinco que están. No meter fotos ni redes sociales. No cambiar
 precios sin el dato de la compradora.
 
 ## Pendientes conocidos
 
-El precio del tetrapak está en **$1 por kilo, provisional**, esperando el dato
-real de la compañera que vende. El padrón está vacío: falta cargar un primer
-grupo de personas antes de la primera colecta del 22 de septiembre.
+Faltan **los dibujos del fierro y del cobre**. Mientras no lleguen, `img` va
+vacío en `datos.js` y la tarjeta enseña el stencil del conejo apagado en lugar
+de una caja rota; al llegar el dibujo se llena `img` y ya. Falta también
+**confirmar la numeración de resina del plástico duro**: la lista que mandó
+Sustentabilidad dice "Plásticos #1 y #3" y el #1 es el del PET, así que uno de
+los dos números está mal escrito. Se cambia el nombre en `datos.js` en cuanto
+lo confirmen. El padrón está vacío: falta cargar un primer grupo de personas
+antes de la primera colecta del 22 de septiembre.
 
 ## Cómo probar antes de subir cambios
 

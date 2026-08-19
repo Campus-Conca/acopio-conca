@@ -46,10 +46,10 @@
 
         <section class="lam">
           <h4><span class="n">2</span> Qué se recibe</h4>
-          <p class="di">Cuatro cosas. Ni una más.</p>
+          <p class="di" id="l-cuantas"></p>
           <div class="lam-mats" id="l-mats"></div>
           <p class="apoyo" id="l-fuera"></p>
-          <p class="nota-conductor">Los precios son de referencia y se mueven cada mes con el mercado; los que ves en pantalla son los que están cargados hoy en el sitio. Si alguien pregunta por el vidrio o el cartón, contesta que sí se separan en el campus pero no entran en este programa, y sigue.</p>
+          <p class="nota-conductor">Los precios son de referencia y se mueven cada mes con el mercado; los que ves en pantalla son los que están cargados hoy en el sitio. Si alguien pregunta por el cartón o el TetraPak, contesta que sí se separan en el campus pero no entran en este programa, y sigue.</p>
         </section>
 
         <section class="lam">
@@ -70,12 +70,12 @@
 
         <section class="lam">
           <h4><span class="n">5</span> El pesaje</h4>
-          <p class="di">Se pesa frente a todos.</p>
+          <p class="di">Se pesa frente a todxs.</p>
           <p class="apoyo" id="l-pesaje"></p>
           <ul>
             <li>Tus kilos se anotan <b>con tu nombre</b> en la libreta.</li>
             <li>Lo mismo que se firmó ese día es lo que se publica en la página.</li>
-            <li>Si un número no cuadra, se dice en la coordinación y se corrige.</li>
+            <li>Si un número no cuadra, avisa en el área y se corrige.</li>
           </ul>
           <p class="nota-conductor">Aquí es donde se gana la confianza: nadie tiene que creer nada, todo está escrito y firmado. Si puedes, lleva la libreta a la sesión y enséñala.</p>
         </section>
@@ -114,7 +114,7 @@
           <ul>
             <li><b>Kilos por colecta</b>, material por material.</li>
             <li><b>Actas de venta</b>: comprador, kilos, precio y firma.</li>
-            <li><b>El padrón</b>: quién tiene costal y cómo va cada quien.</li>
+            <li><b>El padrón</b>: quién tiene costal y cómo va cada quién.</li>
             <li><b>El reparto</b> y en qué se fue cada bolsa.</li>
           </ul>
           <p class="apoyo">Está en la pestaña “Las cuentas” de esta misma página, y se actualiza el mismo día del pesaje.</p>
@@ -185,7 +185,7 @@
             <li>No se inventa ni se estima <b>ningún número</b>: cada cifra pasó por la báscula y por la libreta.</li>
             <li>Nadie se borra del padrón por no haber traído nada. Quien no trajo, <b>aparece con cero</b>.</li>
             <li>Los precios los pone <b>quien compra</b>, no nosotros.</li>
-            <li>Solo esos cuatro materiales, aunque sobre espacio en el costal.</li>
+            <li id="l2-solo">Solo esos materiales, aunque sobre espacio en el costal.</li>
           </ul>
           <p class="nota-conductor">Si te preguntan por qué aparecen los ceros, la respuesta es que esconderlos volvería inútil el seguimiento: no es una lista de honor, es una libreta.</p>
         </section>
@@ -215,7 +215,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          diasColecta, totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea,
+          diasColecta, totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea, enLetrasM, enLetras,
           avance, kilosTotal, bloqueReparto } = A;
 
   A.barra("presentacion.html");
@@ -228,7 +228,10 @@
     <div class="lm" style="--c:${m.color}">
       <b>${m.nombre}</b><span>${m.condicion}</span><em>$${m.precio}/kg</em>
     </div>`).join("");
+  $("#l-cuantas").textContent = enLetrasM(D.materiales.length) + " cosas. Ni una más.";
   $("#l-fuera").textContent = D.fuera;
+  $("#l2-solo").textContent = "Solo esos " + enLetras(D.materiales.length) +
+    " materiales, aunque sobre espacio en el costal.";
 
   const sig = proxima(), hoy = A.hoy();
   $("#l-cuando").textContent = sig
@@ -258,7 +261,7 @@
 
   $("#l-area-txt").textContent = ra.para;
 
-  $("#l-costal").textContent = c.texto + " Le llega a " + c.quien +
+  $("#l-costal").textContent = c.texto + " La solicitud llega a " + c.quien +
     ", y se puede pedir por WhatsApp desde la portada.";
   $("#l-cierre").textContent = D.campus + " · " + D.responsable;
 

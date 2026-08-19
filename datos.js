@@ -5,9 +5,9 @@
 window.DATOS = {
 
   campus: "UAQ · Campus Concá",
-  actualizado: "2026-08-16",
-  responsable: "Coordinación de Sustentabilidad",
-  contacto: "Si un número no cuadra, dilo en la coordinación y se corrige.",
+  actualizado: "2026-08-19",
+  responsable: "Área de Sustentabilidad",
+  contacto: "Si un número no cuadra, avisa en el área y se corrige.",
 
   entrega: {
     // Las fechas van una por una, a mano. El semestre no cae en una cadencia
@@ -30,8 +30,8 @@ window.DATOS = {
 
   // El costal se pide por WhatsApp. Si cambia quién lo entrega, se cambia aquí.
   costal: {
-    texto: "Se pide en la coordinación de sustentabilidad. Te anotan y ya.",
-    quien: "Jhoana, de Sustentabilidad",
+    texto: "Se pide en el Área de Sustentabilidad. Sólo te registras para el préstamo por el tiempo que lo necesites.",
+    quien: "Jhoana Bravo, del Área de Sustentabilidad",
     whatsapp: "5214424052714",
     mensaje: "Hola Jhoana. Vi la página del acopio del campus y quiero pedir mi costal. Mi nombre es:"
   },
@@ -60,20 +60,24 @@ window.DATOS = {
     ]
   },
 
-  // OJO: el precio del tetrapak es provisional, puesto para que la página
-  // funcione. Cambiarlo en cuanto llegue el de la compradora.
+  // Cinco materiales. La rayita de color de cada tarjeta sigue la colorimetría
+  // de los contenedores del campus: metales en verde, plásticos en azul.
+  // OJO: faltan los dibujos del fierro y del cobre; mientras no lleguen, la
+  // tarjeta enseña el stencil del conejo en lugar de una foto que no existe.
   materiales: [
-    { clave:"aluminio",  nombre:"Aluminio",      corto:"Alu",  color:"var(--m-alu)", precio:15,
-      img:"img/aluminio.jpg",      condicion:"Vacías y aplastadas" },
-    { clave:"pet",       nombre:"PET",           corto:"PET",  color:"var(--m-pet)", precio:6,
-      img:"img/pet.jpg",           condicion:"Exprimidas, con tapa" },
-    { clave:"pead",      nombre:"Plástico duro", corto:"Duro", color:"var(--m-dur)", precio:5,
-      img:"img/plastico-duro.jpg", condicion:"Enjuagado" },
-    { clave:"tetrapak",  nombre:"Tetrapak",      corto:"Tetra",color:"var(--m-tet)", precio:1,
-      img:"img/tetrapak.jpg",      condicion:"Enjuagado y aplastado" }
+    { clave:"aluminio", nombre:"Aluminio", corto:"Alu", color:"var(--m-metal)", precio:23,
+      img:"img/aluminio.jpg",      condicion:"Latas vacías y aplastadas" },
+    { clave:"fierro",   nombre:"Fierro",   corto:"Fierro", color:"var(--m-metal)", precio:20,
+      img:"",                      condicion:"Latas vacías y aplastadas" },
+    { clave:"pet",      nombre:"PET (Plástico #1)", corto:"PET", color:"var(--m-plast)", precio:3,
+      img:"img/pet.jpg",           condicion:"Botellas exprimidas, sin etiqueta ni tapa" },
+    { clave:"pead",     nombre:"Plástico duro (Plásticos #1 y #3)", corto:"Duro", color:"var(--m-plast)", precio:3,
+      img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
+    { clave:"cobre",    nombre:"Cobre",    corto:"Cobre", color:"var(--m-metal)", precio:100,
+      img:"",                      condicion:"Cables o artefactos" }
   ],
 
-  fuera: "Cartón, papel y vidrio se separan en el campus, pero no entran aquí.",
+  fuera: "Cartón, papel y TetraPak se separan en el campus, pero no entran aquí.",
 
   etiquetas: [
     { clave:"administrativo", nombre:"Administrativo", color:"var(--e-adm)" },
@@ -89,7 +93,7 @@ window.DATOS = {
 
   // { fecha:"2026-09-24", personas:[
   //     { persona:"Nombre Apellido", limpio:true,
-  //       kg:{aluminio:0, pet:0, pead:0, tetrapak:0} } ]},
+  //       kg:{aluminio:0, fierro:0, pet:0, pead:0, cobre:0} } ]},
   jornadas: [
   ],
 

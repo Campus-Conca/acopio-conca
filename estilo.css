@@ -8,10 +8,8 @@
   --cempa:#DE8C07;      /* cempasúchil: avance y dinero */
   --barro:#9B4A2E;
   --linea:#C4CEBE;
-  --m-alu:#6F8894;
-  --m-pet:#2C7B9E;
-  --m-dur:#A97239;
-  --m-tet:#9B4A2E;
+  --m-metal:#3B7A4B;    /* contenedor de metales: verde */
+  --m-plast:#2C7B9E;    /* contenedor de plásticos: azul */
 
   --e-adm:#7B6A8A;
   --e-doc:#3B5844;
@@ -156,7 +154,9 @@ h2.tit{
 }
 
 /* materiales */
-.mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:14px}
+/* cinco materiales: la caja se achica para que quepan los cinco en una fila
+   y no quede uno huérfano en el renglón de abajo */
+.mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:14px}
 .mat{background:var(--papel);border:1px solid var(--linea);border-top:5px solid var(--c);padding:1rem 1rem 1.1rem}
 .mat h3{margin:0;font-size:1.05rem;letter-spacing:-.01em}
 .mat .precio{font-family:var(--mono);font-size:1.5rem;font-weight:700;margin:.25rem 0 .1rem;letter-spacing:-.02em}
@@ -165,6 +165,9 @@ h2.tit{
   padding:.6rem;margin-bottom:.85rem;height:170px}
 /* los dibujos vienen de distinto alto: la caja manda, el dibujo se acomoda */
 .mat .fig img{width:auto;height:100%;max-width:100%;object-fit:contain;display:block}
+/* material sin dibujo todavía: se pone el stencil del campus, apagado, en
+   lugar de dejar la caja rota. Al llegar el dibujo se llena img en datos.js. */
+.mat .fig.sin-dibujo img{height:52%;opacity:.22}
 .mat .cond{font-size:.88rem;margin:.35rem 0 0;color:var(--tinta-60)}
 .mat p{font-size:.88rem;margin:.7rem 0 0;color:var(--tinta-60)}
 .mat .equiv{font-family:var(--mono);font-size:.78rem;margin-top:.8rem;padding-top:.6rem;border-top:1px dashed var(--linea);color:var(--tinta)}

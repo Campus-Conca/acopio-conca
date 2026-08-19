@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Quiénes participan · Acopio Concá</title>
-<meta name="description" content="Quién tiene costal en el acopio del Campus Concá y cómo va cada quien.">
+<meta name="description" content="Quién tiene costal en el acopio del Campus Concá y cómo va cada quién.">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
@@ -14,7 +14,7 @@
     <div>
       <p class="eyebrow">Acopio Concá</p>
       <h1>Quiénes<em>participan</em></h1>
-      <p class="bajada">El costal es por persona. Quien quiere uno lo pide y aparece aquí. Cada nombre de esta lista es un embajador del reciclaje del campus.</p>
+      <p class="bajada">El costal es por persona. Quien quiere uno lo pide y aparece aquí. Cada nombre de esta lista es un Embajador del Reciclaje del campus.</p>
     </div>
     <img class="sello-suelto" src="img/embajadores.png" alt="Sello: Embajadores del Reciclaje">
   </div>
@@ -33,8 +33,8 @@
 
 <section id="seguimiento">
   <div class="wrap">
-    <h2 class="tit">Cómo va cada quien</h2>
-    <p class="sub">No es un concurso. Son tres marcas que cualquiera puede alcanzar: venir, traer el material como se pide, y juntar lo que junta el promedio.</p>
+    <h2 class="tit">Cómo va cada quién</h2>
+    <p class="sub">No es un concurso. Son tres objetivos que cualquiera puede alcanzar: venir, traer el material como se pide, y juntar lo que se recicla en promedio.</p>
     <div class="etiq-res" id="etiquetas"></div>
     <div class="grupos" id="gente"></div>
     <p class="nota" style="margin-top:14px" id="estandar"></p>
@@ -81,7 +81,7 @@
 
   $("#total").textContent = personas.length
     ? personas.length + " costales entregados."
-    : "La etiqueta solo dice de dónde viene cada quien; no separa a nadie.";
+    : "La etiqueta sólo dice de dónde viene cada quién; no separa a nadie.";
 
   /* seguimiento */
   const { lista, estKg, nJornadas } = seguimiento();
@@ -109,7 +109,7 @@
       <span class="kg">${kilos(p.kg)} en total · vino ${p.entregas} de ${nJornadas}</span>
       <span class="barra"><i style="width:${(p.porJornada/tope*100).toFixed(1)}%"></i></span>
     </div>`;
-  }).join("") : `<div class="vacio">Aquí aparece cada quien después de la primera colecta.</div>`;
+  }).join("") : `<div class="vacio">Aquí aparece cada quién después de la primera colecta.</div>`;
 
   $("#estandar").textContent = estKg !== null
     ? `La marca de kilos son ${estKg} kg por colecta: la mediana de lo que trae quien entrega. Se mueve con el grupo.`

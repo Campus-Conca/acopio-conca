@@ -13,7 +13,7 @@
   <div class="wrap">
     <p class="eyebrow" id="campus"></p>
     <h1>Lo que separamos,<em>lo construimos.</em></h1>
-    <p class="bajada">Traes de casa lo que todavía vale. Se pesa en la fuente, se vende, y el dinero se queda en el campus.</p>
+    <p class="bajada">Traes de casa lo reciclable que todavía vale. Se pesa en la fuente, se vende, y el dinero se queda en el campus.</p>
     <nav class="rapidos" aria-label="Accesos rápidos">
       <a class="fuerte" href="#cuando">Próxima colecta <b id="r-fecha"></b></a>
       <a href="#materiales">Qué se recibe</a>
@@ -92,7 +92,7 @@
   <div class="wrap">
     <div class="banda">
       <div class="banda-txt">
-        <h3>Pedir tu costal</h3>
+        <h3>Pide tu costal</h3>
         <p id="costal-txt"></p>
         <a class="wa" id="costal-wa" target="_blank" rel="noopener">Pedirlo por WhatsApp</a>
         <p class="quien" id="costal-quien"></p>
@@ -108,7 +108,7 @@
 <section id="materiales">
   <div class="wrap">
     <h2 class="tit">Qué se recibe</h2>
-    <p class="sub">Cuatro cosas. Los precios son de referencia y se mueven cada mes.</p>
+    <p class="sub" id="sub-mats"></p>
     <div class="mats" id="mats"></div>
     <div class="sisi">
       <img src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
@@ -140,7 +140,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          diasColecta, totalVentas, paraObra, avance, kilosTotal, bloqueReparto } = A;
+          diasColecta, totalVentas, paraObra, avance, kilosTotal, bloqueReparto, enLetrasM } = A;
 
   A.barra("index.html");
 
@@ -149,8 +149,10 @@
   const c = D.costal;
   $("#costal-txt").textContent = c.texto;
   $("#costal-wa").href = "https://wa.me/" + c.whatsapp + "?text=" + encodeURIComponent(c.mensaje);
-  $("#costal-quien").textContent = "Le llega a " + c.quien + ".";
+  $("#costal-quien").textContent = "La solicitud llega a " + c.quien + ".";
   $("#fuera").textContent = D.fuera;
+  $("#sub-mats").textContent = enLetrasM(D.materiales.length) +
+    " cosas. Los precios son de referencia y se mueven cada mes.";
 
   /* obra */
   // La barra de la obra sube con su 70%, no con la bolsa entera.
@@ -205,11 +207,11 @@
     'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + d + '</svg>';
 
   $("#pasos").innerHTML = [
-    ["01","bolsa", "Separas en casa","Una bolsa aparte para lo que vale."],
-    ["02","fecha", "Lo traes ese día", cal.length + " fechas en el semestre, en " + e.lugar + "."],
-    ["03","pesa",  "Se pesa frente a todos","Báscula, libreta y firma, a las " + e.pesaje + "."],
-    ["04","dinero","Se vende y se reparte", D.reparto.compartido.pct + "% a obras de todos, " +
-                                            D.reparto.area.pct + "% al área. Nada sale del campus."]
+    ["01","bolsa", "Separas en casa","Te prestamos un costal para colectar aparte lo que aún vale."],
+    ["02","fecha", "Traes tus materiales al campus", "En " + cal.length + " fechas en el semestre, entregas en " + e.lugar + "."],
+    ["03","pesa",  "Se pesa frente a todxs","Con báscula, libreta y firma, registramos lo acumulado a las " + e.pesaje + " horas."],
+    ["04","dinero","Se vende y se reparte", D.reparto.compartido.pct + "% va a obras para todxs. " +
+                                            D.reparto.area.pct + "% va al " + D.reparto.area.nombre + ". Nada sale del campus."]
   ].map(([n,i,t,p]) => `<div class="paso">
       <div class="cab"><span class="ico">${dibujo(ICO[i])}</span><span class="n">${n}</span></div>
       <h3>${t}</h3><p>${p}</p></div>`).join("");
@@ -217,7 +219,7 @@
   /* materiales */
   $("#mats").innerHTML = D.materiales.map(m => `
     <div class="mat" style="--c:${m.color}">
-      <div class="fig"><img src="${m.img}" alt=""></div>
+      <div class="fig${m.img ? "" : " sin-dibujo"}"><img src="${m.img || "img/conejo.png"}" alt=""></div>
       <h3>${m.nombre}</h3>
       <p class="cond">${m.condicion}</p>
       <p class="precio">$${m.precio} <small>por kilo</small></p>

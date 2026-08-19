@@ -17,6 +17,12 @@ window.A = (function(){
   // El área puede gastar de más y quedar en rojo: eso se enseña, no se esconde.
   const pesos = n => { const r = Math.round(n);
     return (r < 0 ? "−$" : "$") + Math.abs(r).toLocaleString("es-MX"); };
+  // "Cuatro cosas", "Cinco cosas": cuántos materiales hay se dice con letra y
+  // sale de la lista, para que agregar uno no deje la frase mintiendo.
+  const NUMS = ["cero","una","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez"];
+  const enLetras = n => NUMS[n] || String(n);
+  const enLetrasM = n => { const t = enLetras(n); return t.charAt(0).toUpperCase() + t.slice(1); };
+
   const kilos = n => n.toFixed(1).replace(/\.0$/,"") + " kg";
 
   // Las fechas se guardan como "2026-09-24" y se leen como fecha local:
@@ -201,7 +207,7 @@ window.A = (function(){
     document.body.appendChild(f);
   };
 
-  return { D, MAT, CLAVES, $, eti, pesos, kilos, fecha, fechaCorta, diaSemana, hoy,
+  return { D, MAT, CLAVES, $, eti, pesos, kilos, enLetras, enLetrasM, fecha, fechaCorta, diaSemana, hoy,
            calendario, proxima, diasColecta, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
            kilosPorMaterial, kilosTotal, seguimiento, bloqueReparto, barra, pie };
