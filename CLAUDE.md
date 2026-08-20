@@ -178,10 +178,10 @@ precios sin el dato de la compradora.
 
 ## Pendientes conocidos
 
-Falta **el dibujo del aceite**: `img` va vacío en `datos.js` y la tarjeta
-enseña el stencil del conejo apagado mientras tanto. Al llegar se llena `img`
-y ya. `img/cobre.jpg` se queda en el repo sin usar: el cobre salió de la lista
-cuando entró el aceite, y si vuelve el dibujo ya está hecho.
+Ya están los cinco dibujos. `img/cobre.jpg` se queda en el repo sin usar: el
+cobre salió de la lista cuando entró el aceite, y si vuelve el dibujo ya está
+hecho. El aceite además tiene su tira de tres pasos, `img/aceite-pasos.jpg`,
+que va en la portada debajo de las tarjetas con la frase de `aceitePie`.
 
 El padrón está vacío: falta cargar un primer grupo de personas antes de la
 primera colecta del 22 de septiembre.

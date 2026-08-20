@@ -77,7 +77,7 @@ window.DATOS = {
     { clave:"pead",     nombre:"Plástico duro (Plásticos #2 y #5)", corto:"Duro", unidad:"kg", precio:3,
       color:"var(--m-plast)",  img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
     { clave:"aceite",   nombre:"Aceite vegetal", corto:"Aceite", unidad:"L", precio:3,
-      color:"var(--m-aceite)", img:"",                      condicion:"Frío, colado y en botella cerrada" }
+      color:"var(--m-aceite)", img:"img/aceite.jpg",       condicion:"Frío, colado y en botella cerrada" }
   ],
 
   aceitePie: "Un litro de aceite usado contamina mil litros de agua.",

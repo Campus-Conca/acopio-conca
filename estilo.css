@@ -176,6 +176,13 @@ h2.tit{
 .reglas h3{margin:0 0 .5rem;font-size:.74rem;letter-spacing:.14em;text-transform:uppercase}
 .reglas p{margin:0;font-size:.92rem}
 
+/* la tira de tres pasos del aceite: el dibujo es ancho, así que manda él y
+   el pie va debajo, centrado. Misma caja de papel que el "así sí, así no". */
+.tira{margin-top:22px;background:var(--papel);border:1px solid var(--linea);
+  padding:clamp(14px,2.4vw,22px)}
+.tira img{width:100%;display:block}
+.tira p{margin:.7rem 0 0;text-align:center;font-size:.92rem;color:var(--tinta-60)}
+
 /* así sí, así no */
 .sisi{display:grid;grid-template-columns:minmax(220px,1.1fr) 1fr;gap:18px;align-items:center;
   margin-top:22px;background:var(--papel);border:1px solid var(--linea);padding:clamp(14px,2.4vw,22px)}
