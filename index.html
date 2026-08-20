@@ -110,6 +110,7 @@
     <h2 class="tit">Qué se recibe</h2>
     <p class="sub" id="sub-mats"></p>
     <div class="mats" id="mats"></div>
+    <p class="nota" id="aceite-pie" style="margin:1rem 0 0"></p>
     <div class="sisi">
       <img src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
       <div>
@@ -140,7 +141,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          diasColecta, totalVentas, paraObra, avance, kilosTotal, bloqueReparto, enLetrasM } = A;
+          diasColecta, totalVentas, paraObra, avance, totalesTexto, bloqueReparto, enLetrasM } = A;
 
   A.barra("index.html");
 
@@ -151,6 +152,7 @@
   $("#costal-wa").href = "https://wa.me/" + c.whatsapp + "?text=" + encodeURIComponent(c.mensaje);
   $("#costal-quien").textContent = "La solicitud llega a " + c.quien + ".";
   $("#fuera").textContent = D.fuera;
+  $("#aceite-pie").textContent = D.aceitePie || "";
   $("#sub-mats").textContent = enLetrasM(D.materiales.length) +
     " cosas. Los precios son de referencia y se mueven cada mes.";
 
@@ -159,7 +161,7 @@
   const obra = paraObra(), pct = avance();
   $("#c-obra").textContent = pesos(Math.max(0, obra));
   $("#c-costo").textContent = pesos(D.meta.costo);
-  $("#c-kilos").textContent = kilos(kilosTotal());
+  $("#c-kilos").textContent = totalesTexto();
   $("#c-pct").textContent = Math.round(pct*100) + "%";
   const falta = Math.max(0, D.meta.costo - obra);
   $("#faltan").textContent = totalVentas() <= 0
@@ -222,7 +224,7 @@
       <div class="fig${m.img ? "" : " sin-dibujo"}"><img src="${m.img || "img/conejo.png"}" alt=""></div>
       <h3>${m.nombre}</h3>
       <p class="cond">${m.condicion}</p>
-      <p class="precio">$${m.precio} <small>por kilo</small></p>
+      <p class="precio">$${m.precio} <small>por ${m.unidad === "L" ? "litro" : "kilo"}</small></p>
     </div>`).join("");
 
   /* calendario */

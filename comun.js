@@ -87,6 +87,27 @@ window.A = (function(){
   };
   const kilosTotal = () => Object.values(kilosPorMaterial()).reduce((a,b) => a+b, 0);
 
+  /* ---------- unidades ---------- */
+  // El aceite se mide en litros y todo lo demás en kilos. Sumarlos daría un
+  // número que no existe, así que los totales se dicen por separado:
+  // "6.6 kg · 1.5 L". La única suma que sí mezcla es la marca personal, donde
+  // un litro cuenta como un kilo, y ahí la página lo advierte.
+  const unidadDe = m => (m && m.unidad) || "kg";
+  const numero   = v => v.toFixed(1).replace(/\.0$/,"");
+  const cant     = (m, v) => numero(v) + " " + unidadDe(m);
+
+  const totalesPorUnidad = () => {
+    const k = kilosPorMaterial(), t = {};
+    // se recorre en el orden de datos.js, así los kilos van antes que los litros
+    CLAVES.forEach(c => { const u = unidadDe(MAT[c]); t[u] = (t[u] || 0) + k[c]; });
+    return t;
+  };
+  const totalesTexto = () => {
+    const partes = Object.entries(totalesPorUnidad())
+      .filter(([,v]) => v > 0).map(([u,v]) => numero(v) + " " + u);
+    return partes.length ? partes.join(" · ") : "0 kg";
+  };
+
   /* ---------- seguimiento por persona ---------- */
   // Tres marcas, ninguna comparativa: venir, traer el material como se
   // pide, y juntar lo que junta el promedio. La marca de kilos no se pone
@@ -210,5 +231,5 @@ window.A = (function(){
   return { D, MAT, CLAVES, $, eti, pesos, kilos, enLetras, enLetrasM, fecha, fechaCorta, diaSemana, hoy,
            calendario, proxima, diasColecta, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
-           kilosPorMaterial, kilosTotal, seguimiento, bloqueReparto, barra, pie };
+           kilosPorMaterial, kilosTotal, cant, totalesTexto, totalesPorUnidad, unidadDe, seguimiento, bloqueReparto, barra, pie };
 })();

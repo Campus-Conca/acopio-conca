@@ -109,7 +109,7 @@
 <script src="comun.js"></script>
 <script>
 (function(){
-  const { D, CLAVES, MAT, $, pesos, fecha, diaSemana, eti, proxima } = A;
+  const { D, CLAVES, MAT, $, pesos, fecha, diaSemana, eti, proxima, unidadDe } = A;
   A.barra("pesaje.html");
 
   const num = v => { const n = parseFloat(v); return isFinite(n) && n > 0 ? Math.round(n*10)/10 : 0; };
@@ -129,13 +129,18 @@
       <div class="gn"><span>${p.nombre} <em>${eti(p.etiqueta).nombre}</em></span>
         <label class="chk"><input type="checkbox" data-limpio checked> vino como se pidió</label></div>
       <div class="cap-inputs">${D.materiales.map(m =>
-        `<label>${m.corto}<input type="number" inputmode="decimal" min="0" step="0.1" data-mat="${m.clave}" placeholder="0"></label>`).join("")}</div>
+        `<label>${m.corto} · ${m.unidad}<input type="number" inputmode="decimal" min="0" step="0.1" data-mat="${m.clave}" placeholder="0"></label>`).join("")}</div>
     </div>`).join("")
     : `<div class="vacio">Primero hay que dar de alta a alguien, abajo.</div>`;
 
+  // el marcador de arriba no suma litros con kilos: los dice por separado
   $("#cap-personas").addEventListener("input", () => {
-    let t = 0; document.querySelectorAll("#cap-personas input[data-mat]").forEach(i => t += num(i.value));
-    $("#cap-tot").textContent = t.toFixed(1) + " kg";
+    let kg = 0, l = 0;
+    document.querySelectorAll("#cap-personas input[data-mat]").forEach(i => {
+      const v = num(i.value);
+      if (unidadDe(MAT[i.dataset.mat]) === "L") l += v; else kg += v;
+    });
+    $("#cap-tot").textContent = kg.toFixed(1) + " kg" + (l > 0 ? " · " + l.toFixed(1) + " L" : "");
   });
 
   $("#cap-btn").addEventListener("click", () => {
@@ -157,8 +162,8 @@
 
   /* venta */
   $("#ven-lineas").innerHTML = '<div class="cap-inputs">' + D.materiales.map(m =>
-    `<label>${m.corto} · kg<input type="number" inputmode="decimal" min="0" step="0.1" data-vkg="${m.clave}" placeholder="0"></label>` +
-    `<label>${m.corto} · $/kg<input type="number" inputmode="decimal" min="0" step="0.5" data-vpr="${m.clave}" value="${m.precio}"></label>`).join("") + '</div>';
+    `<label>${m.corto} · ${m.unidad}<input type="number" inputmode="decimal" min="0" step="0.1" data-vkg="${m.clave}" placeholder="0"></label>` +
+    `<label>${m.corto} · $/${m.unidad}<input type="number" inputmode="decimal" min="0" step="0.5" data-vpr="${m.clave}" value="${m.precio}"></label>`).join("") + '</div>';
 
   const venTotal = () => {
     let t = 0;
@@ -198,7 +203,8 @@
   const cFecha = sig ? fecha(sig).replace(/ de \d{4}$/,"") : "Fecha por confirmar";
   const cHora = e.horario + " · pesaje " + e.pesaje;
   const cLugar = "En " + e.lugar;
-  const cMat = D.materiales.map(m => m.nombre).join(", ") + ". Limpio, seco y separado.";
+  // en el cartel el material va con su nombre corto: "PET", no "PET (Plástico #1)"
+  const cMat = D.materiales.map(m => m.nombre.replace(/ \(.*\)$/, "")).join(", ") + ". Limpio, seco y separado.";
 
   $("#c-dia").textContent = cDia;
   $("#c-fecha").textContent = cFecha;

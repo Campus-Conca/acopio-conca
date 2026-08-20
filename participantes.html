@@ -111,9 +111,12 @@
     </div>`;
   }).join("") : `<div class="vacio">Aquí aparece cada quién después de la primera colecta.</div>`;
 
-  $("#estandar").textContent = estKg !== null
+  // En esta marca —y solo en esta— un litro de aceite cuenta como un kilo:
+  // si no, quien trae aceite nunca la alcanzaría. Se dice en la página.
+  $("#estandar").textContent = (estKg !== null
     ? `La marca de kilos son ${estKg} kg por colecta: la mediana de lo que trae quien entrega. Se mueve con el grupo.`
-    : `La marca de kilos se fija después de la primera colecta, con lo que la gente realmente traiga.`;
+    : `La marca de kilos se fija después de la primera colecta, con lo que la gente realmente traiga.`)
+    + ` Un litro de aceite cuenta como un kilo.`;
 
   A.pie();
 })();

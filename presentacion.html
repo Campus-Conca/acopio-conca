@@ -216,7 +216,7 @@
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
           diasColecta, totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea, enLetrasM, enLetras,
-          avance, kilosTotal, bloqueReparto } = A;
+          avance, totalesTexto, bloqueReparto } = A;
 
   A.barra("presentacion.html");
 
@@ -226,7 +226,7 @@
   /* ---- mazo 1 ---- */
   $("#l-mats").innerHTML = D.materiales.map(m => `
     <div class="lm" style="--c:${m.color}">
-      <b>${m.nombre}</b><span>${m.condicion}</span><em>$${m.precio}/kg</em>
+      <b>${m.nombre}</b><span>${m.condicion}</span><em>$${m.precio}/${m.unidad}</em>
     </div>`).join("");
   $("#l-cuantas").textContent = enLetrasM(D.materiales.length) + " cosas. Ni una más.";
   $("#l-fuera").textContent = D.fuera;
@@ -255,7 +255,7 @@
     <div><span class="q dato">${pesos(D.meta.costo)}</span><span class="e">Cuesta</span></div>
     <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Lleva</span></div>
     <div><span class="q dato">${Math.round(avance()*100)}%</span><span class="e">Avance</span></div>
-    <div><span class="q dato">${kilos(kilosTotal())}</span><span class="e">Acopiados</span></div>`;
+    <div><span class="q dato">${totalesTexto()}</span><span class="e">Acopiados</span></div>`;
   $("#l-obra-txt").textContent = rc.para +
     " Cuando esta se pague, la que sigue se decide y se publica igual que esta.";
 
@@ -273,7 +273,7 @@
   // antes de la primera venta. Se dice con todas sus letras.
   const dispo = disponibleArea(), gastado = ejercidoArea();
   $("#l2-bolsa").textContent = totalVentas() > 0
-    ? "Van " + pesos(totalVentas()) + " vendidos y " + kilos(kilosTotal()) + " acopiados. " +
+    ? "Van " + pesos(totalVentas()) + " vendidos y " + totalesTexto() + " acopiados. " +
       (dispo < 0
         ? "El área lleva " + pesos(gastado) + " puestos y su 30% todavía no los alcanza: va " + pesos(dispo) + "."
         : "El área lleva gastados " + pesos(gastado) + " y le quedan " + pesos(dispo) + ".")

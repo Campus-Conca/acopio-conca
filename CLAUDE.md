@@ -75,6 +75,24 @@ tiene permiso de escritura en Campus-Conca. Conviene regresar después con
 
 El nombre del Worker y la carpeta que sirve están en `wrangler.jsonc`.
 
+## Los materiales y sus unidades
+
+Son cinco: **aluminio** ($23/kg), **fierro** ($20/kg), **PET** ($3/kg),
+**plástico duro** ($3/kg) y **aceite vegetal** ($3/L; la garrafa de 20 L sale
+en $60). La rayita de color de cada tarjeta sigue la colorimetría de los
+contenedores del campus —metales en verde, plásticos en azul— y el aceite va
+en su propio ámbar, porque no es ni lo uno ni lo otro.
+
+**Lo que más fácil se rompe aquí:** el aceite se mide en **litros** y todo lo
+demás en kilos. Cada material lleva su `unidad` en `datos.js` y las páginas la
+leen; nunca se escribe "kg" a mano. Un total que sume kilos con litros es un
+número que no existe, así que se dicen por separado —`totalesTexto()` devuelve
+`"6.6 kg · 1.5 L"`— y de ahí salen la portada, las cuentas y la presentación.
+
+La **única** excepción es la marca personal de kilos del padrón, donde un
+litro cuenta como un kilo: si no, quien trae aceite nunca la alcanzaría. La
+página lo dice con todas sus letras, y por eso se puede.
+
 ## Mantenimiento
 
 Todo lo de abajo se genera solo desde `pesaje.html`, que devuelve el bloque
@@ -85,7 +103,7 @@ formatos.
 
 ```js
 { fecha:"2026-09-24", personas:[
-  { persona:"Nombre Apellido", limpio:true, kg:{aluminio:0, fierro:0, pet:0, pead:0, cobre:0} }
+  { persona:"Nombre Apellido", limpio:true, kg:{aluminio:0, fierro:0, pet:0, pead:0, aceite:0} }
 ]},
 ```
 
@@ -159,6 +177,11 @@ fuera de los cinco que están. No meter fotos ni redes sociales. No cambiar
 precios sin el dato de la compradora.
 
 ## Pendientes conocidos
+
+Falta **el dibujo del aceite**: `img` va vacío en `datos.js` y la tarjeta
+enseña el stencil del conejo apagado mientras tanto. Al llegar se llena `img`
+y ya. `img/cobre.jpg` se queda en el repo sin usar: el cobre salió de la lista
+cuando entró el aceite, y si vuelve el dibujo ya está hecho.
 
 El padrón está vacío: falta cargar un primer grupo de personas antes de la
 primera colecta del 22 de septiembre.

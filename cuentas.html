@@ -22,6 +22,7 @@
 <section id="kilos">
   <div class="wrap">
     <h2 class="tit">Cuánto se ha llevado</h2>
+    <p class="sub">Los kilos van en kilos y el aceite en litros; no se suman entre sí.</p>
     <div id="caja-kilos"></div>
   </div>
 </section>
@@ -67,7 +68,7 @@
   <div class="wrap">
     <h2 class="tit">Cómo se calcula</h2>
     <div class="calc">
-      <p><b>Vendido.</b> Kilos por precio, acta por acta. Es lo que se reparte, sin descontarle nada antes. <span class="formula">vendido = Σ (kilos × precio)</span></p>
+      <p><b>Vendido.</b> Cantidad por precio, acta por acta (los kilos en kilos y el aceite en litros). Es lo que se reparte, sin descontarle nada antes. <span class="formula">vendido = Σ (cantidad × precio)</span></p>
       <p><b>El reparto.</b> El 70% se va a los proyectos compartidos y el 30% al presupuesto del área. <span class="formula" id="f-reparto"></span></p>
       <p><b>Avance de la obra.</b> Sube con su 70%, nunca con lo vendido completo. <span class="formula">avance = compartido ÷ costo</span></p>
       <p><b>Disponible del área.</b> Su 30% menos lo que ya gastó. De ahí sale lo que cuesta operar, así que puede quedar en rojo mientras no haya ventas. <span class="formula">disponible = área − gastos</span></p>
@@ -84,24 +85,31 @@
 (function(){
   const { D, CLAVES, MAT, $, pesos, fecha, totalVentas,
           paraObra, paraArea, ejercidoArea, disponibleArea, bloqueReparto,
-          kilosPorMaterial, kilosTotal } = A;
+          kilosPorMaterial, cant, totalesTexto, unidadDe } = A;
   A.barra("cuentas.html");
 
-  /* kilos por jornada */
-  const km = kilosPorMaterial(), kt = kilosTotal();
+  /* lo acopiado por colecta. El aceite va en litros, así que ni la fila ni el
+     acumulado suman kilos con litros: se dicen los dos, "6.6 kg · 1.5 L". */
+  const km = kilosPorMaterial();
+  const porUnidad = t => {
+    const u = {};
+    CLAVES.forEach(c => { const k = unidadDe(MAT[c]); u[k] = (u[k]||0) + t[c]; });
+    const partes = Object.entries(u).filter(([,v]) => v > 0)
+      .map(([k,v]) => v.toFixed(1).replace(/\.0$/,"") + " " + k);
+    return partes.length ? partes.join(" · ") : "0 kg";
+  };
   $("#caja-kilos").innerHTML = D.jornadas.length ? `
     <div class="tabla-caja"><table class="ancha">
-      <caption>Kilos por colecta</caption>
-      <thead><tr><th>Colecta</th>${D.materiales.map(m => `<th class="dato">${m.corto}</th>`).join("")}<th class="dato">Total</th></tr></thead>
+      <caption>Lo acopiado por colecta</caption>
+      <thead><tr><th>Colecta</th>${D.materiales.map(m => `<th class="dato">${m.corto} (${m.unidad})</th>`).join("")}<th class="dato">Total</th></tr></thead>
       <tbody>${D.jornadas.map(j => {
         const t = {}; CLAVES.forEach(c => t[c] = (j.personas||[]).reduce((s,p) => s + (p.kg[c]||0), 0));
-        const tot = Object.values(t).reduce((a,b)=>a+b,0);
         return `<tr><td class="dato">${fecha(j.fecha)}</td>` +
-          CLAVES.map(c => `<td class="dato" data-l="${MAT[c].corto}">${t[c].toFixed(1)} kg</td>`).join("") +
-          `<td class="dato" data-l="Total"><b>${tot.toFixed(1)} kg</b></td></tr>`;
+          CLAVES.map(c => `<td class="dato" data-l="${MAT[c].corto}">${cant(MAT[c], t[c])}</td>`).join("") +
+          `<td class="dato" data-l="Total"><b>${porUnidad(t)}</b></td></tr>`;
       }).join("")}</tbody>
       <tfoot><tr><td>Acumulado</td>${CLAVES.map(c =>
-        `<td class="dato" data-l="${MAT[c].corto}">${km[c].toFixed(1)} kg</td>`).join("")}<td class="dato" data-l="Total">${kt.toFixed(1)} kg</td></tr></tfoot>
+        `<td class="dato" data-l="${MAT[c].corto}">${cant(MAT[c], km[c])}</td>`).join("")}<td class="dato" data-l="Total">${totalesTexto()}</td></tr></tfoot>
     </table></div>`
     : `<div class="vacio">Todavía no hay colectas. La primera aparece aquí el mismo día del pesaje.</div>`;
 
@@ -111,7 +119,7 @@
     return `<article class="acta">
       <div class="cab"><span class="c">${v.comprador}</span><span class="f">${fecha(v.fecha)}</span></div>
       <ul>${v.lineas.map(l => `<li><span>${MAT[l.material].nombre}</span>
-        <span class="dato">${l.kg.toFixed(1)} kg × $${l.precio} = ${pesos(l.kg*l.precio)}</span></li>`).join("")}</ul>
+        <span class="dato">${cant(MAT[l.material], l.kg)} × $${l.precio} = ${pesos(l.kg*l.precio)}</span></li>`).join("")}</ul>
       <p class="tot"><span>Total</span><span class="dato">${pesos(total)}</span></p>
       ${v.firma ? `<p class="nota" style="margin:.6rem 0 0">${v.firma}</p>` : ""}
     </article>`;

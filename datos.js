@@ -61,19 +61,26 @@ window.DATOS = {
   },
 
   // Cinco materiales. La rayita de color de cada tarjeta sigue la colorimetría
-  // de los contenedores del campus: metales en verde, plásticos en azul.
+  // de los contenedores del campus: metales en verde, plásticos en azul; el
+  // aceite va aparte porque no es ni lo uno ni lo otro.
+  // OJO CON LAS UNIDADES: el aceite se mide en LITROS y los demás en kilos.
+  // En los totales no se mezclan ("6.6 kg · 1.5 L"); la única excepción es la
+  // marca personal de kilos, donde un litro cuenta como un kilo y la página
+  // lo dice con todas sus letras.
   materiales: [
-    { clave:"aluminio", nombre:"Aluminio", corto:"Alu", color:"var(--m-metal)", precio:23,
-      img:"img/aluminio.jpg",      condicion:"Latas vacías y aplastadas" },
-    { clave:"fierro",   nombre:"Fierro",   corto:"Fierro", color:"var(--m-metal)", precio:20,
-      img:"img/fierro.jpg",        condicion:"Latas vacías y aplastadas" },
-    { clave:"pet",      nombre:"PET (Plástico #1)", corto:"PET", color:"var(--m-plast)", precio:3,
-      img:"img/pet.jpg",           condicion:"Botellas exprimidas, sin etiqueta ni tapa" },
-    { clave:"pead",     nombre:"Plástico duro (Plásticos #2 y #5)", corto:"Duro", color:"var(--m-plast)", precio:3,
-      img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
-    { clave:"cobre",    nombre:"Cobre",    corto:"Cobre", color:"var(--m-metal)", precio:100,
-      img:"img/cobre.jpg",         condicion:"Cables o artefactos" }
+    { clave:"aluminio", nombre:"Aluminio", corto:"Alu", unidad:"kg", precio:23,
+      color:"var(--m-metal)",  img:"img/aluminio.jpg",      condicion:"Latas vacías y aplastadas" },
+    { clave:"fierro",   nombre:"Fierro",   corto:"Fierro", unidad:"kg", precio:20,
+      color:"var(--m-metal)",  img:"img/fierro.jpg",        condicion:"Limpio, sin madera ni plástico" },
+    { clave:"pet",      nombre:"PET (Plástico #1)", corto:"PET", unidad:"kg", precio:3,
+      color:"var(--m-plast)",  img:"img/pet.jpg",           condicion:"Botellas exprimidas, sin etiqueta ni tapa" },
+    { clave:"pead",     nombre:"Plástico duro (Plásticos #2 y #5)", corto:"Duro", unidad:"kg", precio:3,
+      color:"var(--m-plast)",  img:"img/plastico-duro.jpg", condicion:"Enjuagado y aplastado" },
+    { clave:"aceite",   nombre:"Aceite vegetal", corto:"Aceite", unidad:"L", precio:3,
+      color:"var(--m-aceite)", img:"",                      condicion:"Frío, colado y en botella cerrada" }
   ],
+
+  aceitePie: "Un litro de aceite usado contamina mil litros de agua.",
 
   fuera: "Cartón, papel y TetraPak se separan en el campus, pero no entran aquí.",
 
@@ -89,9 +96,10 @@ window.DATOS = {
   personas: [
   ],
 
+  // El aceite se anota en litros; lo demás en kilos.
   // { fecha:"2026-09-24", personas:[
   //     { persona:"Nombre Apellido", limpio:true,
-  //       kg:{aluminio:0, fierro:0, pet:0, pead:0, cobre:0} } ]},
+  //       kg:{aluminio:0, fierro:0, pet:0, pead:0, aceite:0} } ]},
   jornadas: [
   ],
 
