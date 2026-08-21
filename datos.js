@@ -80,7 +80,7 @@ window.DATOS = {
       color:"var(--m-aceite)", img:"img/aceite.jpg",       condicion:"Frío, colado y en botella cerrada" }
   ],
 
-  aceitePie: "Un litro de aceite usado contamina mil litros de agua.",
+  aceitePie: "Con el acopio de un litro de aceite usado, evitamos que se contaminen 1,000 litros de agua. Sólo se separan aceites vegetales, no grasas o mantecas.",
 
   fuera: "Cartón, papel y TetraPak se separan en el campus, pero no entran aquí.",
 
