@@ -56,6 +56,7 @@
           <h4><span class="n">3</span> Cómo tiene que llegar</h4>
           <p class="di">Limpio, seco y separado.</p>
           <p class="apoyo">Una lata con refresco adentro moja todo lo demás y le baja el precio al costal completo. Enjuagar tarda tres segundos y es la diferencia entre material y basura mojada.</p>
+          <p class="apoyo" id="l-latas"></p>
           <img class="lam-img" src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
           <p class="nota-conductor">Esta es la lámina que de verdad cambia la conducta. Detente aquí más que en ninguna otra: si el material llega sucio, el programa entero se vuelve trabajo de más para quien pesa.</p>
         </section>
@@ -230,6 +231,7 @@
     </div>`).join("");
   $("#l-cuantas").textContent = enLetrasM(D.materiales.length) + " cosas. Ni una más.";
   $("#l-fuera").textContent = D.fuera;
+  $("#l-latas").textContent = D.latasAlcohol || "";
   $("#l2-solo").textContent = "Solo esos " + enLetras(D.materiales.length) +
     " materiales, aunque sobre espacio en el costal.";
 

@@ -33,7 +33,7 @@ window.DATOS = {
     texto: "Se pide en el Área de Sustentabilidad. Sólo te registras para el préstamo por el tiempo que lo necesites.",
     quien: "Jhoana Bravo, del Área de Sustentabilidad",
     whatsapp: "5214424052714",
-    mensaje: "Hola Jhoana. Vi la página del acopio del campus y quiero pedir mi costal. Mi nombre es:"
+    mensaje: "Hola Jhoana. Vi la página de Embajadores del Reciclaje para el acopio del campus y quiero pedir mi costal. Mi nombre es:"
   },
 
   // EL REPARTO. De cada peso que se vende, 70 centavos van a obras de las
@@ -83,6 +83,10 @@ window.DATOS = {
   aceitePie: "Con el acopio de un litro de aceite usado, evitamos que se contaminen 1,000 litros de agua. Sólo se separan aceites vegetales, no grasas o mantecas.",
 
   fuera: "Cartón, papel y TetraPak se separan en el campus, pero no entran aquí.",
+
+  // Las latas de cerveza y de alcohol sí entran. Se piden aparte porque lo
+  // que les queda adentro moja el resto del costal y le baja el precio.
+  latasAlcohol: "Las latas de cerveza y de bebidas con alcohol en general sí se reciben: solo pedimos que vayan en una bolsita aparte, dentro del mismo costal.",
 
   etiquetas: [
     { clave:"administrativo", nombre:"Administrativo", color:"var(--e-adm)" },
