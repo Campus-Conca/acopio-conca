@@ -60,13 +60,22 @@ va en `gastos`. Lo que no se anote queda sin rendir cuentas.
 Repo local `/home/eduardo/proyectos/acopio-conca`, remoto
 `Campus-Conca/acopio-conca` en GitHub, rama `main`.
 
-El sitio en vivo lo sirve **GitHub Pages** desde la raíz de `main`:
-<https://campus-conca.github.io/acopio-conca/>. Al hacer push queda arriba en
-un par de minutos, sin más trámite.
+La dirección buena es la de **Cloudflare Workers**:
+<https://acopio-conca.campusconcauaq.workers.dev>. Es la que se comparte y la
+que hay que revisar después de publicar. La de GitHub Pages
+(<https://campus-conca.github.io/acopio-conca/>) sigue viva y se actualiza con
+el mismo push, pero queda de respaldo: Eduardo reporta que no le abre sin wifi.
 
-Queda pendiente lo de Cloudflare Workers (`acopio-conca.campusconcauaq.workers.dev`,
-definido en `wrangler.jsonc`): esa conexión nunca se terminó de hacer en el
-panel. Mientras tanto, la dirección buena es la de Pages.
+El Worker está enlazado al repo desde el 31 de agosto de 2026, así que **cada
+push a `main` lo publica solo**, entre 45 segundos y un par de minutos después.
+No hay que correr `wrangler` a mano. Si un día dejara de publicar, lo primero
+que hay que mirar es que la GitHub App de Cloudflare siga con permiso sobre el
+repo en la organización Campus-Conca, no en la cuenta personal.
+
+**Ojo al verificar que un cambio subió:** Cloudflare responde **307** en
+`/index.html` (manda a `/`) y en `/presentacion.html` (manda a `/presentacion`).
+Un `curl` sin `-L` devuelve cuerpo vacío y parece que el cambio no llegó. Se
+pide la ruta sin extensión, o se revisa `datos.js`, que sí se sirve directo.
 
 **Ojo:** el push necesita la cuenta de GitHub `pas-web`
 (`gh auth switch -u pas-web`); la cuenta habitual `eduardolusan-source` no
@@ -183,8 +192,11 @@ cobre salió de la lista cuando entró el aceite, y si vuelve el dibujo ya está
 hecho. El aceite además tiene su tira de tres pasos, `img/aceite-pasos.jpg`,
 que va en la portada debajo de las tarjetas con la frase de `aceitePie`.
 
-El padrón está vacío: falta cargar un primer grupo de personas antes de la
-primera colecta del 22 de septiembre.
+El padrón arrancó el 31 de agosto de 2026 con siete costales, pero los siete
+están **sin etiqueta**: Eduardo pasó los nombres y no de dónde viene cada quien.
+La página los muestra como "Sin etiqueta" y los contadores por grupo quedan en
+cero hasta que se llenen. Su fecha `desde` es la del alta, no la del préstamo
+del costal.
 
 ## Cómo probar antes de subir cambios
 
