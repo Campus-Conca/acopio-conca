@@ -98,6 +98,13 @@ window.DATOS = {
 
   // { nombre:"Nombre Apellido", etiqueta:"pas", desde:"2026-09-24" },
   personas: [
+    { nombre:"Dulce Morales Velázquez", desde:"2026-08-31" },
+    { nombre:"Eduardo Luna", desde:"2026-08-31" },
+    { nombre:"Héctor Castañeda", desde:"2026-08-31" },
+    { nombre:"Jhoana Hernández Bravo", desde:"2026-08-31" },
+    { nombre:"Jesús Emmanuel Moralez", desde:"2026-08-31" },
+    { nombre:"Yanely Trejo", desde:"2026-08-31" },
+    { nombre:"Raquel Trejo", desde:"2026-08-31" },
   ],
 
   // El aceite se anota en litros; lo demás en kilos.
