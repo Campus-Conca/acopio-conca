@@ -192,11 +192,16 @@ cobre salió de la lista cuando entró el aceite, y si vuelve el dibujo ya está
 hecho. El aceite además tiene su tira de tres pasos, `img/aceite-pasos.jpg`,
 que va en la portada debajo de las tarjetas con la frase de `aceitePie`.
 
-El padrón arrancó el 31 de agosto de 2026 con siete costales, pero los siete
-están **sin etiqueta**: Eduardo pasó los nombres y no de dónde viene cada quien.
-La página los muestra como "Sin etiqueta" y los contadores por grupo quedan en
-cero hasta que se llenen. Su fecha `desde` es la del alta, no la del préstamo
-del costal.
+El padrón arrancó el 31 de agosto de 2026 con siete costales y el 1 de
+septiembre llegó a diez, ya todos con etiqueta. La fecha `desde` es la del
+alta, no la del préstamo del costal.
+
+**Un renglón es un costal, no una persona.** Eduardo Luna y Mayra Chávez son
+matrimonio y comparten uno, así que van en un solo renglón —"Eduardo Luna y
+Mayra Chávez"— y así se anotan en el pesaje: el kilaje del costal completo,
+no repartido entre los dos.
+
+De Citlalli, de PAS, falta el apellido.
 
 ## Cómo probar antes de subir cambios
 

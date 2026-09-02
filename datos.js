@@ -5,7 +5,7 @@
 window.DATOS = {
 
   campus: "UAQ · Campus Concá",
-  actualizado: "2026-08-19",
+  actualizado: "2026-09-01",
   responsable: "Área de Sustentabilidad",
   contacto: "Si un número no cuadra, avisa en el área y se corrige.",
 
@@ -97,14 +97,19 @@ window.DATOS = {
   ],
 
   // { nombre:"Nombre Apellido", etiqueta:"pas", desde:"2026-09-24" },
+  // Un renglón es un costal, no una persona: Eduardo y Mayra son matrimonio
+  // y comparten uno, así que van juntos y así se anotan en el pesaje.
   personas: [
-    { nombre:"Dulce Morales Velázquez", desde:"2026-08-31" },
-    { nombre:"Eduardo Luna", desde:"2026-08-31" },
-    { nombre:"Héctor Castañeda", desde:"2026-08-31" },
-    { nombre:"Jhoana Hernández Bravo", desde:"2026-08-31" },
-    { nombre:"Jesús Emmanuel Moralez", desde:"2026-08-31" },
-    { nombre:"Yanely Trejo", desde:"2026-08-31" },
-    { nombre:"Raquel Trejo", desde:"2026-08-31" },
+    { nombre:"Dulce Morales Velázquez",     etiqueta:"administrativo", desde:"2026-08-31" },
+    { nombre:"Héctor Castañeda",            etiqueta:"administrativo", desde:"2026-08-31" },
+    { nombre:"Jhoana Hernández Bravo",      etiqueta:"administrativo", desde:"2026-08-31" },
+    { nombre:"Yanely Trejo",                etiqueta:"administrativo", desde:"2026-08-31" },
+    { nombre:"Raquel Trejo",                etiqueta:"administrativo", desde:"2026-08-31" },
+    { nombre:"Eduardo Luna y Mayra Chávez", etiqueta:"docente",        desde:"2026-08-31" },
+    { nombre:"Jesús Emmanuel Morales",      etiqueta:"prepa",          desde:"2026-08-31" },
+    { nombre:"Sheila Juárez",               etiqueta:"docente",        desde:"2026-09-01" },
+    { nombre:"Emiliano Mendoza Servín",     etiqueta:"prepa",          desde:"2026-09-01" },
+    { nombre:"Citlalli",                    etiqueta:"pas",            desde:"2026-09-01" },
   ],
 
   // El aceite se anota en litros; lo demás en kilos.
