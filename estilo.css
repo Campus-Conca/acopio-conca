@@ -467,8 +467,9 @@ section.lam{background:var(--cal);border:1px solid var(--linea);padding:1.1rem 1
 .trueque .flecha{font-size:1.5rem;line-height:1;color:var(--barro)}
 
 /* la foto que corona cada tarjeta de material */
-.lm-fig{margin:-.7rem -.8rem .6rem;aspect-ratio:16/10;overflow:hidden;background:var(--linea)}
-.lm-fig img{display:block;width:100%;height:100%;object-fit:cover}
+.lm-fig{margin:-.7rem -.8rem .6rem;background:#F2EEE3;border-bottom:1px solid var(--linea);
+  display:flex;align-items:center;justify-content:center;padding:.45rem;height:104px}
+.lm-fig img{display:block;width:auto;height:100%;max-width:100%;object-fit:contain}
 
 /* pie de una imagen: se queda aunque el apoyo esté escondido */
 .lam .pie-img{margin:.55rem 0 0;font-size:.86rem;color:var(--tinta-60);text-align:center;max-width:70ch;
@@ -512,7 +513,12 @@ html.telon-abierto{overflow:hidden}
 /* Proyectados, los materiales van en un solo renglón pase lo que pase:
    en un cañón viejo de 800x600 se partían en dos y la lámina no cabía.
    Cuántas columnas son lo dice la lista, no un número escrito aquí. */
-#telon .escenario>.lam .lam-mats{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
+#telon .escenario>.lam .lm-fig{height:clamp(92px,17vh,168px)}
+/* Un solo renglón solo si hay ancho: proyectado en un celular las tarjetas
+   se estrangulaban y el texto se salía. Ahí vuelven a acomodarse solas. */
+@media (min-width:720px){
+  #telon .escenario>.lam .lam-mats{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
+}
 #telon .escenario>.lam .rep-p .d{font-size:clamp(.9rem,1.3vw,1.1rem)}
 #telon .escenario>.lam .fechas span{font-size:clamp(.85rem,1.3vw,1.05rem)}
 #telon.sin-apoyo .apoyo{display:none}
@@ -544,7 +550,7 @@ html.telon-abierto{overflow:hidden}
 .lam--portada .cuando{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cempa);font-weight:700}
 .lam--portada h3{margin:.6rem 0 .5rem;font-size:clamp(2rem,6vw,4rem);letter-spacing:-.035em;line-height:.95;font-weight:800}
 .lam--portada .foco{margin:0;font-size:clamp(1.05rem,2vw,1.5rem);color:#C3D2C6}
-.lam--portada img{width:clamp(70px,9vw,120px);margin-bottom:1.2rem;filter:invert(1) brightness(1.6)}
+.lam--portada img{width:clamp(155px,26vh,300px);margin-bottom:1.1rem;filter:invert(1) brightness(1.6)}
 
 #telon .barra-t{display:flex;align-items:center;gap:.55rem;background:var(--tinta);color:var(--cal);
   padding:.5rem clamp(10px,2vw,20px)}
