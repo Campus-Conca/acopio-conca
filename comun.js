@@ -169,6 +169,74 @@ window.A = (function(){
       `</div></div>`;
   };
 
+  /* ---------- la obra, dibujada ---------- */
+  // La sala de exterior se dibuja punteada y lo pagado se rellena de abajo
+  // hacia arriba. Con la bolsa en ceros queda entera punteada, que es lo que
+  // conviene enseñar en un salón: la promesa, no el cero.
+  // Vive aquí porque la usan la portada y la presentación. Si cada página la
+  // dibujara por su cuenta, dejaría de ser la misma obra.
+  const dibujoObra = (opc) => {
+    const o = opc || {}, id = o.id || "corte";
+    // La portada necesita el lienzo completo, porque la regla de porcentajes
+    // se mide contra esos 190 de alto. Proyectada, la lámina recorta al ras
+    // del dibujo: el aire de arriba es alto de pantalla desperdiciado.
+    const vista = o.vista || "0 0 300 190";
+    return `<svg class="mesa" viewBox="${vista}" role="img"
+      aria-label="La sala de exterior se dibuja conforme avanza lo juntado">
+      <defs><clipPath id="${id}"><rect class="corte-r" x="0" y="190" width="300" height="0"/></clipPath></defs>
+      <g fill="none" stroke="#B9C4B3" stroke-width="2.5" stroke-dasharray="5 5">
+        <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
+        <rect x="16" y="136" width="54" height="12"/><rect x="16" y="102" width="54" height="34"/>
+        <rect x="22" y="94" width="42" height="9"/>
+        <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
+        <rect x="80" y="136" width="54" height="12"/><rect x="80" y="102" width="54" height="34"/>
+        <rect x="86" y="94" width="42" height="9"/>
+        <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
+        <rect x="172" y="136" width="112" height="12"/><rect x="172" y="102" width="112" height="34"/>
+        <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
+        <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
+        <rect x="140" y="150" width="57" height="8"/>
+        <line x1="12" y1="174" x2="288" y2="174"/>
+      </g>
+      <g clip-path="url(#${id})">
+        <g fill="#3B5844">
+          <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
+          <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
+          <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
+          <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
+          <rect x="16" y="136" width="54" height="12"/><rect x="80" y="136" width="54" height="12"/>
+          <rect x="172" y="136" width="112" height="12"/>
+          <rect x="16" y="102" width="54" height="34"/><rect x="80" y="102" width="54" height="34"/>
+          <rect x="172" y="102" width="112" height="34"/>
+        </g>
+        <g fill="#DFE5DA" stroke="#3B5844" stroke-width="2.5"><rect x="140" y="150" width="57" height="8"/></g>
+        <g fill="#DE8C07">
+          <rect x="22" y="94" width="42" height="9"/><rect x="86" y="94" width="42" height="9"/>
+          <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
+        </g>
+        <rect x="12" y="172" width="276" height="3" fill="#16221C"/>
+      </g>
+    </svg>`;
+  };
+
+  // El corte sube por los mismos hitos que la regla e interpola entre uno y
+  // otro, así que la banca crece por partes —patas, asientos, respaldos— y no
+  // de un jalón. Se pinta antes de que el telón clone la lámina: el clon se
+  // lleva los atributos ya puestos.
+  const pintaObra = (raiz, pct) => {
+    const r = (raiz || document).querySelector(".corte-r");
+    if (!r) return;
+    const anclas = [{p:0, y:178}].concat(D.meta.hitos.map(h => ({ p:h.pct/100, y:h.y })));
+    const p = Math.max(0, Math.min(1, pct));
+    let y = anclas[anclas.length-1].y;
+    for (let i=1; i<anclas.length; i++) {
+      const a = anclas[i-1], b = anclas[i];
+      if (p <= b.p) { const k = (p-a.p)/((b.p-a.p) || 1); y = a.y + (b.y-a.y)*k; break; }
+    }
+    r.setAttribute("y", y.toFixed(1));
+    r.setAttribute("height", (190-y).toFixed(1));
+  };
+
   /* ---------- barra y pie ---------- */
   // A la portada se llega por el conejo, así que no lleva su propio enlace.
   const PAGINAS = [
@@ -231,5 +299,5 @@ window.A = (function(){
   return { D, MAT, CLAVES, $, eti, pesos, kilos, enLetras, enLetrasM, fecha, fechaCorta, diaSemana, hoy,
            calendario, proxima, diasColecta, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
-           kilosPorMaterial, kilosTotal, cant, totalesTexto, totalesPorUnidad, unidadDe, seguimiento, bloqueReparto, barra, pie };
+           kilosPorMaterial, kilosTotal, cant, totalesTexto, totalesPorUnidad, unidadDe, seguimiento, bloqueReparto, dibujoObra, pintaObra, barra, pie };
 })();

@@ -441,7 +441,7 @@ section.lam{background:var(--cal);border:1px solid var(--linea);padding:1.1rem 1
   padding:.7rem .8rem;display:flex;flex-direction:column}
 .lm b{font-size:1rem;letter-spacing:-.01em}
 .lm span{font-size:.8rem;color:var(--tinta-60);margin-top:.1rem}
-.lm em{font-style:normal;font-family:var(--mono);font-weight:700;font-size:1.15rem;margin-top:.35rem}
+.lm em{font-style:normal;font-family:var(--mono);font-weight:700;font-size:1.15rem;margin-top:auto;padding-top:.35rem}
 
 /* números grandes de una lámina */
 .lam-cifras{display:flex;flex-wrap:wrap;gap:1rem 2rem;margin-top:1rem}
@@ -451,27 +451,94 @@ section.lam{background:var(--cal);border:1px solid var(--linea);padding:1.1rem 1
 .lam--oscura .lam-cifras .q{color:var(--cempa)}
 .lam--oscura .lam-cifras .e{color:#9FB0A2}
 
+/* láminas a dos columnas: el texto de un lado, el dibujo del otro */
+.lam-dos{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(14px,2.6vw,30px);
+  align-items:center;margin-top:1rem}
+/* La banca manda en su lámina: se lleva la columna ancha. */
+.lam-obra{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+.lam-dos>img{display:block;width:100%;height:auto;max-height:32vh;object-fit:contain}
+@media (max-width:720px){.lam-dos,.lam-obra{grid-template-columns:1fr}}
+
+/* el trueque del aceite: un litro contra mil */
+.trueque{display:flex;flex-direction:column;gap:.35rem}
+.trueque .q{display:block;font-family:var(--mono);font-weight:700;line-height:1;
+  letter-spacing:-.03em;font-size:clamp(1.9rem,4.4vw,2.8rem);color:var(--cempa)}
+.trueque .e{display:block;font-size:.86rem;color:#C3D2C6;margin-top:.25rem}
+.trueque .flecha{font-size:1.5rem;line-height:1;color:var(--barro)}
+
+/* la foto que corona cada tarjeta de material */
+.lm-fig{margin:-.7rem -.8rem .6rem;aspect-ratio:16/10;overflow:hidden;background:var(--linea)}
+.lm-fig img{display:block;width:100%;height:100%;object-fit:cover}
+
+/* pie de una imagen: se queda aunque el apoyo esté escondido */
+.lam .pie-img{margin:.55rem 0 0;font-size:.86rem;color:var(--tinta-60);text-align:center;max-width:70ch;
+  margin-inline:auto}
+.lam-img--chica{max-height:16vh}
+/* El conejo es tinta sobre transparente: en la lámina oscura hay que
+   invertirlo, igual que en la barra y en el pie, o no se ve nada. */
+.lam--oscura .lam-img{filter:invert(1) brightness(1.6)}
+
+/* la banca y sus etapas */
+.obra-dibujo .mesa{display:block;width:100%;height:auto;max-height:30vh}
+.etapas{list-style:none;margin:.9rem 0 0;padding:0;display:grid;gap:.25rem}
+.etapas li{display:flex;align-items:baseline;gap:.6rem;font-size:.9rem;color:var(--tinta-60)}
+.etapas li b{font-family:var(--mono);font-weight:700;color:var(--tinta);min-width:3.2em}
+.etapas li.on b{color:var(--cempa)}
+
+/* el QR de la lámina de cierre */
+.lam--qr .qr{margin:0;text-align:center}
+.lam--qr .qr img{display:block;width:100%;max-width:clamp(170px,26vw,300px);height:auto;margin:0 auto;
+  border:8px solid #FFF;background:#FFF}
+.lam--qr .qr figcaption{margin-top:.5rem;font-family:var(--mono);font-size:.8rem;color:var(--tinta-60);
+  word-break:break-all}
+.lam .ya-somos{margin:.7rem 0 0;font-weight:700;font-size:clamp(1rem,1.8vw,1.15rem);color:var(--cempa)}
+
 /* el telón: una lámina a la vez, a pantalla completa */
 #telon{position:fixed;inset:0;z-index:90;background:var(--cal);display:none}
 #telon.abierto{display:flex;flex-direction:column}
 html.telon-abierto{overflow:hidden}
-#telon .escenario{flex:1;overflow:auto;padding:clamp(14px,3vw,40px);display:flex}
+#telon .escenario{flex:1;overflow:auto;padding:clamp(10px,2.2vh,28px) clamp(14px,3vw,40px);display:flex}
 #telon .escenario>.lam{margin:auto;width:100%;max-width:1200px;min-height:min(74vh,100%);
-  border-width:2px;padding:clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
+  border-width:2px;padding:clamp(16px,3.4vh,40px) clamp(20px,4vw,48px);display:flex;flex-direction:column;justify-content:center}
 #telon .escenario>.lam>h4{font-size:.92rem}
 #telon .escenario>.lam>h4 .n{font-size:1.7rem}
 #telon .escenario>.lam .di{font-size:clamp(1.9rem,4.8vw,3.4rem)}
-#telon .escenario>.lam .apoyo{font-size:clamp(1.05rem,1.7vw,1.4rem)}
+#telon .escenario>.lam .apoyo{font-size:clamp(1rem,1.5vw,1.28rem);margin-top:.55rem}
 #telon .escenario>.lam ul{font-size:clamp(1.05rem,1.6vw,1.35rem)}
 #telon .escenario>.lam .lam-img{max-height:42vh}
 #telon .escenario>.lam .lm b{font-size:clamp(1.05rem,1.7vw,1.4rem)}
 #telon .escenario>.lam .lm em{font-size:clamp(1.2rem,2.2vw,1.7rem)}
 #telon .escenario>.lam .lm span{font-size:clamp(.86rem,1.2vw,1.05rem)}
+/* Proyectados, los materiales van en un solo renglón pase lo que pase:
+   en un cañón viejo de 800x600 se partían en dos y la lámina no cabía.
+   Cuántas columnas son lo dice la lista, no un número escrito aquí. */
+#telon .escenario>.lam .lam-mats{grid-template-columns:repeat(var(--n,5),minmax(0,1fr))}
 #telon .escenario>.lam .rep-p .d{font-size:clamp(.9rem,1.3vw,1.1rem)}
 #telon .escenario>.lam .fechas span{font-size:clamp(.85rem,1.3vw,1.05rem)}
 #telon.sin-apoyo .apoyo{display:none}
 #telon .nota-conductor{display:none}
 #telon.con-notas .nota-conductor{display:block}
+
+/* lo mismo, en grande, cuando se proyecta */
+#telon .escenario>.lam .trueque .q{font-size:clamp(2.6rem,6.4vw,4.6rem)}
+#telon .escenario>.lam .trueque .e{font-size:clamp(1rem,1.6vw,1.35rem)}
+#telon .escenario>.lam .trueque .flecha{font-size:clamp(1.8rem,3vw,2.4rem)}
+#telon .escenario>.lam .etapas li{font-size:clamp(1rem,1.5vw,1.25rem)}
+#telon .escenario>.lam .pie-img{font-size:clamp(.95rem,1.4vw,1.2rem)}
+#telon .escenario>.lam .ya-somos{font-size:clamp(1.2rem,2.2vw,1.7rem)}
+#telon .escenario>.lam.lam--qr .qr img{max-width:min(46vh,380px)}
+#telon .escenario>.lam.lam--qr .qr figcaption{font-size:clamp(.9rem,1.3vw,1.1rem)}
+/* Sin scroll: lo que no se ve no se presenta. La imagen y el dibujo ceden
+   altura antes que el texto, que es lo que la gente sí necesita leer. */
+#telon .escenario>.lam .lam-dos>img{max-height:38vh}
+#telon .escenario>.lam .obra-dibujo .mesa{max-height:40vh}
+/* Con la A encendida cabe también el texto de apoyo: el bloque del
+   reparto cede el aire, que es lo que menos se extraña. */
+#telon .escenario>.lam .reparto{margin-top:.7rem}
+#telon .escenario>.lam .rep-pies{margin-top:.7rem}
+#telon .escenario>.lam .lam-img{max-height:38vh}
+#telon .escenario>.lam .lam-img--chica{max-height:18vh}
+
 
 .lam.lam--portada{background:var(--tinta);color:var(--cal);border-color:var(--tinta);text-align:left}
 .lam--portada .cuando{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--cempa);font-weight:700}

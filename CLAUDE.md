@@ -14,9 +14,10 @@ cuentas.html        kilos por colecta, actas de venta, el reparto, obras y fórm
 presentacion.html   dos mazos de láminas para proyectar y explicar el esquema
 pesaje.html         página interna: hoja de captura y cartel imprimible
 datos.js            TODOS los datos del sitio
-comun.js            barra, pie, formato, cálculos y la barra del reparto
+comun.js            barra, pie, formato, cálculos, la barra del reparto y la banca
 estilo.css          estilos de las cinco páginas
 img/                los dibujos del conejo (jpg), el stencil y el sello (png)
+img/qr-sitio.svg    el QR de la lámina de cierre; se genera, no se dibuja
 wrangler.jsonc      nombre del Worker y carpeta que se sirve en Cloudflare
 ```
 
@@ -153,9 +154,27 @@ mueve ahí y el sitio entero se entera.
 completo en diez minutos (salón, academia, asamblea) y el segundo son las
 cuentas de cerca, para quien pregunta por el dinero. Se leen en la página
 como un guion o se proyectan con el botón **Presentar**: flechas o espacio
-avanzan, `A` esconde el texto de apoyo, `N` muestra las notas de quien
+avanzan, `A` muestra el texto de apoyo, `N` muestra las notas de quien
 conduce, `Esc` sale. La portada de cada mazo la arma solo el telón con la
 cabecera del mazo.
+
+**Proyectado se arranca sin el texto de apoyo**: en pantalla la gente lee o
+escucha, no las dos. El guion completo se queda para leerse en la página, y
+`A` lo trae de vuelta si alguien pregunta. Por eso una lámina no puede
+depender de su `.apoyo` para entenderse: lo que tenga que verse va en la
+frase grande, en una lista o en un dibujo.
+
+**Ninguna lámina debe tener scroll.** El escenario lleva `overflow:auto`, así
+que una lámina que no cabe no truena: simplemente se corta y nadie se entera.
+El aire de arriba y abajo se mide contra la altura (`vh`), no contra el
+ancho, porque en un cañón de 16:9 lo que escasea es alto. Al agregar o crecer
+una lámina hay que revisarla a **1024×576**, que es el tamaño más apretado de
+los que se usan; ahí cabe todo hoy, salvo tres láminas que se pasan por unos
+30 px cuando se enciende la `A`.
+
+Las láminas a dos columnas usan `.lam-dos` (`minmax(0,1fr)`, que es lo que
+deja encoger de verdad la columna del dibujo) y se apilan solas abajo de 720
+px de ancho.
 
 Las láminas **no traen números escritos a mano**: precios, fechas, meta,
 avance y montos del reparto se leen de `datos.js` al abrir la página. Por eso
@@ -165,7 +184,55 @@ que llenarla desde el script, no teclearla en el HTML.
 Cuidado con los nombres de clase dentro de una lámina: el telón clona la
 lámina al escenario, así que una clase repetida (`.sigue`, por ejemplo, que
 el calendario usa para marcar la próxima fecha) puede robarle el nombre a un
-control. Los botones del telón llevan prefijo `t-` por eso.
+control. Los botones del telón llevan prefijo `t-` por eso. Por lo mismo, lo
+que haya que calcular sobre una lámina se calcula **antes** de abrir el
+telón: el clon se lleva los atributos ya puestos.
+
+**El QR.** La lámina de cierre lleva `img/qr-sitio.svg`, que abre la portada
+—ahí está el botón de WhatsApp con el mensaje ya escrito—. Ese código **no se
+dibuja solo**: si cambia `sitio` en `datos.js`, hay que volver a generarlo.
+Se regenera así, parado en el repo:
+
+```bash
+python3 -c '
+import qrcode, io, re
+from qrcode.constants import ERROR_CORRECT_M
+URL = re.search(r"sitio:\s*\"([^\"]+)\"", io.open("datos.js", encoding="utf-8").read()).group(1)
+q = qrcode.QRCode(error_correction=ERROR_CORRECT_M, border=2); q.add_data(URL); q.make(fit=True)
+m = q.get_matrix(); n = len(m)
+d = "".join(f"M{x} {y}h1v1h-1z" for y,r in enumerate(m) for x,v in enumerate(r) if v)
+io.open("img/qr-sitio.svg","w",encoding="utf-8").write(
+  f"<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 {n} {n}\" shape-rendering=\"crispEdges\""
+  f" role=\"img\" aria-label=\"Código QR de la página del acopio\"><title>{URL}</title>"
+  f"<rect width=\"{n}\" height=\"{n}\" fill=\"#FFFFFF\"/><path fill=\"#16221C\" d=\"{d}\"/></svg>\n")
+print(URL, n, "módulos")'
+```
+
+La dirección va escrita debajo del código para quien no pueda escanear, y
+esa sí sale de `datos.js`. Después de regenerarlo conviene escanearlo con un
+celular de verdad antes de presentar.
+
+Se eligió nivel M y no Q porque lo que se necesita es que el módulo sea
+grande —se escanea desde la última fila de un salón—, no que aguante
+raspones: son 37×37 módulos y no conviene subir de ahí.
+
+## La banca
+
+`dibujoObra()` y `pintaObra()` viven en `comun.js` porque la usan la portada
+y la presentación: si cada página dibujara la obra por su cuenta, dejaría de
+ser la misma obra. `pintaObra` sube el corte por los mismos hitos que la
+regla e interpola entre uno y otro, así que la banca crece por partes
+—patas, asientos, respaldos, cojines— y no de un jalón.
+
+Con la bolsa en ceros queda **entera punteada**, y así se enseña en un salón:
+la promesa, no el cero. Los ceros siguen publicados en las cuentas, que es
+donde toca rendirlos; la lámina del 70% solo los saca a pantalla cuando ya
+hubo una venta.
+
+La portada la pide con el lienzo completo (`0 0 300 190`), porque la regla de
+porcentajes se mide contra esos 190 de alto. La lámina la pide recortada al
+ras del dibujo (`vista:"10 88 280 92"`): el aire de arriba, proyectado, es
+alto de pantalla desperdiciado.
 
 ## Los dibujos
 

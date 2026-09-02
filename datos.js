@@ -5,6 +5,9 @@
 window.DATOS = {
 
   campus: "UAQ · Campus Concá",
+  // La dirección que va en el QR de la presentación. Si cambia, hay que
+  // volver a generar img/qr-sitio.svg: el código no se dibuja solo.
+  sitio: "https://acopio-conca.campusconcauaq.workers.dev/",
   actualizado: "2026-09-01",
   responsable: "Área de Sustentabilidad",
   contacto: "Si un número no cuadra, avisa en el área y se corrige.",
@@ -79,6 +82,10 @@ window.DATOS = {
     { clave:"aceite",   nombre:"Aceite vegetal", corto:"Aceite", unidad:"L", precio:3,
       color:"var(--m-aceite)", img:"img/aceite.jpg",       condicion:"Frío, colado y en botella cerrada" }
   ],
+
+  // El mismo dato del pie, aparte, para poder enseñarlo grande en la
+  // presentación sin teclearlo dos veces.
+  aceiteAgua: { litros:1, agua:1000 },
 
   aceitePie: "Con el acopio de un litro de aceite usado, evitamos que se contaminen 1,000 litros de agua. Sólo se separan aceites vegetales, no grasas o mantecas.",
 

@@ -32,42 +32,6 @@
       <p class="nombre" id="obra-nombre"></p>
       <div class="mesa-grid">
         <div class="regla" id="regla"></div>
-        <svg id="mesa" viewBox="0 0 300 190" role="img" aria-labelledby="mesa-t">
-          <title id="mesa-t">La sala de exterior se dibuja conforme avanza lo juntado</title>
-          <defs><clipPath id="corte"><rect id="corte-r" x="0" y="190" width="300" height="0"/></clipPath></defs>
-          <g fill="none" stroke="#B9C4B3" stroke-width="2.5" stroke-dasharray="5 5">
-            <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
-            <rect x="16" y="136" width="54" height="12"/><rect x="16" y="102" width="54" height="34"/>
-            <rect x="22" y="94" width="42" height="9"/>
-            <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
-            <rect x="80" y="136" width="54" height="12"/><rect x="80" y="102" width="54" height="34"/>
-            <rect x="86" y="94" width="42" height="9"/>
-            <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
-            <rect x="172" y="136" width="112" height="12"/><rect x="172" y="102" width="112" height="34"/>
-            <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
-            <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
-            <rect x="140" y="150" width="57" height="8"/>
-            <line x1="12" y1="174" x2="288" y2="174"/>
-          </g>
-          <g clip-path="url(#corte)">
-            <g fill="#3B5844">
-              <rect x="20" y="148" width="6" height="26"/><rect x="60" y="148" width="6" height="26"/>
-              <rect x="84" y="148" width="6" height="26"/><rect x="124" y="148" width="6" height="26"/>
-              <rect x="176" y="148" width="6" height="26"/><rect x="272" y="148" width="6" height="26"/>
-              <rect x="146" y="158" width="5" height="16"/><rect x="186" y="158" width="5" height="16"/>
-              <rect x="16" y="136" width="54" height="12"/><rect x="80" y="136" width="54" height="12"/>
-              <rect x="172" y="136" width="112" height="12"/>
-              <rect x="16" y="102" width="54" height="34"/><rect x="80" y="102" width="54" height="34"/>
-              <rect x="172" y="102" width="112" height="34"/>
-            </g>
-            <g fill="#DFE5DA" stroke="#3B5844" stroke-width="2.5"><rect x="140" y="150" width="57" height="8"/></g>
-            <g fill="#DE8C07">
-              <rect x="22" y="94" width="42" height="9"/><rect x="86" y="94" width="42" height="9"/>
-              <rect x="178" y="94" width="48" height="9"/><rect x="230" y="94" width="48" height="9"/>
-            </g>
-            <rect x="12" y="172" width="276" height="3" fill="#16221C"/>
-          </g>
-        </svg>
       </div>
       <div class="cifras">
         <div class="cifra"><span class="n alza dato" id="c-obra">$0</span><span class="l">Para esta obra</span></div>
@@ -145,7 +109,7 @@
 <script>
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
-          diasColecta, totalVentas, paraObra, avance, totalesTexto, bloqueReparto, enLetrasM } = A;
+          diasColecta, totalVentas, paraObra, avance, totalesTexto, bloqueReparto, dibujoObra, pintaObra, enLetrasM } = A;
 
   A.barra("index.html");
 
@@ -188,17 +152,10 @@
   };
   acomoda(); addEventListener("resize", acomoda, { passive:true });
 
-  const corte = $("#corte-r");
-  const ANCLAS = [{p:0,y:178}].concat(D.meta.hitos.map(h => ({p:h.pct/100, y:h.y})));
-  const yDe = p => {
-    p = Math.max(0, Math.min(1,p));
-    for (let i=1;i<ANCLAS.length;i++){ const a=ANCLAS[i-1], b=ANCLAS[i];
-      if (p <= b.p) { const k=(p-a.p)/((b.p-a.p)||1); return a.y+(b.y-a.y)*k; } }
-    return ANCLAS[ANCLAS.length-1].y;
-  };
-  const y = yDe(pct);
-  corte.setAttribute("y", y.toFixed(1));
-  corte.setAttribute("height", (190-y).toFixed(1));
+  // La banca la dibuja comun.js, para que la portada y la presentación
+  // enseñen exactamente la misma obra.
+  document.querySelector(".mesa-grid").insertAdjacentHTML("beforeend", dibujoObra());
+  pintaObra(document, pct);
 
   /* pasos */
   // El calendario se calcula aquí porque los pasos ya lo necesitan.

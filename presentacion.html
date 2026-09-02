@@ -23,7 +23,7 @@
   <div class="wrap">
     <h2 class="tit">Dos mazos</h2>
     <p class="sub">El primero es la explicación completa y alcanza en diez minutos. El segundo es para cuando alguien pregunta por el dinero en serio. Se leen aquí como un guion, o se proyectan con el botón <b>Presentar</b>: una lámina a la vez, a pantalla completa.</p>
-    <p class="nota" style="margin:-1.2rem 0 1.8rem">Flechas o barra espaciadora avanzan · <b>A</b> esconde el texto de apoyo · <b>N</b> muestra las notas de quien conduce · <b>Esc</b> sale.</p>
+    <p class="nota" style="margin:-1.2rem 0 1.8rem">Flechas o barra espaciadora avanzan · <b>A</b> muestra el texto de apoyo · <b>N</b> muestra las notas de quien conduce · <b>Esc</b> sale.</p>
 
     <!-- ============ MAZO 1 ============ -->
     <section class="mazo" id="completo">
@@ -52,17 +52,27 @@
           <p class="nota-conductor">Los precios son de referencia y se mueven cada mes con el mercado; los que ves en pantalla son los que están cargados hoy en el sitio. Si alguien pregunta por el cartón o el TetraPak, contesta que sí se separan en el campus pero no entran en este programa, y sigue.</p>
         </section>
 
-        <section class="lam">
-          <h4><span class="n">3</span> Cómo tiene que llegar</h4>
-          <p class="di">Limpio, seco y separado.</p>
-          <p class="apoyo">Una lata con refresco adentro moja todo lo demás y le baja el precio al costal completo. Enjuagar tarda tres segundos y es la diferencia entre material y basura mojada.</p>
-          <p class="apoyo" id="l-latas"></p>
-          <img class="lam-img" src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
-          <p class="nota-conductor">Esta es la lámina que de verdad cambia la conducta. Detente aquí más que en ninguna otra: si el material llega sucio, el programa entero se vuelve trabajo de más para quien pesa.</p>
+        <section class="lam lam--oscura">
+          <h4><span class="n">3</span> Por qué importa el aceite</h4>
+          <div class="lam-dos">
+            <div class="trueque" id="l-trueque"></div>
+            <img src="img/aceite-pasos.jpg" alt="Tres pasos: dejar enfriar el aceite, colarlo con un colador hacia una botella de plástico, y entregarla cerrada">
+          </div>
+          <p class="apoyo" id="l-aceite"></p>
+          <p class="nota-conductor">Este es el número que más convence y el más fácil de repetir después. Dilo despacio y deja que se asiente antes de pasar. Si alguien pregunta: solo aceite vegetal, no grasas ni mantecas, y es el único que se mide en litros.</p>
         </section>
 
         <section class="lam">
-          <h4><span class="n">4</span> Cuándo y dónde</h4>
+          <h4><span class="n">4</span> Cómo tiene que llegar</h4>
+          <p class="di">Limpio, seco y separado.</p>
+          <img class="lam-img" src="img/asi-si-asi-no.jpg" alt="Un costal con los materiales separados y limpios frente a otro con basura revuelta">
+          <p class="pie-img" id="l-latas"></p>
+          <p class="apoyo">Una lata con refresco adentro moja todo lo demás y le baja el precio al costal completo. Enjuagar tarda tres segundos y es la diferencia entre material y basura mojada.</p>
+          <p class="nota-conductor">Esta es la lámina que de verdad cambia la conducta. Detente aquí más que en ninguna otra y dilo en voz alta, que la imagen sola no lo dice: si el material llega sucio, el programa entero se vuelve trabajo de más para quien pesa.</p>
+        </section>
+
+        <section class="lam">
+          <h4><span class="n">5</span> Cuándo y dónde</h4>
           <p class="di" id="l-cuando">Por confirmar</p>
           <p class="apoyo" id="l-donde"></p>
           <div class="fechas" id="l-fechas"></div>
@@ -70,8 +80,8 @@
         </section>
 
         <section class="lam">
-          <h4><span class="n">5</span> El pesaje</h4>
-          <p class="di">Se pesa frente a todxs.</p>
+          <h4><span class="n">6</span> El pesaje</h4>
+          <p class="di">Se pesa frente a todo el mundo.</p>
           <p class="apoyo" id="l-pesaje"></p>
           <ul>
             <li>Tus kilos se anotan <b>con tu nombre</b> en la libreta.</li>
@@ -82,7 +92,7 @@
         </section>
 
         <section class="lam">
-          <h4><span class="n">6</span> El reparto</h4>
+          <h4><span class="n">7</span> El reparto</h4>
           <p class="di" id="l-rep-di">De cada peso, una parte para todos y otra para el área.</p>
           <div id="l-reparto"></div>
           <p class="apoyo">Se parte lo vendido, sin descontarle nada antes. El 70% compartido llega limpio: los costales, la báscula y todo lo que cuesta operar salen del 30% del área. Las dos partes se publican.</p>
@@ -90,15 +100,19 @@
         </section>
 
         <section class="lam">
-          <h4><span class="n">7</span> El 70% compartido</h4>
+          <h4><span class="n">8</span> El 70% compartido</h4>
           <p class="di" id="l-obra">Obra en curso</p>
+          <div class="lam-dos lam-obra">
+            <div class="obra-dibujo" id="l-obra-dibujo"></div>
+            <ol class="etapas" id="l-etapas"></ol>
+          </div>
           <div class="lam-cifras" id="l-obra-cifras"></div>
           <p class="apoyo" id="l-obra-txt"></p>
-          <p class="nota-conductor">Que la obra se vea. Si la sala tiene ventana hacia la explanada, señálala. El chiste de este programa es que el resultado se pueda tocar, no que salga en un informe.</p>
+          <p class="nota-conductor">Que la obra se vea. El dibujo está punteado porque todavía no se paga nada: se va rellenando solo conforme entra el dinero, y esa es justamente la promesa. Si la sala tiene ventana hacia la explanada, señálala. El chiste de este programa es que el resultado se pueda tocar, no que salga en un informe.</p>
         </section>
 
         <section class="lam">
-          <h4><span class="n">8</span> El 30% del área</h4>
+          <h4><span class="n">9</span> El 30% del área</h4>
           <p class="di">El otro 30 es el presupuesto del área, y de ahí sale operar.</p>
           <p class="apoyo" id="l-area-txt"></p>
           <ul>
@@ -110,7 +124,7 @@
         </section>
 
         <section class="lam">
-          <h4><span class="n">9</span> Las cuentas están abiertas</h4>
+          <h4><span class="n">10</span> Las cuentas están abiertas</h4>
           <p class="di">Todo esto se puede revisar sin pedir permiso.</p>
           <ul>
             <li><b>Kilos por colecta</b>, material por material.</li>
@@ -122,17 +136,25 @@
           <p class="nota-conductor">Ábrela en vivo si hay proyector y conexión. Vale más treinta segundos de página real que tres láminas prometiendo transparencia.</p>
         </section>
 
-        <section class="lam lam--centro">
-          <h4><span class="n">10</span> Cómo le entras</h4>
-          <p class="di">Pides tu costal y ya estás dentro.</p>
-          <img class="lam-img" src="img/embajadores.png" alt="Sello: Embajadores del Reciclaje">
-          <p class="apoyo" id="l-costal"></p>
-          <p class="nota-conductor">No cierres sin que alguien lo pida ahí mismo. Un costal entregado en la sala vale más que veinte personas convencidas que se van sin nada en la mano.</p>
+        <section class="lam lam--qr">
+          <h4><span class="n">11</span> Cómo le entras</h4>
+          <div class="lam-dos">
+            <figure class="qr">
+              <img src="img/qr-sitio.svg" alt="Código QR que abre la página del acopio">
+              <figcaption id="l-qr-pie"></figcaption>
+            </figure>
+            <div>
+              <p class="di">Pides tu costal y ya estás dentro.</p>
+              <p class="ya-somos" id="l-ya-somos"></p>
+              <p class="apoyo" id="l-costal"></p>
+            </div>
+          </div>
+          <p class="nota-conductor">No cierres sin que alguien lo pida ahí mismo. Deja esta lámina en pantalla mientras hablas y diles que saquen el celular ahora, no al rato: el botón de WhatsApp está en esa misma página. Un costal entregado en la sala vale más que veinte personas convencidas que se van sin nada en la mano.</p>
         </section>
 
         <section class="lam lam--oscura lam--centro">
-          <h4><span class="n">11</span> Cierre</h4>
-          <img class="lam-img" src="img/conejo.png" alt="">
+          <h4><span class="n">12</span> Cierre</h4>
+          <img class="lam-img lam-img--chica" src="img/conejo.png" alt="">
           <p class="di">Lo que separamos, lo construimos.</p>
           <p class="apoyo" id="l-cierre"></p>
         </section>
@@ -217,7 +239,7 @@
 (function(){
   const { D, $, pesos, kilos, fecha, fechaCorta, diaSemana, calendario, proxima,
           diasColecta, totalVentas, paraObra, paraArea, ejercidoArea, disponibleArea, enLetrasM, enLetras,
-          avance, totalesTexto, bloqueReparto } = A;
+          avance, totalesTexto, bloqueReparto, dibujoObra, pintaObra } = A;
 
   A.barra("presentacion.html");
 
@@ -225,13 +247,26 @@
   const rc = D.reparto.compartido, ra = D.reparto.area;
 
   /* ---- mazo 1 ---- */
+  // Las mismas fotos de la portada: en proyección una imagen distingue el
+  // material mucho antes que su nombre.
+  $("#l-mats").style.setProperty("--n", D.materiales.length);
   $("#l-mats").innerHTML = D.materiales.map(m => `
     <div class="lm" style="--c:${m.color}">
+      <div class="lm-fig"><img src="${m.img}" alt=""></div>
       <b>${m.nombre}</b><span>${m.condicion}</span><em>$${m.precio}/${m.unidad}</em>
     </div>`).join("");
   $("#l-cuantas").textContent = enLetrasM(D.materiales.length) + " cosas. Ni una más.";
   $("#l-fuera").textContent = D.fuera;
   $("#l-latas").textContent = D.latasAlcohol || "";
+
+  // El trueque del aceite: un litro entregado contra los litros de agua que
+  // no se contaminan. Las dos cifras salen de datos.js, no del HTML.
+  const ag = D.aceiteAgua;
+  if (ag) $("#l-trueque").innerHTML = `
+    <div><span class="q dato">${ag.litros} L</span><span class="e">de aceite usado que entregas</span></div>
+    <div class="flecha" aria-hidden="true">↓</div>
+    <div><span class="q dato">${ag.agua.toLocaleString("es-MX")} L</span><span class="e">de agua que no se contaminan</span></div>`;
+  $("#l-aceite").textContent = D.aceitePie || "";
   $("#l2-solo").textContent = "Solo esos " + enLetras(D.materiales.length) +
     " materiales, aunque sobre espacio en el costal.";
 
@@ -253,18 +288,41 @@
   $("#l-reparto").innerHTML = bloqueReparto({ titulo:"Así se parte lo que se vende" });
 
   $("#l-obra").textContent = "Hoy el " + rc.pct + "% va a: " + D.meta.obra + ".";
-  $("#l-obra-cifras").innerHTML = `
-    <div><span class="q dato">${pesos(D.meta.costo)}</span><span class="e">Cuesta</span></div>
-    <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Lleva</span></div>
-    <div><span class="q dato">${Math.round(avance()*100)}%</span><span class="e">Avance</span></div>
-    <div><span class="q dato">${totalesTexto()}</span><span class="e">Acopiados</span></div>`;
+
+  // La misma banca de la portada. Mientras no haya venta se queda entera
+  // punteada, y eso es lo que se quiere enseñar en un salón: la obra que va
+  // a estar ahí, no un cero por ciento. Se pinta antes de que el telón clone
+  // la lámina, para que el clon se lleve el corte ya puesto.
+  $("#l-obra-dibujo").innerHTML = dibujoObra({ id:"corte-lam", vista:"10 88 280 92" });
+  pintaObra($("#l-obra-dibujo"), avance());
+  $("#l-etapas").innerHTML = D.meta.hitos.map(h =>
+    `<li class="${avance()*100 >= h.pct ? "on" : ""}"><b>${h.pct}%</b>${h.label}</li>`).join("");
+
+  // Con la bolsa en ceros no se enseñan el 0% ni el $0: se enseña lo que
+  // cuesta y punto. Los ceros siguen publicados en las cuentas, que es donde
+  // toca rendirlos.
+  $("#l-obra-cifras").innerHTML = totalVentas() > 0
+    ? `<div><span class="q dato">${pesos(D.meta.costo)}</span><span class="e">Cuesta</span></div>
+       <div><span class="q dato">${pesos(Math.max(0, paraObra()))}</span><span class="e">Lleva</span></div>
+       <div><span class="q dato">${Math.round(avance()*100)}%</span><span class="e">Avance</span></div>
+       <div><span class="q dato">${totalesTexto()}</span><span class="e">Acopiados</span></div>`
+    : `<div><span class="q dato">${pesos(D.meta.costo)}</span><span class="e">Cuesta</span></div>
+       <div><span class="q dato">${calendario().length}</span><span class="e">Colectas para juntarlo</span></div>`;
   $("#l-obra-txt").textContent = rc.para +
     " Cuando esta se pague, la que sigue se decide y se publica igual que esta.";
 
   $("#l-area-txt").textContent = ra.para;
 
+  // El QR abre la portada, donde ya está el botón de WhatsApp con el mensaje
+  // escrito. La dirección va debajo por si alguien no puede escanear.
+  $("#l-qr-pie").textContent = (D.sitio || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
+  // Cuántos van ya. Un renglón del padrón es un costal, no una persona.
+  const cuantos = (D.personas || []).length;
+  $("#l-ya-somos").textContent = cuantos > 0
+    ? "Ya somos " + cuantos + (cuantos === 1 ? " costal" : " costales") + " en el campus."
+    : "El primer costal lo puede pedir alguien de esta sala.";
   $("#l-costal").textContent = c.texto + " La solicitud llega a " + c.quien +
-    ", y se puede pedir por WhatsApp desde la portada.";
+    ", y se puede pedir por WhatsApp desde esa misma página.";
   $("#l-cierre").textContent = D.campus + " · " + D.responsable;
 
   /* ---- mazo 2 ---- */
@@ -299,7 +357,7 @@
       <button type="button" class="t-atras" aria-label="Lámina anterior">&#8592;</button>
       <button type="button" class="t-sigue" aria-label="Lámina siguiente">&#8594;</button>
       <span class="cont"></span>
-      <span class="pista">flechas o espacio avanzan · A esconde el apoyo · N muestra notas · Esc sale</span>
+      <span class="pista">flechas o espacio avanzan · A muestra el apoyo · N muestra notas · Esc sale</span>
       <button type="button" class="salir">Salir</button>
     </div>`;
   document.body.appendChild(telon);
@@ -325,7 +383,10 @@
       <p class="foco">${cab.querySelector(".foco").textContent}</p>`;
     lams = [portada].concat([...mazo.querySelectorAll(".lam")]);
     i = 0;
-    telon.classList.add("abierto");
+    // Proyectado se arranca sin el texto de apoyo: en pantalla la gente lee
+    // o escucha, no las dos. Con A aparece si alguien pregunta, y el guion
+    // completo se queda para leerse en la página.
+    telon.classList.add("abierto", "sin-apoyo");
     document.documentElement.classList.add("telon-abierto");
     if (document.documentElement.requestFullscreen)
       document.documentElement.requestFullscreen().catch(() => {});
