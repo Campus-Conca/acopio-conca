@@ -150,6 +150,74 @@ window.A = (function(){
     return { lista, estKg, nJornadas };
   };
 
+  /* ---------- padrón desde la hoja ---------- */
+  // Quién participa ya no se teclea en datos.js: sale de la hoja de cálculo
+  // que llena el formulario de solicitud del costal. Se lee como CSV, sin
+  // llaves ni permisos, porque la hoja está compartida para lectura. Así la
+  // lista está siempre al día sola. La hoja, las columnas y el mapeo de
+  // programas viven en D.padron.
+
+  // Parser de CSV con comillas: los nombres no traen comas, pero la hoja
+  // encomilla todo y hay que respetar las comillas escapadas ("").
+  const parseCSV = txt => {
+    const filas = [[]]; let campo = "", comillas = false;
+    for (let i = 0; i < txt.length; i++) {
+      const c = txt[i];
+      if (comillas) {
+        if (c === '"') { if (txt[i+1] === '"') { campo += '"'; i++; } else comillas = false; }
+        else campo += c;
+      } else if (c === '"') comillas = true;
+      else if (c === ",") { filas[filas.length-1].push(campo); campo = ""; }
+      else if (c === "\n") { filas[filas.length-1].push(campo); campo = ""; filas.push([]); }
+      else if (c !== "\r") campo += c;
+    }
+    filas[filas.length-1].push(campo);
+    // el salto final deja una fila vacía de sobra
+    if (filas.length && filas[filas.length-1].every(x => x === "")) filas.pop();
+    return filas;
+  };
+
+  // "31/08/2026" -> "2026-08-31". Deja pasar lo que ya venga en ISO o vacío,
+  // que es como lo esperan fecha() y los demás.
+  const aISO = s => { s = (s || "").trim(); if (!s) return "";
+    const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+    return m ? m[3] + "-" + m[2].padStart(2,"0") + "-" + m[1].padStart(2,"0") : s; };
+
+  // Cada opción de "Programa" del formulario cae en una etiqueta del sitio.
+  // Se busca por palabra clave y gana la primera de la lista que aparezca.
+  const etiquetaDe = programa => { const t = (programa || "").toLowerCase();
+    const r = ((D.padron && D.padron.programas) || []).find(x => t.includes(x.busca.toLowerCase()));
+    return r ? r.etiqueta : ""; };
+
+  // Trae el padrón de la hoja y lo deja en D.personas. Devuelve una promesa
+  // con la lista para que la página pinte cuando esté. Un nombre repetido
+  // —el formulario a veces se manda dos veces— cuenta un solo costal.
+  const cargaPadron = () => {
+    const cfg = D.padron;
+    if (!cfg || !cfg.hoja) return Promise.resolve(D.personas || []);
+    const url = "https://docs.google.com/spreadsheets/d/" + cfg.hoja +
+                "/gviz/tq?tqx=out:csv&t=" + Date.now();
+    return fetch(url, { cache: "no-store" })
+      .then(r => { if (!r.ok) throw new Error("HTTP " + r.status); return r.text(); })
+      .then(txt => {
+        const filas = parseCSV(txt);
+        if (filas.length < 2) return (D.personas = []);
+        const cab = filas[0].map(s => s.trim().toLowerCase());
+        const col = n => cab.findIndex(h => h.startsWith(n.toLowerCase()));
+        const iN = col(cfg.col.nombre), iP = col(cfg.col.programa), iD = col(cfg.col.desde);
+        const vistos = new Set(), personas = [];
+        filas.slice(1).forEach(f => {
+          const nombre = (f[iN] || "").trim();
+          if (!nombre) return;
+          const clave = nombre.toLowerCase().replace(/\s+/g, " ");
+          if (vistos.has(clave)) return;
+          vistos.add(clave);
+          personas.push({ nombre, etiqueta: etiquetaDe(f[iP]), desde: aISO(f[iD]) });
+        });
+        return (D.personas = personas);
+      });
+  };
+
   /* ---------- el reparto, dibujado ---------- */
   // La misma barra en la portada, en las cuentas y en la presentación: si el
   // acuerdo se explica distinto en cada página, deja de creerse.
@@ -299,5 +367,5 @@ window.A = (function(){
   return { D, MAT, CLAVES, $, eti, pesos, kilos, enLetras, enLetrasM, fecha, fechaCorta, diaSemana, hoy,
            calendario, proxima, diasColecta, totalVentas,
            paraObra, paraArea, ejercidoArea, disponibleArea, avance,
-           kilosPorMaterial, kilosTotal, cant, totalesTexto, totalesPorUnidad, unidadDe, seguimiento, bloqueReparto, dibujoObra, pintaObra, barra, pie };
+           kilosPorMaterial, kilosTotal, cant, totalesTexto, totalesPorUnidad, unidadDe, seguimiento, cargaPadron, bloqueReparto, dibujoObra, pintaObra, barra, pie };
 })();

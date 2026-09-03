@@ -123,15 +123,24 @@
   };
 
   /* colecta */
-  const personas = D.personas || [];
-  $("#cap-personas").innerHTML = personas.length ? personas.map((p,i) => `
-    <div class="cap-g" data-p="${i}">
-      <div class="gn"><span>${p.nombre} <em>${eti(p.etiqueta).nombre}</em></span>
-        <label class="chk"><input type="checkbox" data-limpio checked> vino como se pidió</label></div>
-      <div class="cap-inputs">${D.materiales.map(m =>
-        `<label>${m.corto} · ${m.unidad}<input type="number" inputmode="decimal" min="0" step="0.1" data-mat="${m.clave}" placeholder="0"></label>`).join("")}</div>
-    </div>`).join("")
-    : `<div class="vacio">Primero hay que dar de alta a alguien, abajo.</div>`;
+  // El padrón se lee de la hoja de solicitudes al abrir. `personas` se llena
+  // cuando llega, y el botón de "Copiar" ya lo encuentra ahí porque lo lee al
+  // hacer clic, no antes.
+  let personas = [];
+  const pintaColecta = () => {
+    $("#cap-personas").innerHTML = personas.length ? personas.map((p,i) => `
+      <div class="cap-g" data-p="${i}">
+        <div class="gn"><span>${p.nombre} <em>${eti(p.etiqueta).nombre}</em></span>
+          <label class="chk"><input type="checkbox" data-limpio checked> vino como se pidió</label></div>
+        <div class="cap-inputs">${D.materiales.map(m =>
+          `<label>${m.corto} · ${m.unidad}<input type="number" inputmode="decimal" min="0" step="0.1" data-mat="${m.clave}" placeholder="0"></label>`).join("")}</div>
+      </div>`).join("")
+      : `<div class="vacio">Todavía no hay nadie en el padrón. Se llena solo desde la hoja de solicitudes.</div>`;
+  };
+  $("#cap-personas").innerHTML = `<div class="vacio">Cargando el padrón…</div>`;
+  A.cargaPadron()
+    .then(l => { personas = l; pintaColecta(); })
+    .catch(() => { $("#cap-personas").innerHTML = `<div class="vacio">No se pudo leer el padrón. Revisa la conexión y recarga la página.</div>`; });
 
   // el marcador de arriba no suma litros con kilos: los dice por separado
   $("#cap-personas").addEventListener("input", () => {

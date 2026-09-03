@@ -50,7 +50,18 @@
   const { D, $, kilos, fecha, eti, seguimiento } = A;
   A.barra("participantes.html");
 
-  const personas = D.personas || [];
+  // El padrón se lee de la hoja de solicitudes al abrir la página, así que
+  // primero se avisa que está cargando y luego se pinta con lo que llegue.
+  $("#lista").innerHTML = `<div class="vacio" style="grid-column:1/-1">Cargando el padrón…</div>`;
+  A.cargaPadron()
+    .then(render)
+    .catch(() => {
+      $("#lista").innerHTML = `<div class="vacio" style="grid-column:1/-1">No se pudo leer el padrón ahora mismo. Revisa la conexión y vuelve a cargar la página.</div>`;
+      $("#total").textContent = "";
+    })
+    .finally(() => A.pie());
+
+  function render(personas){
   const conteo = {};
   personas.forEach(p => conteo[p.etiqueta] = (conteo[p.etiqueta]||0) + 1);
 
@@ -80,7 +91,7 @@
   pinta("todos");
 
   $("#total").textContent = personas.length
-    ? personas.length + " costales entregados."
+    ? personas.length + (personas.length === 1 ? " costal en el padrón." : " costales en el padrón.")
     : "La etiqueta sólo dice de dónde viene cada quién; no separa a nadie.";
 
   /* seguimiento */
@@ -117,8 +128,7 @@
     ? `La marca de kilos son ${estKg} kg por colecta: la mediana de lo que trae quien entrega. Se mueve con el grupo.`
     : `La marca de kilos se fija después de la primera colecta, con lo que la gente realmente traiga.`)
     + ` Un litro de aceite cuenta como un kilo.`;
-
-  A.pie();
+  }
 })();
 </script>
 </body>

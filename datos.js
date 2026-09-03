@@ -103,21 +103,31 @@ window.DATOS = {
     { clave:"agro",           nombre:"Agro",           color:"var(--e-agr)" }
   ],
 
-  // { nombre:"Nombre Apellido", etiqueta:"pas", desde:"2026-09-24" },
-  // Un renglón es un costal, no una persona: Eduardo y Mayra son matrimonio
-  // y comparten uno, así que van juntos y así se anotan en el pesaje.
-  personas: [
-    { nombre:"Dulce Morales Velázquez",     etiqueta:"administrativo", desde:"2026-08-31" },
-    { nombre:"Héctor Castañeda",            etiqueta:"administrativo", desde:"2026-08-31" },
-    { nombre:"Jhoana Hernández Bravo",      etiqueta:"administrativo", desde:"2026-08-31" },
-    { nombre:"Yanely Trejo",                etiqueta:"administrativo", desde:"2026-08-31" },
-    { nombre:"Raquel Trejo",                etiqueta:"administrativo", desde:"2026-08-31" },
-    { nombre:"Eduardo Luna y Mayra Chávez", etiqueta:"docente",        desde:"2026-08-31" },
-    { nombre:"Jesús Emmanuel Morales",      etiqueta:"prepa",          desde:"2026-08-31" },
-    { nombre:"Sheila Juárez",               etiqueta:"docente",        desde:"2026-09-01" },
-    { nombre:"Emiliano Mendoza Servín",     etiqueta:"prepa",          desde:"2026-09-01" },
-    { nombre:"Citlalli",                    etiqueta:"pas",            desde:"2026-09-01" },
-  ],
+  // QUIÉN PARTICIPA no se teclea aquí: sale de la hoja de cálculo que llena
+  // el formulario de solicitud del costal. La página la lee sola al abrir, así
+  // que la lista está siempre al día sin copiar nombres a mano. Esta lista
+  // arranca vacía y se llena en vivo; de dónde y cómo, en `padron`, abajo.
+  personas: [],
+
+  // El padrón, en vivo. `hoja` es el id de la hoja de Google —el tramo largo
+  // de su dirección— y se lee como CSV porque la hoja está compartida para
+  // lectura (nadie necesita permiso ni llave). Si el formulario cambia el
+  // título de una columna, se ajusta en `col`. Cada opción de "Programa" cae
+  // en una etiqueta del sitio buscando una palabra clave: gana la primera de
+  // `programas` que aparezca en el texto, así que van de la más específica a
+  // la más general. Si el formulario agrega una opción nueva, se agrega aquí.
+  padron: {
+    hoja: "1nD2LUz4fdVAbz0Ut2bowbU_mcTBH4KWHJGFbL_O_8wY",
+    col: { nombre:"Nombre completo", programa:"Programa", desde:"Fecha de solicitud" },
+    programas: [
+      { busca:"agro",           etiqueta:"agro" },
+      { busca:"pas",            etiqueta:"pas" },
+      { busca:"bachiller",      etiqueta:"prepa" },
+      { busca:"docente",        etiqueta:"docente" },
+      { busca:"administrativo", etiqueta:"administrativo" },
+      { busca:"módulo",         etiqueta:"administrativo" }
+    ]
+  },
 
   // El aceite se anota en litros; lo demás en kilos.
   // { fecha:"2026-09-24", personas:[

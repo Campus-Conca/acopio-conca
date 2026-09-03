@@ -316,11 +316,15 @@
   // El QR abre la portada, donde ya está el botón de WhatsApp con el mensaje
   // escrito. La dirección va debajo por si alguien no puede escanear.
   $("#l-qr-pie").textContent = (D.sitio || "").replace(/^https?:\/\//, "").replace(/\/$/, "");
-  // Cuántos van ya. Un renglón del padrón es un costal, no una persona.
-  const cuantos = (D.personas || []).length;
-  $("#l-ya-somos").textContent = cuantos > 0
-    ? "Ya somos " + cuantos + (cuantos === 1 ? " costal" : " costales") + " en el campus."
+  // Cuántos van ya. Un renglón del padrón es un costal, no una persona. El
+  // padrón se lee de la hoja de solicitudes: la lámina se pinta al instante
+  // con lo que haya y el número se actualiza cuando la hoja responde, para
+  // que la presentación no se quede esperando la red.
+  const cuenta = n => $("#l-ya-somos").textContent = n > 0
+    ? "Ya somos " + n + (n === 1 ? " costal" : " costales") + " en el campus."
     : "El primer costal lo puede pedir alguien de esta sala.";
+  cuenta((D.personas || []).length);
+  A.cargaPadron().then(l => cuenta(l.length)).catch(() => {});
   $("#l-costal").textContent = c.texto + " La solicitud llega a " + c.quien +
     ", y se puede pedir por WhatsApp desde esa misma página.";
   $("#l-cierre").textContent = D.campus + " · " + D.responsable;
