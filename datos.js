@@ -36,10 +36,7 @@ window.DATOS = {
     texto: "Se pide en el Área de Sustentabilidad. Sólo te registras para el préstamo por el tiempo que lo necesites.",
     quien: "Jhoana Bravo, del Área de Sustentabilidad",
     whatsapp: "5214424052714",
-    mensaje: "Hola Jhoana. Vi la página de Embajadores del Reciclaje para el acopio del campus y quiero pedir mi costal. Mis datos son:
-• Nombre completo: 
-• Grupo: 
-• Programa (PAS, Agros, Bachilleres, Docente o Admin): "
+    mensaje: "Hola Jhoana. Vi la página de Embajadores del Reciclaje para el acopio del campus y quiero pedir mi costal. Mis datos son:\n• Nombre completo: \n• Grupo: \n• Programa (PAS, Agros, Bachilleres, Docente o Admin): "
   },
 
   // EL REPARTO. De cada peso que se vende, 70 centavos van a obras de las
